@@ -321,6 +321,8 @@
     border:1px solid var(--border);
     padding:5px 12px;border-radius:20px;
   }
+  a.course-tag{transition:border-color .25s, color .25s;}
+  a.course-tag:hover, a.course-tag:focus-visible{border-color:var(--gold);color:var(--gold);}
 
   /* RESEARCH AREAS */
   .skill-cloud{display:flex;flex-wrap:wrap;gap:12px;}
@@ -406,7 +408,7 @@
               <a href="#course-undergrad" role="menuitem">现代汉语</a>
               <a href="#course-undergrad" role="menuitem">现代语言学</a>
               <a href="#course-undergrad" role="menuitem">形态学</a>
-              <a href="#course-undergrad" role="menuitem">语言类型学</a>
+              <a href="typology-undergrad.html" role="menuitem">语言类型学</a>
             </div>
           </div>
         </div>
@@ -732,7 +734,7 @@
           <span class="course-tag">现代汉语</span>
           <span class="course-tag">现代语言学</span>
           <span class="course-tag">形态学</span>
-          <span class="course-tag">语言类型学</span>
+          <a class="course-tag" href="typology-undergrad.html">语言类型学</a>
         </div>
       </div>
     </div>
