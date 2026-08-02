@@ -243,6 +243,31 @@
   .tw-feedback.info{color:var(--text-dim);}
   .tw-nav{display:flex;gap:10px;flex-wrap:wrap;}
 
+  /* LANGUAGE SELECT */
+  .lang-select-row{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:28px;flex-wrap:wrap;
+  }
+  .lang-select-label{
+    font-size:14.5px;color:var(--text-muted);
+  }
+  .lang-select{
+    font-family:var(--sans);
+    font-size:14.5px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:8px 36px 8px 16px;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%23a85570' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+  }
+  .lang-select:hover, .lang-select:focus-visible{border-color:var(--gold);}
+
   footer{padding:40px 0 56px;text-align:center;font-size:13px;color:var(--text-dim);}
   footer a{color:var(--gold);}
 
@@ -476,6 +501,13 @@
     <div class="prose">
       <p>转写练习对应大纲第 3–8 周（语序类型学、语法性、格与论元配置）的课堂环节。学生将接触到真实录音材料，练习使用国际音标（IPA）进行语音转写，并逐步过渡到带有语素间线标注（interlinear glossing）的规范转写格式。</p>
     </div>
+
+    <div class="lang-select-row">
+      <label class="lang-select-label" for="twLangSelect">选择语言：</label>
+      <select class="lang-select" id="twLangSelect">
+        <option value="xianfeng">湖北咸丰方言</option>
+      </select>
+    </div>
     <div class="exercise-grid">
       <div class="exercise-card">
         <div class="exercise-title">练习一：基础语音转写</div>
@@ -590,31 +622,138 @@
 /* ============================================================
    练习一：听音转写小程序
    —— 使用说明（供老师/助教修改）——
-   1. 已接入真实录音文件（audio/ 文件夹内的 .wav），
-      太阳、月亮、星星、云、风、闪电、雷、雨、下雨、淋共10条已齐全。
-   2. answer 字段目前是"词汇_3_.xls"表格E列（词1音）的原始字符，
+   1. answer 字段现已扩展为"词汇_3_.xls"表格前100个词条
+      （E列"词1音"），均属于湖北咸丰方言。原表中"台风""湖"
+      两条E列为空，已跳过，改用第101、102条（清明、端午）补齐100条。
+      ⚠️ 目前只有前10条（太阳～淋）配有真实录音文件，
+      其余90条 audio 字段是按"编号+词条名.wav"的规则占位，
+      对应的 .wav 文件还没有上传，播放会提示"未找到音频文件"，
+      待录音到位后放入 audio/ 文件夹即可自动生效。
+   2. answer 字段目前是原表格E列的原始字符，
       ⚠️ 该表使用自定义音标字体 IPAPANNEW 编码，
       这些原始字符（如 Ǿ、ŋ 等组合）在没有安装该字体的浏览器中
       不会显示为正确的国际音标符号。替换为标准 Unicode IPA 后
       再更新 answer 字段即可。
-   3. 想增删题目，直接在下面数组里增加或删除条目即可。
+   3. 新增语言：在下面 languageData 里新增一个键值对，
+      key 为语言代码（自定），value 为 { name: 显示名称, items: [...] }；
+      然后在 HTML 里 <select id="twLangSelect"> 里加一行
+      <option value="对应key">显示名称</option> 即可，会自动出现在下拉菜单中。
    ============================================================ */
 (function(){
-  var tw1Items = [
-    { word: '太阳', audio: 'audio/0001太阳.wav', answer: '[thai24Ǿiaŋ22]' },
-    { word: '月亮', audio: 'audio/0002月亮.wav', answer: '[Ǿyɛ22niaŋ24]' },
-    { word: '星星', audio: 'audio/0003星星.wav', answer: '[ɕin55ɕiəu213]' },
-    { word: '云',   audio: 'audio/0004云.wav',   answer: '[Ǿyən22]' },
-    { word: '风',   audio: 'audio/0005风.wav',   answer: '[foŋ55]' },
-    { word: '闪电', audio: 'audio/0007闪电.wav', answer: '[xo22san42]' },
-    { word: '雷',   audio: 'audio/0008雷.wav',   answer: '[nuei22]' },
-    { word: '雨',   audio: 'audio/0009雨.wav',   answer: '[Ǿy42]' },
-    { word: '下雨', audio: 'audio/0010下雨.wav', answer: '[ɕia24Ǿy42]' },
-    { word: '淋',   audio: 'audio/0011淋.wav',   answer: '[nin22]' }
-  ];
+  var languageData = {
+    xianfeng: {
+      name: '湖北咸丰方言',
+      items: [
+      { word: '太阳', audio: 'audio/0001太阳.wav', answer: '[thai24Ǿiaŋ22]' },
+      { word: '月亮', audio: 'audio/0002月亮.wav', answer: '[Ǿyɛ22niaŋ24]' },
+      { word: '星星', audio: 'audio/0003星星.wav', answer: '[ɕin55ɕiəu213]' },
+      { word: '云', audio: 'audio/0004云.wav', answer: '[Ǿyən22]' },
+      { word: '风', audio: 'audio/0005风.wav', answer: '[foŋ55]' },
+      { word: '闪电', audio: 'audio/0007闪电.wav', answer: '[xo22san42]' },
+      { word: '雷', audio: 'audio/0008雷.wav', answer: '[nuei22]' },
+      { word: '雨', audio: 'audio/0009雨.wav', answer: '[Ǿy42]' },
+      { word: '下雨', audio: 'audio/0010下雨.wav', answer: '[ɕia24Ǿy42]' },
+      { word: '淋', audio: 'audio/0011淋.wav', answer: '[nin22]' },
+      { word: '晒', audio: 'audio/0012晒.wav', answer: '[sai213]' },
+      { word: '雪', audio: 'audio/0013雪.wav', answer: '[ɕyɛ22]' },
+      { word: '冰', audio: 'audio/0014冰.wav', answer: '[pin55]' },
+      { word: '冰雹', audio: 'audio/0015冰雹.wav', answer: '[ɕyɛ22tsɿ0]' },
+      { word: '霜', audio: 'audio/0016霜.wav', answer: '[suaŋ55]' },
+      { word: '雾', audio: 'audio/0017雾.wav', answer: '[Ǿu24tsau213]' },
+      { word: '露', audio: 'audio/0018露.wav', answer: '[nəu213]' },
+      { word: '虹', audio: 'audio/0019虹.wav', answer: '[kaŋ213]' },
+      { word: '日食', audio: 'audio/0020日食.wav', answer: '[zɿ22sɿ22]' },
+      { word: '月食', audio: 'audio/0021月食.wav', answer: '[Ǿyɛ22sɿ22]' },
+      { word: '天气', audio: 'audio/0022天气.wav', answer: '[thiɛn55sɛ22]' },
+      { word: '晴', audio: 'audio/0023晴.wav', answer: '[tɕhin22]' },
+      { word: '阴', audio: 'audio/0024阴.wav', answer: '[Ǿin55]' },
+      { word: '旱', audio: 'audio/0025旱.wav', answer: '[kan55]' },
+      { word: '涝', audio: 'audio/0026涝.wav', answer: '[xan55]' },
+      { word: '天亮', audio: 'audio/0027天亮.wav', answer: '[thiɛn55niaŋ213]' },
+      { word: '水田', audio: 'audio/0028水田.wav', answer: '[suei33thiɛn22]' },
+      { word: '旱地', audio: 'audio/0029旱地.wav', answer: '[thu42]' },
+      { word: '田埂', audio: 'audio/0030田埂.wav', answer: '[thiɛn22khan42]' },
+      { word: '路', audio: 'audio/0031路.wav', answer: '[nəu213]' },
+      { word: '山', audio: 'audio/0032山.wav', answer: '[san55]' },
+      { word: '山谷', audio: 'audio/0033山谷.wav', answer: '[san55kəu55kəu55]' },
+      { word: '江', audio: 'audio/0034江.wav', answer: '[tɕiaŋ55]' },
+      { word: '溪', audio: 'audio/0035溪.wav', answer: '[kəu55kɚ55]' },
+      { word: '水沟儿', audio: 'audio/0036水沟儿.wav', answer: '[suei33kəu55kɚ55]' },
+      { word: '池塘', audio: 'audio/0038池塘.wav', answer: '[Ǿiɛn24thaŋ22]' },
+      { word: '水坑儿', audio: 'audio/0039水坑儿.wav', answer: '[suei33taŋ213tɚ55]' },
+      { word: '洪水', audio: 'audio/0040洪水.wav', answer: '[ta24suei42]' },
+      { word: '淹', audio: 'audio/0041淹.wav', answer: '[ŋan55]' },
+      { word: '河岸', audio: 'audio/0042河岸.wav', answer: '[xo22khan42]' },
+      { word: '坝', audio: 'audio/0043坝.wav', answer: '[pa213]' },
+      { word: '地震', audio: 'audio/0044地震.wav', answer: '[ti24tsən42]' },
+      { word: '窟窿', audio: 'audio/0045窟窿.wav', answer: '[Ǿiɛn33Ǿiɚ0]' },
+      { word: '缝儿', audio: 'audio/0046缝儿.wav', answer: '[foŋ213fɚ55]' },
+      { word: '石头', audio: 'audio/0047石头.wav', answer: '[ŋai22thəu0]' },
+      { word: '土', audio: 'audio/0048土.wav', answer: '[thu42]' },
+      { word: '泥', audio: 'audio/0049泥.wav', answer: '[ni22pa55]' },
+      { word: '水泥', audio: 'audio/0050水泥.wav', answer: '[Ǿiaŋ22sɿ22xuei55]' },
+      { word: '沙子', audio: 'audio/0051沙子.wav', answer: '[ŋai22sa55sa55]' },
+      { word: '砖', audio: 'audio/0052砖.wav', answer: '[suei33tsuan55]' },
+      { word: '瓦', audio: 'audio/0053瓦.wav', answer: '[Ǿua33phiɚ213]' },
+      { word: '煤', audio: 'audio/0054煤.wav', answer: '[mei22]' },
+      { word: '煤油', audio: 'audio/0055煤油.wav', answer: '[Ǿiaŋ22Ǿiau22]' },
+      { word: '炭', audio: 'audio/0056炭.wav', answer: '[kaŋ55than213]' },
+      { word: '灰', audio: 'audio/0057灰.wav', answer: '[xuei45xuei55]' },
+      { word: '灰尘', audio: 'audio/0058灰尘.wav', answer: '[xuei45xuei55]' },
+      { word: '火', audio: 'audio/0059火.wav', answer: '[xo42]' },
+      { word: '烟', audio: 'audio/0060烟.wav', answer: '[Ǿiɛn55tsɿ0]' },
+      { word: '失火', audio: 'audio/0061失火.wav', answer: '[tsau22xo42]' },
+      { word: '水', audio: 'audio/0062水.wav', answer: '[suei42]' },
+      { word: '凉水', audio: 'audio/0063凉水.wav', answer: '[nən22suei42]' },
+      { word: '热水', audio: 'audio/0064热水.wav', answer: '[nai24suei42]' },
+      { word: '开水', audio: 'audio/0065开水.wav', answer: '[khai55suei42]' },
+      { word: '磁铁', audio: 'audio/0066磁铁.wav', answer: '[tɕi22thiɛ42]' },
+      { word: '时候', audio: 'audio/0067时候.wav', answer: '[sɿ22xɚ24]' },
+      { word: '什么时候', audio: 'audio/0068什么时候.wav', answer: '[mo55tsɿ0sɿ22kɚ55]' },
+      { word: '现在', audio: 'audio/0069现在.wav', answer: '[ɕiɛn24sɿ22]' },
+      { word: '以前', audio: 'audio/0070以前.wav', answer: '[Ǿuaŋ33piɛn55]' },
+      { word: '以后', audio: 'audio/0071以后.wav', answer: '[Ǿɚ24piɛn213]' },
+      { word: '一辈子', audio: 'audio/0072一辈子.wav', answer: '[Ǿi22pei24tsɿ0 ]' },
+      { word: '今年', audio: 'audio/0073今年.wav', answer: '[tɕin55niɛn22]' },
+      { word: '明年', audio: 'audio/0074明年.wav', answer: '[min22niɛn22]' },
+      { word: '后年', audio: 'audio/0075后年.wav', answer: '[xəu24niɛn22]' },
+      { word: '去年', audio: 'audio/0076去年.wav', answer: '[tɕhy24niɛn22]' },
+      { word: '前年', audio: 'audio/0077前年.wav', answer: '[tɕhiɛn22niɛn22]' },
+      { word: '往年', audio: 'audio/0078往年.wav', answer: '[Ǿuaŋ33niɛn22tsɿ0]' },
+      { word: '年初', audio: 'audio/0079年初.wav', answer: '[niɛn22thəu0]' },
+      { word: '年底', audio: 'audio/0080年底.wav', answer: '[niɛn212Ǿuei42]' },
+      { word: '今天', audio: 'audio/0081今天.wav', answer: '[tɕin55thiɛn55]' },
+      { word: '明天', audio: 'audio/0082明天.wav', answer: '[mən22thiɛn55]' },
+      { word: '后天', audio: 'audio/0083后天.wav', answer: '[xəu213thiɛn55]' },
+      { word: '大后天', audio: 'audio/0084大后天.wav', answer: '[Ǿuai24xəu213thiɛn55]' },
+      { word: '昨天', audio: 'audio/0085昨天.wav', answer: '[tshuɚ22thiɛn55]' },
+      { word: '前天', audio: 'audio/0086前天.wav', answer: '[tɕhiɛn22thiɛn55]' },
+      { word: '大前天', audio: 'audio/0087大前天.wav', answer: '[saŋ24tɕhiɛn22thiɛn55]' },
+      { word: '整天', audio: 'audio/0088整天.wav', answer: '[kən55thiɛn55]' },
+      { word: '每天', audio: 'audio/0089每天.wav', answer: '[thiɛn45thiɛn55]' },
+      { word: '早晨', audio: 'audio/0090早晨.wav', answer: '[tsau33sən22]' },
+      { word: '上午', audio: 'audio/0091上午.wav', answer: '[saŋ24pan24thiɛn55]' },
+      { word: '中午', audio: 'audio/0092中午.wav', answer: '[tsoŋ55kən55sɿ22xɚ24]' },
+      { word: '下午', audio: 'audio/0093下午.wav', answer: '[ɕia24pan213thiɛn55]' },
+      { word: '傍晚', audio: 'audio/0094傍晚.wav', answer: '[tsha22xei22]' },
+      { word: '白天', audio: 'audio/0095白天.wav', answer: '[pɛ22thiɛn55tɕia55]' },
+      { word: '夜晚', audio: 'audio/0096夜晚.wav', answer: '[Ǿiɛ213ɕi55tɕia55]' },
+      { word: '半夜', audio: 'audio/0097半夜.wav', answer: '[pan24Ǿiɛ213tsən213]' },
+      { word: '正月', audio: 'audio/0098正月.wav', answer: '[tsən55Ǿyɛ22tɕiɛn55]' },
+      { word: '大年初一', audio: 'audio/0099大年初一.wav', answer: '[tshu55Ǿi22]' },
+      { word: '元宵节', audio: 'audio/0100元宵节.wav', answer: '[tsən55Ǿyɛ22sɿ22Ǿu42]' },
+      { word: '清明', audio: 'audio/0101清明.wav', answer: '[tɕhin55min22]' },
+      { word: '端午', audio: 'audio/0102端午.wav', answer: '[tuan55Ǿiaŋ22]' }
+      ]
+    }
+  };
 
+  var currentLang = 'xianfeng';
+  var currentItems = languageData[currentLang].items;
   var idx = 0;
+
   var els = {
+    langSelect: document.getElementById('twLangSelect'),
     index: document.getElementById('tw1Index'),
     total: document.getElementById('tw1Total'),
     word: document.getElementById('tw1Word'),
@@ -627,8 +766,6 @@
     nextBtn: document.getElementById('tw1NextBtn'),
     showBtn: document.getElementById('tw1ShowBtn')
   };
-
-  els.total.textContent = tw1Items.length;
 
   function normalize(s){
     return (s || '')
@@ -645,27 +782,39 @@
 
   function loadItem(){
     els.index.textContent = idx + 1;
-    els.word.textContent = tw1Items[idx].word;
+    els.word.textContent = currentItems[idx].word;
     els.input.value = '';
-    els.audio.src = tw1Items[idx].audio;
+    els.audio.src = currentItems[idx].audio;
     setFeedback('点击"播放录音"开始听音，输入你的转写后点击"检查"。', 'info');
     els.prevBtn.disabled = (idx === 0);
-    els.nextBtn.disabled = (idx === tw1Items.length - 1);
+    els.nextBtn.disabled = (idx === currentItems.length - 1);
   }
+
+  function loadLanguage(langKey){
+    currentLang = langKey;
+    currentItems = languageData[langKey].items;
+    idx = 0;
+    els.total.textContent = currentItems.length;
+    loadItem();
+  }
+
+  els.langSelect.addEventListener('change', function(){
+    loadLanguage(this.value);
+  });
 
   els.playBtn.addEventListener('click', function(){
     els.audio.currentTime = 0;
     var playPromise = els.audio.play();
     if (playPromise && playPromise.catch){
       playPromise.catch(function(){
-        setFeedback('⚠️ 未找到音频文件，请确认 audio/ 文件夹中已放入对应录音（' + tw1Items[idx].audio + '）。', 'wrong');
+        setFeedback('⚠️ 未找到音频文件，请确认 audio/ 文件夹中已放入对应录音（' + currentItems[idx].audio + '）。', 'wrong');
       });
     }
   });
 
   els.checkBtn.addEventListener('click', function(){
     var userAns = normalize(els.input.value);
-    var correctAns = normalize(tw1Items[idx].answer);
+    var correctAns = normalize(currentItems[idx].answer);
     if (!userAns){
       setFeedback('请先输入你的转写。', 'info');
       return;
@@ -685,7 +834,7 @@
   });
 
   els.showBtn.addEventListener('click', function(){
-    setFeedback('参考答案：' + tw1Items[idx].answer, 'info');
+    setFeedback('参考答案：' + currentItems[idx].answer, 'info');
   });
 
   els.prevBtn.addEventListener('click', function(){
@@ -693,9 +842,10 @@
   });
 
   els.nextBtn.addEventListener('click', function(){
-    if (idx < tw1Items.length - 1){ idx++; loadItem(); }
+    if (idx < currentItems.length - 1){ idx++; loadItem(); }
   });
 
+  els.total.textContent = currentItems.length;
   loadItem();
 })();
 </script>
