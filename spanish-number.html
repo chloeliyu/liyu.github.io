@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西班牙语的数范畴 — 语言类型学 · 李昱 Li Yu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #e8d9f2;
+    --bg-raised: #ddc7ec;
+    --bg-raised-2: #d0b3e5;
+    --border: #bb95d9;
+    --text: #2a1a44;
+    --text-muted: #5e4a7a;
+    --text-dim: #8874a0;
+    --gold: #a8763a;
+    --rose: #a85570;
+    --serif: 'Noto Serif SC', 'Fraunces', serif;
+    --sans: 'Noto Sans SC', 'Work Sans', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--bg);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 28px;}
+  em{font-style:italic;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;
+    background:rgba(232,217,242,0.82);
+    backdrop-filter:blur(12px);
+    z-index:100;
+  }
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:76px;flex-wrap:wrap;}
+  .back-link{
+    display:flex;align-items:center;gap:8px;
+    font-size:15px;color:var(--text-muted);
+    transition:color .25s;
+  }
+  .back-link:hover, .back-link:focus-visible{color:var(--gold);}
+  .back-link svg{width:14px;height:14px;}
+  .navlinks{display:flex;gap:22px;font-size:15px;flex-wrap:wrap;}
+  .navlinks a{color:var(--text-muted);transition:color .25s;}
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--gold);}
+
+  .hero{padding:150px 0 44px;}
+  .eyebrow{font-size:14.5px;color:var(--gold);margin-bottom:16px;}
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(26px,4.2vw,38px);
+    line-height:1.35;
+    margin-bottom:14px;
+  }
+  .hero p{font-size:16px;color:var(--text-muted);max-width:620px;}
+
+  .section{padding:44px 0;border-top:1px solid var(--border);}
+  .sec-title{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(20px,2.8vw,25px);
+    margin-bottom:18px;
+  }
+  .prose p{color:var(--text-muted);font-size:16px;margin-bottom:16px;}
+  .prose p:last-child{margin-bottom:0;}
+  .prose strong{color:var(--text);font-weight:600;}
+
+  /* TABLES */
+  .table-wrap{
+    margin:20px 0 28px;
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:14px;
+  }
+  .table-caption{
+    font-size:14px;color:var(--text-dim);
+    padding:14px 18px 0;
+  }
+  table.paradigm{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14.5px;
+    min-width:480px;
+  }
+  table.paradigm th, table.paradigm td{
+    padding:10px 16px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+  }
+  table.paradigm th{
+    font-family:var(--serif);
+    color:var(--gold);
+    font-weight:500;
+    background:var(--bg-raised-2);
+  }
+  table.paradigm td:first-child, table.paradigm th:first-child{
+    text-align:left;
+    color:var(--text);
+    font-weight:500;
+  }
+  table.paradigm tr:last-child td{border-bottom:none;}
+  table.paradigm em{color:var(--text-muted);font-style:italic;}
+
+  /* GLOSS EXAMPLES */
+  .example{
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px 20px;
+    margin-bottom:16px;
+  }
+  .example:last-child{margin-bottom:0;}
+  .example-num{
+    font-family:var(--serif);
+    color:var(--rose);
+    font-size:14px;
+    margin-bottom:10px;
+  }
+  .gloss-block{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    font-size:14.5px;
+    overflow-x:auto;
+    padding-bottom:2px;
+  }
+  .gloss-row{
+    display:flex;
+    flex-wrap:nowrap;
+    width:max-content;
+  }
+  .gloss-pair{display:flex;flex-direction:column;align-items:flex-start;margin-right:16px;}
+  .gloss-pair:last-child{margin-right:0;}
+  .gloss-word{color:var(--text);font-style:italic;white-space:nowrap;}
+  .gloss-gram{color:var(--text-dim);letter-spacing:0.2px;white-space:nowrap;margin-top:3px;}
+  .gloss-trans{margin-top:8px;color:var(--text-muted);font-size:14.5px;}
+  .gloss-trans span{color:var(--gold);}
+
+  .question-list{list-style:none;counter-reset:q;margin-top:8px;}
+  .question-item{
+    counter-increment:q;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+    font-size:15.5px;
+    color:var(--text);
+    display:flex;gap:12px;
+  }
+  .question-item:last-child{border-bottom:none;}
+  .question-item::before{
+    content:counter(q);
+    font-family:var(--serif);
+    color:var(--gold);
+    flex-shrink:0;
+  }
+
+  /* ANALYSIS INPUT */
+  .analysis-box{
+    margin-top:10px;
+  }
+  .analysis-item{margin-bottom:22px;}
+  .analysis-item:last-child{margin-bottom:0;}
+  .analysis-label{
+    font-size:14.5px;
+    color:var(--text);
+    font-weight:500;
+    margin-bottom:8px;
+  }
+  .analysis-textarea{
+    width:100%;
+    min-height:120px;
+    font-family:var(--sans);
+    font-size:15px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    resize:vertical;
+    line-height:1.7;
+  }
+  .analysis-textarea:focus{outline:none;border-color:var(--gold);}
+  .analysis-actions{
+    display:flex;align-items:center;gap:14px;
+    margin-top:14px;flex-wrap:wrap;
+  }
+  .a-btn{
+    font-family:var(--sans);
+    font-size:13.5px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:8px 18px;
+    cursor:pointer;
+    transition:border-color .2s, color .2s;
+  }
+  .a-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .a-status{font-size:13px;color:var(--text-dim);}
+
+  /* REFERENCE ANSWER */
+  .answer-block{
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:16px;
+  }
+  .answer-block:last-child{margin-bottom:0;}
+  .answer-q{
+    font-family:var(--serif);
+    font-size:15.5px;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .answer-a{font-size:15px;color:var(--text-muted);}
+  .answer-a p{margin-bottom:12px;}
+  .answer-a p:last-child{margin-bottom:0;}
+  .answer-a ul{margin:4px 0 14px 20px;}
+  .answer-a li{margin-bottom:6px;}
+  .answer-a strong{color:var(--text);font-weight:600;}
+  .answer-a .table-wrap{margin:16px 0;}
+  .answer-a .table-caption{padding-top:12px;}
+
+  .note-box{
+    margin-top:18px;
+    padding:14px 18px;
+    background:var(--bg-raised-2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+
+  footer{padding:40px 0 56px;text-align:center;font-size:13px;color:var(--text-dim);}
+  footer a{color:var(--gold);}
+
+  @media (max-width:640px){
+    .navlinks{display:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="back-link" href="typology-undergrad.html#morphosyntax">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 2.5L3 6l4.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      返回课程页面
+    </a>
+    <div class="navlinks">
+      <a href="#question">题目</a>
+      <a href="#analysis">输入分析</a>
+      <a href="#answer">参考答案</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">形态句法分析练习 · 练习五</div>
+    <h1>西班牙语名词的数范畴标记与一致关系</h1>
+    <p>西班牙语名词的数范畴通过后缀形式标记，并通过一致关系扩散到名词短语内部的限定词、形容词等修饰成分上。请结合以下语料，分析其标记模式。</p>
+  </div>
+</section>
+
+<section class="section" id="question">
+  <div class="wrap">
+    <h2 class="sec-title">题目</h2>
+    <div class="prose">
+      <p>请阅读以下西班牙语语料及其形态标注，观察名词数范畴的编码方式：</p>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（1）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">un</div><div class="gloss-gram">INDF.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">guarda</div><div class="gloss-gram">guard.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">vin-o</div><div class="gloss-gram">come-PFV.3SG</div></div><div class="gloss-pair"><div class="gloss-word">a</div><div class="gloss-gram">to</div></div><div class="gloss-pair"><div class="gloss-word">avis-ar</div><div class="gloss-gram">notify-INF</div></div><div class="gloss-pair"><div class="gloss-word">a</div><div class="gloss-gram">to</div></div><div class="gloss-pair"><div class="gloss-word">mi</div><div class="gloss-gram">POSS.1SG</div></div><div class="gloss-pair"><div class="gloss-word">mujer</div><div class="gloss-gram">wife.F.SG</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>一名警卫来通知我的妻子</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（2）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">que</div><div class="gloss-gram">REL</div></div><div class="gloss-pair"><div class="gloss-word">trabaj-a</div><div class="gloss-gram">work-PRS.3SG</div></div><div class="gloss-pair"><div class="gloss-word">en</div><div class="gloss-gram">in</div></div><div class="gloss-pair"><div class="gloss-word">el</div><div class="gloss-gram">DEF.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">zoo</div><div class="gloss-gram">zoo.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">como</div><div class="gloss-gram">as</div></div><div class="gloss-pair"><div class="gloss-word">veterinari-a</div><div class="gloss-gram">veterinarian-F.SG</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>（她）在动物园担任兽医</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（3）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">porque</div><div class="gloss-gram">because</div></div><div class="gloss-pair"><div class="gloss-word">un</div><div class="gloss-gram">INDF.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">elefante</div><div class="gloss-gram">elephant.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">est-aba</div><div class="gloss-gram">be-IPFV.3SG</div></div><div class="gloss-pair"><div class="gloss-word">nervios-o</div><div class="gloss-gram">nervous-M.SG</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>因为一头大象很紧张</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（4）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">habit-a-mos</div><div class="gloss-gram">live-PRS-1PL</div></div><div class="gloss-pair"><div class="gloss-word">en</div><div class="gloss-gram">in</div></div><div class="gloss-pair"><div class="gloss-word">una</div><div class="gloss-gram">INDF.F.SG</div></div><div class="gloss-pair"><div class="gloss-word">viviend-a</div><div class="gloss-gram">dwelling-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">anex-a</div><div class="gloss-gram">adjacent-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">a</div><div class="gloss-gram">to</div></div><div class="gloss-pair"><div class="gloss-word">es-a</div><div class="gloss-gram">DEM-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">institución</div><div class="gloss-gram">institution.F.SG</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>我们住在紧邻那家机构的一所房子里</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（5）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">aunque</div><div class="gloss-gram">although</div></div><div class="gloss-pair"><div class="gloss-word">la</div><div class="gloss-gram">DEF.F.SG</div></div><div class="gloss-pair"><div class="gloss-word">cas-a</div><div class="gloss-gram">house.F.SG</div></div><div class="gloss-pair"><div class="gloss-word">no</div><div class="gloss-gram">NEG</div></div><div class="gloss-pair"><div class="gloss-word">es</div><div class="gloss-gram">be.PRS.3SG</div></div><div class="gloss-pair"><div class="gloss-word">cómod-a</div><div class="gloss-gram">comfortable-F.SG</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>虽然那所房子并不舒适</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（6）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">los</div><div class="gloss-gram">DEF.M.PL</div></div><div class="gloss-pair"><div class="gloss-word">nin̄o-s</div><div class="gloss-gram">child-M-PL</div></div><div class="gloss-pair"><div class="gloss-word">han</div><div class="gloss-gram">AUX.3PL</div></div><div class="gloss-pair"><div class="gloss-word">ten-id-o</div><div class="gloss-gram">have-PTCP</div></div><div class="gloss-pair"><div class="gloss-word">la</div><div class="gloss-gram">DEF.F.SG</div></div><div class="gloss-pair"><div class="gloss-word">ventaj-a</div><div class="gloss-gram">advantage-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">de</div><div class="gloss-gram">of</div></div><div class="gloss-pair"><div class="gloss-word">ver</div><div class="gloss-gram">see.INF</div></div></div>
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">siempre</div><div class="gloss-gram">always</div></div><div class="gloss-pair"><div class="gloss-word">animal-es</div><div class="gloss-gram">animal-M.PL</div></div><div class="gloss-pair"><div class="gloss-word">real-es</div><div class="gloss-gram">real-PL</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>孩子们一直享有观看真实动物的优势</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（7）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">caball-o-s</div><div class="gloss-gram">horse-M-PL</div></div><div class="gloss-pair"><div class="gloss-word">y</div><div class="gloss-gram">and</div></div><div class="gloss-pair"><div class="gloss-word">yegu-a-s,</div><div class="gloss-gram">mare-F-PL</div></div><div class="gloss-pair"><div class="gloss-word">tor-o-s</div><div class="gloss-gram">bull-M-PL</div></div><div class="gloss-pair"><div class="gloss-word">y</div><div class="gloss-gram">and</div></div><div class="gloss-pair"><div class="gloss-word">vac-a-s,</div><div class="gloss-gram">cow-F-PL</div></div><div class="gloss-pair"><div class="gloss-word">ovej-a-s</div><div class="gloss-gram">ewe-F-PL</div></div><div class="gloss-pair"><div class="gloss-word">y</div><div class="gloss-gram">and</div></div><div class="gloss-pair"><div class="gloss-word">carner-o-s</div><div class="gloss-gram">ram-M-PL</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>公马和母马、公牛和母牛、母羊和公羊</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（8）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">mi</div><div class="gloss-gram">POSS.1SG</div></div><div class="gloss-pair"><div class="gloss-word">hij-o</div><div class="gloss-gram">son-M.SG</div></div><div class="gloss-pair"><div class="gloss-word">javier</div><div class="gloss-gram">Javier</div></div><div class="gloss-pair"><div class="gloss-word">se</div><div class="gloss-gram">REFL</div></div><div class="gloss-pair"><div class="gloss-word">ha</div><div class="gloss-gram">AUX.3SG</div></div><div class="gloss-pair"><div class="gloss-word">empen̄-ad-o</div><div class="gloss-gram">insist-PTCP</div></div><div class="gloss-pair"><div class="gloss-word">en</div><div class="gloss-gram">in</div></div><div class="gloss-pair"><div class="gloss-word">acompan̄-ar</div><div class="gloss-gram">accompany-INF</div></div><div class="gloss-pair"><div class="gloss-word">a</div><div class="gloss-gram">OBJ</div></div><div class="gloss-pair"><div class="gloss-word">mamá</div><div class="gloss-gram">mother-F.SG</div></div></div>
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">con</div><div class="gloss-gram">with</div></div><div class="gloss-pair"><div class="gloss-word">una</div><div class="gloss-gram">INDF.F.SG</div></div><div class="gloss-pair"><div class="gloss-word">cámar-a</div><div class="gloss-gram">camera-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">de</div><div class="gloss-gram">of</div></div><div class="gloss-pair"><div class="gloss-word">foto-s</div><div class="gloss-gram">photo-PL</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>我的儿子哈维尔坚持带着相机陪妈妈一起去</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（9）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">el</div><div class="gloss-gram">DEF.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">animal</div><div class="gloss-gram">animal.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">se</div><div class="gloss-gram">REFL</div></div><div class="gloss-pair"><div class="gloss-word">ha</div><div class="gloss-gram">AUX.3SG</div></div><div class="gloss-pair"><div class="gloss-word">calm-ad-o</div><div class="gloss-gram">calm-PTCP</div></div><div class="gloss-pair"><div class="gloss-word">a</div><div class="gloss-gram">at</div></div><div class="gloss-pair"><div class="gloss-word">las</div><div class="gloss-gram">DEF.F.PL</div></div><div class="gloss-pair"><div class="gloss-word">primer-a-s</div><div class="gloss-gram">first-F-PL</div></div><div class="gloss-pair"><div class="gloss-word">foto-s</div><div class="gloss-gram">photo.F-PL</div></div></div>
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">de</div><div class="gloss-gram">of</div></div><div class="gloss-pair"><div class="gloss-word">Javi</div><div class="gloss-gram">Javi</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>那只动物在哈维拍下最初几张照片后便平静了下来</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（10）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">se</div><div class="gloss-gram">REFL</div></div><div class="gloss-pair"><div class="gloss-word">ha</div><div class="gloss-gram">AUX.3SG</div></div><div class="gloss-pair"><div class="gloss-word">calm-ad-o</div><div class="gloss-gram">calm-PTCP</div></div><div class="gloss-pair"><div class="gloss-word">porque</div><div class="gloss-gram">because</div></div><div class="gloss-pair"><div class="gloss-word">es</div><div class="gloss-gram">be.PRS.3SG</div></div><div class="gloss-pair"><div class="gloss-word">elefant-a</div><div class="gloss-gram">elephant-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">y</div><div class="gloss-gram">and</div></div><div class="gloss-pair"><div class="gloss-word">quier-e</div><div class="gloss-gram">want-PRS.3SG</div></div></div>
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">sal-ir</div><div class="gloss-gram">appear-INF</div></div><div class="gloss-pair"><div class="gloss-word">guap-a</div><div class="gloss-gram">pretty-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">en</div><div class="gloss-gram">in</div></div><div class="gloss-pair"><div class="gloss-word">las</div><div class="gloss-gram">DEF.F.PL</div></div><div class="gloss-pair"><div class="gloss-word">foto-s</div><div class="gloss-gram">photo.F-PL</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>她平静下来是因为她是一头母象，想在照片里看起来漂亮一些</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（11）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">la</div><div class="gloss-gram">DEF.F.SG</div></div><div class="gloss-pair"><div class="gloss-word">Ruta</div><div class="gloss-gram">route-F.SG</div></div><div class="gloss-pair"><div class="gloss-word">del</div><div class="gloss-gram">of.DEF.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">rio</div><div class="gloss-gram">river.M.SG</div></div><div class="gloss-pair"><div class="gloss-word">Cares</div><div class="gloss-gram">Cares</div></div><div class="gloss-pair"><div class="gloss-word">ha</div><div class="gloss-gram">AUX.3SG</div></div><div class="gloss-pair"><div class="gloss-word">da-do</div><div class="gloss-gram">give-PTCP</div></div><div class="gloss-pair"><div class="gloss-word">fama</div><div class="gloss-gram">fame.F.SG</div></div></div>
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">a</div><div class="gloss-gram">OBJ</div></div><div class="gloss-pair"><div class="gloss-word">los</div><div class="gloss-gram">DEF.M.PL</div></div><div class="gloss-pair"><div class="gloss-word">habitant-es</div><div class="gloss-gram">inhabitant.M-PL</div></div><div class="gloss-pair"><div class="gloss-word">de</div><div class="gloss-gram">of</div></div><div class="gloss-pair"><div class="gloss-word">Cain</div><div class="gloss-gram">Cain</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>卡雷斯河步道为卡因的居民带来了声誉</span></div>
+    </div>
+
+    <div class="example">
+      <div class="example-num">例（12）</div>
+      <div class="gloss-block">
+        <div class="gloss-row"><div class="gloss-pair"><div class="gloss-word">nac-id-o-s</div><div class="gloss-gram">be.born-PTCP-M-PL</div></div><div class="gloss-pair"><div class="gloss-word">entre</div><div class="gloss-gram">between</div></div><div class="gloss-pair"><div class="gloss-word">est-a-s</div><div class="gloss-gram">DEM-F-PL</div></div><div class="gloss-pair"><div class="gloss-word">nebl-os-a-s</div><div class="gloss-gram">misty-F-PL</div></div><div class="gloss-pair"><div class="gloss-word">montan̄-a-s</div><div class="gloss-gram">mountain-F-PL</div></div></div>
+      </div>
+      <div class="gloss-trans">译文：<span>出生于这些云雾缭绕山中的（居民）</span></div>
+    </div>
+
+    <div class="prose">
+      <p>请回答：</p>
+    </div>
+    <ul class="question-list">
+      <li class="question-item">分析西班牙语名词数范畴是如何编码的？</li>
+      <li class="question-item">西班牙语的数范畴是否会引发名词短语内部的一致关系？如何表现？</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="analysis">
+  <div class="wrap">
+    <h2 class="sec-title">输入分析</h2>
+    <div class="prose">
+      <p>在下面依次写下你对两道题的分析。点击"保存"会把内容存在你当前浏览器里，下次打开这台设备上的同一页面还能看到；点击"清空"可以清除已保存的内容。</p>
+    </div>
+    <div class="analysis-box">
+      <div class="analysis-item">
+        <div class="analysis-label">1. 西班牙语名词数范畴是如何编码的？</div>
+        <textarea class="analysis-textarea" id="ans1" placeholder="请在此输入你的分析……"></textarea>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-label">2. 数范畴是否会引发名词短语内部的一致关系？如何表现？</div>
+        <textarea class="analysis-textarea" id="ans2" placeholder="请在此输入你的分析……"></textarea>
+      </div>
+      <div class="analysis-actions">
+        <button class="a-btn" id="saveBtn" type="button">保存</button>
+        <button class="a-btn" id="clearBtn" type="button">清空</button>
+        <span class="a-status" id="saveStatus"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="answer">
+  <div class="wrap">
+    <h2 class="sec-title">参考答案</h2>
+    <button class="a-btn" id="showAnswerBtn" type="button">点击查看参考答案</button>
+    <div id="answerContent" style="display:none; margin-top:18px;">
+
+      <div class="answer-block">
+        <div class="answer-q">1. 西班牙语名词数范畴是如何编码的？</div>
+        <div class="answer-a">
+          <p>西班牙语名词的数范畴主要通过附加后缀表达。根据语料，可分析得出西班牙语的数标记包括：</p>
+          <p><strong>——单数：</strong>无标记，如 <em>animal</em> 'animal'、<em>cas-a</em> 'house'（注意：-a 是性标记，标记单数阴性，并非数标记）。</p>
+          <p><strong>——复数：</strong></p>
+          <ul>
+            <li>以非重读元音结尾的名词加 <strong>-s</strong>，如 <em>foto-s</em> 'photos'、<em>montan̄-a-s</em> 'mountains'；</li>
+            <li>以辅音结尾的名词加 <strong>-es</strong>，如 <em>habitant-es</em> 'inhabitants'、<em>animal-es</em> 'animals'。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="answer-block">
+        <div class="answer-q">2. 西班牙语的数范畴是否会引发名词短语内部的一致关系？如何表现？</div>
+        <div class="answer-a">
+          <p>西班牙语的数范畴会引发名词短语内部的一致关系标记。除了名词本身要标记数以外，相同的数标记还会扩散到限定词（冠词、指示词）、形容词等修饰成分上，这些成分须在数范畴的取值上与被修饰的名词保持一致。</p>
+
+          <p><strong>a. 限定词与名词保持性和数的一致：</strong>限定词通过不同的词形分别编码阴性/阳性的单复数。名词若为阳性单数，与其搭配的不定冠词、定冠词、指示词也必须是阳性单数形式；阴性单数、阳性复数、阴性复数的名词同样要求限定词分别与之一致。</p>
+
+          <div class="table-wrap">
+            <div class="table-caption">限定词的性-数一致关系</div>
+            <table class="paradigm">
+              <tr><th>限定词</th><th>类别</th><th>性-数一致关系</th></tr>
+              <tr><td><em>un</em> guarda</td><td>不定冠词</td><td>阳性单数</td></tr>
+              <tr><td><em>una</em> vivienda</td><td>不定冠词</td><td>阴性单数</td></tr>
+              <tr><td><em>el</em> zoo</td><td>定冠词</td><td>阳性单数</td></tr>
+              <tr><td><em>la</em> casa</td><td>定冠词</td><td>阴性单数</td></tr>
+              <tr><td><em>los</em> niños</td><td>定冠词</td><td>阳性复数（含复数后缀 -s）</td></tr>
+              <tr><td><em>las</em> fotos</td><td>定冠词</td><td>阴性复数（含复数后缀 -s）</td></tr>
+              <tr><td><em>esa</em> institución</td><td>指示词</td><td>阴性单数（含单数阴性后缀 -a）</td></tr>
+            </table>
+          </div>
+
+          <p><strong>b. 形容词与名词保持性和数的一致：</strong>名词若为阳性单数，与其搭配的形容词也须为阳性单数形式；阴性单数、阳性复数、阴性复数的名词同样要求形容词分别与之一致。其中阴性单数后缀为 -a；复数后缀有两个——辅音结尾音节用 -es，元音结尾音节用 -s。如语料中的例子：</p>
+          <ul>
+            <li><em>Vivienda anexa</em> 'adjacent dwelling'：viviend<strong>-a</strong>（阴性单数）— anex<strong>-a</strong>（阴性单数）</li>
+            <li><em>Animales reales</em> 'real animals'：animal<strong>-es</strong>（辅音结尾音节复数）— real<strong>-es</strong>（辅音结尾音节复数）</li>
+            <li><em>Primeras fotos</em> 'first photos'：primer-a<strong>-s</strong>（复数）— foto<strong>-s</strong>（复数）</li>
+            <li><em>Neblosas montañas</em> 'misty mountains'：nebl-os-a<strong>-s</strong>（元音结尾音节复数）— montan̄-a<strong>-s</strong>（元音结尾音节复数）</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="typology-undergrad.html">← 返回语言类型学课程页面</a>
+</footer>
+
+<script>
+(function(){
+  var ids = ['ans1', 'ans2'];
+  var storageKey = 'spanish-number-analysis';
+  var status = document.getElementById('saveStatus');
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      ids.forEach(function(id){
+        if (data[id]) document.getElementById(id).value = data[id];
+      });
+    }catch(e){}
+  }
+
+  function save(){
+    var data = {};
+    ids.forEach(function(id){
+      data[id] = document.getElementById(id).value;
+    });
+    try{
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      status.textContent = '已保存';
+      setTimeout(function(){ status.textContent = ''; }, 2000);
+    }catch(e){
+      status.textContent = '保存失败';
+    }
+  }
+
+  function clearAll(){
+    ids.forEach(function(id){
+      document.getElementById(id).value = '';
+    });
+    try{ localStorage.removeItem(storageKey); }catch(e){}
+    status.textContent = '已清空';
+    setTimeout(function(){ status.textContent = ''; }, 2000);
+  }
+
+  document.getElementById('saveBtn').addEventListener('click', save);
+  document.getElementById('clearBtn').addEventListener('click', clearAll);
+  load();
+
+  var showBtn = document.getElementById('showAnswerBtn');
+  var answerContent = document.getElementById('answerContent');
+  showBtn.addEventListener('click', function(){
+    var isHidden = answerContent.style.display === 'none';
+    answerContent.style.display = isHidden ? 'block' : 'none';
+    showBtn.textContent = isHidden ? '隐藏参考答案' : '点击查看参考答案';
+  });
+})();
+</script>
+
+</body>
+</html>
