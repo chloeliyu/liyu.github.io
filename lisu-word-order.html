@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>傈僳语语序 — 语言类型学 · 李昱 Li Yu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #e8d9f2;
+    --bg-raised: #ddc7ec;
+    --bg-raised-2: #d0b3e5;
+    --border: #bb95d9;
+    --text: #2a1a44;
+    --text-muted: #5e4a7a;
+    --text-dim: #8874a0;
+    --gold: #a8763a;
+    --rose: #a85570;
+    --serif: 'Noto Serif SC', 'Fraunces', serif;
+    --sans: 'Noto Sans SC', 'Work Sans', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--bg);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 28px;}
+  em{font-style:italic;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;
+    background:rgba(232,217,242,0.82);
+    backdrop-filter:blur(12px);
+    z-index:100;
+  }
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:76px;flex-wrap:wrap;}
+  .back-link{
+    display:flex;align-items:center;gap:8px;
+    font-size:15px;color:var(--text-muted);
+    transition:color .25s;
+  }
+  .back-link:hover, .back-link:focus-visible{color:var(--gold);}
+  .back-link svg{width:14px;height:14px;}
+  .navlinks{display:flex;gap:22px;font-size:15px;flex-wrap:wrap;}
+  .navlinks a{color:var(--text-muted);transition:color .25s;}
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--gold);}
+
+  .hero{padding:150px 0 44px;}
+  .eyebrow{font-size:14.5px;color:var(--gold);margin-bottom:16px;}
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(26px,4.2vw,38px);
+    line-height:1.35;
+    margin-bottom:14px;
+  }
+  .hero p{font-size:16px;color:var(--text-muted);max-width:620px;}
+
+  .section{padding:44px 0;border-top:1px solid var(--border);}
+  .sec-title{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(20px,2.8vw,25px);
+    margin-bottom:18px;
+  }
+  .prose p{color:var(--text-muted);font-size:16px;margin-bottom:16px;}
+  .prose p:last-child{margin-bottom:0;}
+  .prose strong{color:var(--text);font-weight:600;}
+  .prose ul{margin:8px 0 16px 20px;color:var(--text-muted);font-size:16px;}
+  .prose li{margin-bottom:6px;}
+
+  /* TABLES */
+  .table-wrap{
+    margin:20px 0 28px;
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:14px;
+  }
+  .table-caption{
+    font-size:14px;color:var(--text-dim);
+    padding:14px 18px 0;
+  }
+  table.paradigm{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14.5px;
+    min-width:480px;
+  }
+  table.paradigm th, table.paradigm td{
+    padding:10px 16px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+  }
+  table.paradigm th{
+    font-family:var(--serif);
+    color:var(--gold);
+    font-weight:500;
+    background:var(--bg-raised-2);
+  }
+  table.paradigm td:first-child, table.paradigm th:first-child{
+    text-align:left;
+    color:var(--text);
+    font-weight:500;
+  }
+  table.paradigm tr:last-child td{border-bottom:none;}
+  table.paradigm em{color:var(--text-muted);font-style:italic;}
+
+  /* GLOSS BLOCKS (interlinear examples) */
+  .gloss-raw{
+    font-family:'Courier New', 'Noto Sans SC', monospace;
+    font-size:14px;
+    color:var(--text);
+    white-space:pre-wrap;
+    line-height:1.9;
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px 18px;
+    margin:10px 0 18px;
+  }
+  .gloss-raw .gloss-group{margin-bottom:16px;}
+  .gloss-raw .gloss-group:last-child{margin-bottom:0;}
+  .gloss-raw .gloss-trans{color:var(--text-dim);font-style:italic;}
+  .gloss-raw .gloss-num{color:var(--gold);}
+
+  /* INTERLINEAR TABLE (true column alignment) */
+  .interlinear-wrap{margin-bottom:18px;}
+  .interlinear-wrap:last-child{margin-bottom:0;}
+  table.interlinear{
+    border-collapse:collapse;
+    margin-bottom:6px;
+  }
+  table.interlinear td{
+    padding:2px 14px 2px 0;
+    font-family:'Courier New', 'Noto Sans SC', monospace;
+    font-size:14.5px;
+    color:var(--text);
+    white-space:nowrap;
+    vertical-align:top;
+  }
+  table.interlinear tr.gloss-word-row td{color:var(--text-muted);}
+  .interlinear-trans{
+    font-size:14.5px;
+    color:var(--text-dim);
+    font-style:italic;
+    margin-top:2px;
+  }
+
+  .question-list{list-style:none;counter-reset:q;margin-top:8px;}
+  .question-item{
+    counter-increment:q;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+    font-size:15.5px;
+    color:var(--text);
+    display:flex;gap:12px;
+  }
+  .question-item:last-child{border-bottom:none;}
+  .question-item::before{
+    content:counter(q);
+    font-family:var(--serif);
+    color:var(--gold);
+    flex-shrink:0;
+  }
+
+  /* ANALYSIS INPUT */
+  .analysis-box{margin-top:10px;}
+  .analysis-item{margin-bottom:22px;}
+  .analysis-item:last-child{margin-bottom:0;}
+  .analysis-label{
+    font-size:14.5px;
+    color:var(--text);
+    font-weight:500;
+    margin-bottom:8px;
+  }
+  .analysis-textarea{
+    width:100%;
+    min-height:120px;
+    font-family:var(--sans);
+    font-size:15px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    resize:vertical;
+    line-height:1.7;
+  }
+  .analysis-textarea:focus{outline:none;border-color:var(--gold);}
+  .analysis-actions{
+    display:flex;align-items:center;gap:14px;
+    margin-top:14px;flex-wrap:wrap;
+  }
+  .a-btn{
+    font-family:var(--sans);
+    font-size:13.5px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:8px 18px;
+    cursor:pointer;
+    transition:border-color .2s, color .2s;
+  }
+  .a-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .a-status{font-size:13px;color:var(--text-dim);}
+
+  /* REFERENCE ANSWER */
+  .answer-block{
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:16px;
+  }
+  .answer-block:last-child{margin-bottom:0;}
+  .answer-q{
+    font-family:var(--serif);
+    font-size:15.5px;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .answer-a{font-size:15px;color:var(--text-muted);}
+  .answer-a p{margin-bottom:12px;}
+  .answer-a p:last-child{margin-bottom:0;}
+  .answer-a ul{margin:4px 0 14px 20px;}
+  .answer-a li{margin-bottom:6px;}
+  .answer-a strong{color:var(--text);font-weight:600;}
+  .answer-a .table-wrap{margin:16px 0;}
+  .answer-a .table-caption{padding-top:12px;}
+  .answer-a .gloss-raw{margin:10px 0;}
+
+  .note-box{
+    margin-top:18px;
+    padding:14px 18px;
+    background:var(--bg-raised-2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+
+  footer{padding:40px 0 56px;text-align:center;font-size:13px;color:var(--text-dim);}
+  footer a{color:var(--gold);}
+
+  @media (max-width:640px){
+    .navlinks{display:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="back-link" href="typology-undergrad.html#morphosyntax">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 2.5L3 6l4.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      返回课程页面
+    </a>
+    <div class="navlinks">
+      <a href="#question">题目</a>
+      <a href="#analysis">输入分析</a>
+      <a href="#answer">参考答案</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">形态句法分析练习 · 练习一</div>
+    <h1>傈僳语语序</h1>
+    <p>观察怒江傈僳语陈述句的语序，判断其及物句中出现的语序类型及基本语序。</p>
+  </div>
+</section>
+
+<section class="section" id="question">
+  <div class="wrap">
+    <h2 class="sec-title">题目</h2>
+    <div class="prose">
+      <p>观察以下几组怒江傈僳语陈述句的语序：</p>
+    </div>
+
+    <p style="font-family:var(--serif);color:var(--gold);font-size:15px;margin-bottom:8px;">第一组：</p>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>nu³³</td><td>tʰe³³pa³⁵</td><td>tʰa³¹</td><td>gi³³</td><td>se³¹</td></tr>
+        <tr class="gloss-word-row"><td>你</td><td>这时</td><td>别</td><td>去</td><td>还</td></tr>
+      </table>
+      <div class="interlinear-trans">'你现在还别去。'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>nu³³wa³¹</td><td>sɿ³⁵dzɿ³³</td><td>dɯ³³</td><td>gi³³</td></tr>
+        <tr class="gloss-word-row"><td>你们</td><td>树</td><td>种</td><td>去</td></tr>
+      </table>
+      <div class="interlinear-trans">'你们去种树。'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>ŋua³³</td><td>pʰa³¹</td><td>dʒʅ³³pʰɯ³¹</td><td>do³³</td></tr>
+        <tr class="gloss-word-row"><td>我</td><td>父</td><td>酒</td><td>喝</td></tr>
+      </table>
+      <div class="interlinear-trans">'我父亲喝酒。'</div>
+    </div>
+
+    <p style="font-family:var(--serif);color:var(--gold);font-size:15px;margin:20px 0 8px;">第二组：</p>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>e⁵⁵</td><td>tɛ⁵⁵</td><td>ŋua³³</td><td>ma³¹</td><td>dʑo³³</td></tr>
+        <tr class="gloss-word-row"><td>他</td><td>（受助）</td><td>我</td><td>不</td><td>怕</td></tr>
+      </table>
+      <div class="interlinear-trans">'我不怕他。'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>tʰe³³</td><td>tʰi³¹</td><td>ʑo̠⁴⁴</td><td>tɛ⁵⁵</td><td>ŋua³³</td><td>ma³¹</td><td>sɯ⁵⁵</td></tr>
+        <tr class="gloss-word-row"><td>这</td><td>一</td><td>个</td><td>（受助）</td><td>我</td><td>不</td><td>识</td></tr>
+      </table>
+      <div class="interlinear-trans">'这个人我不认识。'</div>
+    </div>
+
+    <p style="font-family:var(--serif);color:var(--gold);font-size:15px;margin:20px 0 8px;">第三组：</p>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>bɯ³³tsʰɿ³¹</td><td>dʑɛ̠⁴²lɛ̠⁴²</td><td>ma³³</td><td>ŋua³³</td><td>ma³¹</td><td>nu³³</td></tr>
+        <tr class="gloss-word-row"><td>衣服</td><td>花的</td><td>（提顿）</td><td>我</td><td>不</td><td>要</td></tr>
+      </table>
+      <div class="interlinear-trans">'花衣服我不要。'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>nu³³</td><td>ȵi̠⁴⁴ma̠⁴⁴</td><td>tɛ⁵⁵</td><td>ŋua³³</td><td>mo³³tso³³</td><td>ŋa³³</td></tr>
+        <tr class="gloss-word-row"><td>你</td><td>妹妹</td><td>（提顿）</td><td>我</td><td>见过</td><td>是</td></tr>
+      </table>
+      <div class="interlinear-trans">'你妹妹，我见过啊。'</div>
+    </div>
+
+    <p style="font-family:var(--serif);color:var(--gold);font-size:15px;margin:20px 0 8px;">第四组：</p>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>tɕʰo³³</td><td>mi⁴⁴</td><td>mi³³</td></tr>
+        <tr class="gloss-word-row"><td>人</td><td>名</td><td>名</td></tr>
+      </table>
+      <div class="interlinear-trans">'起名字'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>e⁵⁵kʰɯ³³</td><td>kʰɯ³³</td></tr>
+        <tr class="gloss-word-row"><td>窝</td><td>做</td></tr>
+      </table>
+      <div class="interlinear-trans">'筑巢'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>niɛ³⁵</td><td>fu⁴⁴</td><td>fu⁴⁴</td></tr>
+        <tr class="gloss-word-row"><td>鸟</td><td>蛋</td><td>下</td></tr>
+      </table>
+      <div class="interlinear-trans">'下鸟蛋'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>mu³¹ xa³³</td><td>xa³³</td></tr>
+        <tr class="gloss-word-row"><td>雨</td><td>下</td></tr>
+      </table>
+      <div class="interlinear-trans">'下雨'</div>
+    </div>
+
+    <div class="interlinear-wrap">
+      <table class="interlinear">
+        <tr><td>bu³³ tsʰɿ³¹</td><td>tsʰɿ³¹</td></tr>
+        <tr class="gloss-word-row"><td>衣服</td><td>洗</td></tr>
+      </table>
+      <div class="interlinear-trans">'洗衣服'</div>
+    </div>
+
+    <div class="note-box">本题作者：周煜</div>
+  </div>
+</section>
+
+<section class="section" id="analysis">
+  <div class="wrap">
+    <h2 class="sec-title">输入分析</h2>
+    <div class="prose">
+      <p>在下面依次写下你的分析。点击"保存"会把内容存在你当前浏览器里，下次打开这台设备上的同一页面还能看到；点击"清空"可以清除已保存的内容。</p>
+    </div>
+    <div class="analysis-box">
+      <div class="analysis-item">
+        <div class="analysis-label">傈僳语的及物句出现了哪些语序？基本语序是什么？请说明判断依据。</div>
+        <textarea class="analysis-textarea" id="ans1" placeholder="请在此输入你的分析……"></textarea>
+      </div>
+      <div class="analysis-actions">
+        <button class="a-btn" id="saveBtn" type="button">保存</button>
+        <button class="a-btn" id="clearBtn" type="button">清空</button>
+        <span class="a-status" id="saveStatus"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="answer">
+  <div class="wrap">
+    <h2 class="sec-title">参考答案</h2>
+    <button class="a-btn" id="showAnswerBtn" type="button">点击查看参考答案</button>
+    <div id="answerContent" style="display:none; margin-top:18px;">
+      <div class="answer-block">
+        <div class="answer-q">傈僳语的及物句中出现了哪些语序？基本语序是什么？</div>
+        <div class="answer-a">
+          <p>傈僳语的及物句共有 S 和 O 两个论元，出现了 <strong>SOV</strong> 和 <strong>OSV</strong> 两种语序。第一组中的及物句为 SOV 语序，第四组的动宾词组也为 OV 语序（S 未出现）。第二、三组采用了 OSV 语序。但是傈僳语的基本语序应为 <strong>SOV</strong>。主要依据是：</p>
+          <ul>
+            <li>在最无标记的一般及物句当中（第一组），宾语位于动词之前、主语之后，是典型的 SOV 语言；</li>
+            <li>在拷贝名词第二个音节构成的动宾短语中（第四组），宾语依然位于动词前，仍然符合 OV 语序；</li>
+            <li>在采用 OSV 语序的例子中（第二、三组），将受事话题化至主语 S 前的话题位置，通常需要添加标记，或是受事助词 tɛ⁵⁵，或是话题标记 ma³³/tɛ⁵⁵ 表示停顿，说明 OSV 是通过将 O 话题化后实现的有标记语序。</li>
+          </ul>
+          <p>综上，SOV 是怒江傈僳语中的基本语序，OSV 是一种有标记的语序。</p>
+          <p style="color:var(--text-dim);font-size:13.5px;">来源：李教昌（2018）《怒江傈僳语参考语法》。上海师范大学博士学位论文。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="typology-undergrad.html">← 返回语言类型学课程页面</a>
+</footer>
+
+<script>
+(function(){
+  var ids = ['ans1'];
+  var storageKey = 'lisu-word-order-analysis';
+  var status = document.getElementById('saveStatus');
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      ids.forEach(function(id){
+        if (data[id]) document.getElementById(id).value = data[id];
+      });
+    }catch(e){}
+  }
+
+  function save(){
+    var data = {};
+    ids.forEach(function(id){
+      data[id] = document.getElementById(id).value;
+    });
+    try{
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      status.textContent = '已保存';
+      setTimeout(function(){ status.textContent = ''; }, 2000);
+    }catch(e){
+      status.textContent = '保存失败';
+    }
+  }
+
+  function clearAll(){
+    ids.forEach(function(id){
+      document.getElementById(id).value = '';
+    });
+    try{ localStorage.removeItem(storageKey); }catch(e){}
+    status.textContent = '已清空';
+    setTimeout(function(){ status.textContent = ''; }, 2000);
+  }
+
+  document.getElementById('saveBtn').addEventListener('click', save);
+  document.getElementById('clearBtn').addEventListener('click', clearAll);
+  load();
+
+  var showBtn = document.getElementById('showAnswerBtn');
+  var answerContent = document.getElementById('answerContent');
+  showBtn.addEventListener('click', function(){
+    var isHidden = answerContent.style.display === 'none';
+    answerContent.style.display = isHidden ? 'block' : 'none';
+    showBtn.textContent = isHidden ? '隐藏参考答案' : '点击查看参考答案';
+  });
+})();
+</script>
+
+</body>
+</html>
