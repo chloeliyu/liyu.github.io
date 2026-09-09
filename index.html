@@ -47,6 +47,13 @@
   .navlinks{display:flex;gap:26px;font-size:20px;flex-wrap:wrap;align-items:center;}
   .navlinks a{color:var(--text-muted);transition:color .25s;}
   .navlinks a:hover, .navlinks a:focus-visible{color:var(--gold);}
+  .lang-toggle{
+    font-size:14.5px !important;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 14px;
+  }
+  .lang-toggle:hover, .lang-toggle:focus-visible{border-color:var(--gold);}
 
   /* NAV DROPDOWN */
   .navdrop{position:relative;}
@@ -433,6 +440,7 @@
           </div>
         </div>
       </div>
+      <a href="index-en.html" class="lang-toggle">EN</a>
     </div>
   </div>
 </nav>

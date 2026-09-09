@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>李昱 Li Yu — 武汉大学文学院副教授</title>
+<title>Li Yu — Associate Professor, School of Chinese Language and Literature, Wuhan University</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
 
@@ -47,6 +47,13 @@
   .navlinks{display:flex;gap:26px;font-size:20px;flex-wrap:wrap;align-items:center;}
   .navlinks a{color:var(--text-muted);transition:color .25s;}
   .navlinks a:hover, .navlinks a:focus-visible{color:var(--gold);}
+  .lang-toggle{
+    font-size:14.5px !important;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 14px;
+  }
+  .lang-toggle:hover, .lang-toggle:focus-visible{border-color:var(--gold);}
 
   /* NAV DROPDOWN */
   .navdrop{position:relative;}
@@ -381,58 +388,59 @@
 <nav>
   <div class="wrap">
     <div class="navlinks">
-      <a href="#about">关于</a>
-      <a href="#pubs">论著</a>
-      <a href="#grants">项目</a>
+      <a href="#about">About</a>
+      <a href="#pubs">Publications</a>
+      <a href="#grants">Grants</a>
       <div class="navdrop" id="navdrop-courses">
         <button class="navdrop-trigger" id="navdrop-courses-trigger" aria-haspopup="true" aria-expanded="false">
-          课程
+          Courses
           <svg viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="navdrop-menu" role="menu">
           <div class="navsub">
             <div class="navsub-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">
-              研究生课程
+              Graduate Courses
               <svg viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="navsub-menu" role="menu">
-              <a href="#course-grad" role="menuitem">语言类型学</a>
+              <a href="#course-grad" role="menuitem">Linguistic Typology</a>
             </div>
           </div>
           <div class="navsub">
             <div class="navsub-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">
-              本科课程
+              Undergraduate Courses
               <svg viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="navsub-menu" role="menu">
-              <a href="#course-undergrad" role="menuitem">现代汉语</a>
-              <a href="#course-undergrad" role="menuitem">现代语言学</a>
-              <a href="#course-undergrad" role="menuitem">形态学</a>
-              <a href="typology-undergrad.html" role="menuitem">语言类型学</a>
+              <a href="#course-undergrad" role="menuitem">Modern Chinese</a>
+              <a href="#course-undergrad" role="menuitem">Modern Linguistics</a>
+              <a href="#course-undergrad" role="menuitem">Morphology</a>
+              <a href="typology-undergrad.html" role="menuitem">Linguistic Typology</a>
             </div>
           </div>
         </div>
       </div>
-      <a href="#contact">联系</a>
+      <a href="#contact">Contact</a>
       <div class="navdrop" id="navdrop">
         <button class="navdrop-trigger" id="navdrop-trigger" aria-haspopup="true" aria-expanded="false">
-          网站链接
+          Links
           <svg viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="navdrop-menu" role="menu">
-          <a href="#" role="menuitem">语言类型学实验室</a>
+          <a href="#" role="menuitem">Linguistic Typology Lab</a>
           <div class="navsub">
             <div class="navsub-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">
-              语档
+              Language Archives
               <svg viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="navsub-menu" role="menu">
-              <a href="http://hdl.handle.net/2196/bc64e9fe-4ce0-4af7-b79d-39d73e6ff66f" target="_blank" rel="noopener" role="menuitem">柔若语语档</a>
-              <a href="http://hdl.handle.net/2196/85c6cfab-60b6-4338-b489-818c84e15ac2" target="_blank" rel="noopener" role="menuitem">CAL(Causality Across Languages_Zauzou)</a>
+              <a href="http://hdl.handle.net/2196/bc64e9fe-4ce0-4af7-b79d-39d73e6ff66f" target="_blank" rel="noopener" role="menuitem">Zauzou Language Archive</a>
+              <a href="http://hdl.handle.net/2196/85c6cfab-60b6-4338-b489-818c84e15ac2" target="_blank" rel="noopener" role="menuitem">CAL (Causality Across Languages – Zauzou)</a>
             </div>
           </div>
         </div>
       </div>
+      <a href="index.html" class="lang-toggle">中文</a>
     </div>
   </div>
 </nav>
@@ -515,20 +523,20 @@
 <section class="hero">
   <div class="glow"></div>
   <div class="wrap hero-inner">
-    <h1>行走在语言的<br>边界，记录<em>正在</em><br>消失的语法。</h1>
-    <p>博士毕业于纽约州立大学布法罗分校语言学系，研究方向为语言类型学、藏缅语形态句法与纪录语言学，长期关注濒危语言的记录与保护。</p>
+    <h1>Walking the edges<br>of language, <em>documenting</em><br>grammars that vanish.</h1>
+    <p>Li Yu holds a Ph.D. in Linguistics from the University at Buffalo, State University of New York. Her research spans linguistic typology, Tibeto-Burman morphosyntax, and language documentation, with a long-standing focus on recording and preserving endangered languages.</p>
     <div class="hero-cta">
-      <a href="#pubs" class="btn btn-primary">查看论著成果</a>
-      <a href="#contact" class="btn btn-ghost">联系我</a>
+      <a href="#pubs" class="btn btn-primary">View Publications</a>
+      <a href="#contact" class="btn btn-ghost">Contact Me</a>
     </div>
   </div>
 </section>
 
 <section class="section" id="about">
   <div class="wrap">
-    <div class="kicker">关于我</div>
+    <div class="kicker">About Me</div>
     <div class="sec-title-row">
-      <h2 class="sec-title">简介</h2>
+      <h2 class="sec-title">Biography</h2>
       <div class="name-block">
         <div class="name-cn">李昱</div>
         <div class="name-py">Li, Yu</div>
@@ -536,24 +544,24 @@
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <p>博士毕业于<strong>纽约州立大学布法罗分校</strong>语言学系，研究方向为<strong>语言类型学、藏缅语形态句法、纪录语言学</strong>。</p>
-        <p>近年来在《民族语文》《语言暨语言学》、<span class="venue">Lingua</span>、<span class="venue">Poznań Studies in Contemporary Linguistics</span> 等期刊发表论文十余篇，主持一项国家社科基金一般项目和一项 ELDP 濒危语言保护项目。</p>
+        <p>Dr. Li Yu received her Ph.D. in Linguistics from the <strong>University at Buffalo, State University of New York</strong>. Her research focuses on <strong>linguistic typology, Tibeto-Burman morphosyntax, and language documentation</strong>.</p>
+        <p>In recent years, she has published more than a dozen articles in journals including <em>Minzu Yuwen</em>, <em>Language and Linguistics</em>, <span class="venue">Lingua</span>, and <span class="venue">Poznań Studies in Contemporary Linguistics</span>. She is Principal Investigator of a General Program grant from the National Social Science Fund of China and an ELDP endangered-language documentation project.</p>
       </div>
-      <img class="profile-photo" src="images/profile.png" alt="李昱">
+      <img class="profile-photo" src="images/profile.png" alt="Li Yu">
     </div>
     <div class="pillars">
-      <div class="pillar"><div class="pillar-label">工作单位</div><div class="pillar-val">武汉大学文学院</div></div>
-      <div class="pillar"><div class="pillar-label">教育背景</div><div class="pillar-val">纽约州立大学布法罗分校语言学博士</div></div>
-      <div class="pillar"><div class="pillar-label">职称</div><div class="pillar-val">副教授</div></div>
+      <div class="pillar"><div class="pillar-label">Affiliation</div><div class="pillar-val">School of Chinese Language and Literature, Wuhan University</div></div>
+      <div class="pillar"><div class="pillar-label">Education</div><div class="pillar-val">Ph.D. in Linguistics, University at Buffalo, SUNY</div></div>
+      <div class="pillar"><div class="pillar-label">Title</div><div class="pillar-val">Associate Professor</div></div>
     </div>
   </div>
 </section>
 
 <section class="section" id="pubs">
   <div class="wrap">
-    <div class="kicker">研究成果</div>
-    <h2 class="sec-title">论著发表</h2>
-    <div class="sec-sub">按年份排列，含期刊论文、专著章节与学位论文。</div>
+    <div class="kicker">Research Output</div>
+    <h2 class="sec-title">Publications</h2>
+    <div class="sec-sub">Listed by year. Includes journal articles, book chapters, and dissertations.</div>
 
     <div class="subgroup">
       <ul class="pub-list">
@@ -637,17 +645,17 @@
     </div>
 
     <div class="subgroup">
-      <div class="subgroup-title">学位论文</div>
+      <div class="subgroup-title">Dissertation</div>
       <ul class="pub-list">
         <li class="pub-item">
           <div class="pub-year">2020</div>
-          <div class="pub-text">A Grammar of Zauzou. 博士学位论文. State University of New York at Buffalo. ProQuest.</div>
+          <div class="pub-text">A Grammar of Zauzou. Doctoral dissertation. State University of New York at Buffalo. ProQuest.</div>
         </li>
       </ul>
     </div>
 
     <div class="subgroup">
-      <div class="subgroup-title">专著章节</div>
+      <div class="subgroup-title">Book Chapters</div>
       <ul class="pub-list">
         <li class="pub-item">
           <div class="pub-year">2017</div>
@@ -657,7 +665,7 @@
     </div>
 
     <div class="subgroup">
-      <div class="subgroup-title">语言存档</div>
+      <div class="subgroup-title">Language Archives</div>
       <ul class="pub-list">
         <li class="pub-item">
           <div class="pub-year">2017</div>
@@ -674,45 +682,45 @@
 
 <section class="section" id="grants">
   <div class="wrap">
-    <div class="kicker">科研项目</div>
-    <h2 class="sec-title">主持与参与</h2>
+    <div class="kicker">Research Grants</div>
+    <h2 class="sec-title">Grants</h2>
 
     <div class="subgroup">
-      <div class="subgroup-title">主持项目</div>
+      <div class="subgroup-title">As Principal Investigator</div>
       <ul class="grant-list">
         <li class="grant-item">
           <div class="grant-top">
-            <div class="grant-title">云南若柔人濒危多语状态下的语言变异研究</div>
+            <div class="grant-title">Language Variation among the Endangered Multilingual Zauzou Community in Yunnan</div>
             <div class="grant-year">2022 — 2025</div>
           </div>
-          <div class="grant-meta">国家社科基金一般项目（项目批准号：22BYY063）</div>
+          <div class="grant-meta">General Program, National Social Science Fund of China (Grant No. 22BYY063)</div>
         </li>
         <li class="grant-item">
           <div class="grant-top">
             <div class="grant-title">Documentation of Zauzou, an endangered language in China</div>
             <div class="grant-year">2017 — 2020</div>
           </div>
-          <div class="grant-meta">IGS project, Endangered Languages Documentation Programme (ELDP), SOAS · 资助金额 £36,644</div>
+          <div class="grant-meta">IGS Project, Endangered Languages Documentation Programme (ELDP), SOAS · Funding: £36,644</div>
         </li>
       </ul>
     </div>
 
     <div class="subgroup">
-      <div class="subgroup-title">参与项目</div>
+      <div class="subgroup-title">As Co-Investigator / Participant</div>
       <ul class="grant-list">
         <li class="grant-item">
           <div class="grant-top">
             <div class="grant-title">Empirical study of the typology of nominalization — from theoretical, fieldwork, historical and dialectal perspective</div>
             <div class="grant-year">2024 —</div>
           </div>
-          <div class="grant-meta">日本 · 项目负责人：Prashant Pardeshi</div>
+          <div class="grant-meta">Japan · PI: Prashant Pardeshi</div>
         </li>
         <li class="grant-item">
           <div class="grant-top">
             <div class="grant-title">Causality Across Languages</div>
             <div class="grant-year">2016 — 2020</div>
           </div>
-          <div class="grant-meta">美国国家科学基金会（NSF）资助 · Award #BCS-1535846 · 项目负责人：Jürgen Bohnemeyer</div>
+          <div class="grant-meta">Funded by the U.S. National Science Foundation (NSF) · Award #BCS-1535846 · PI: Jürgen Bohnemeyer</div>
         </li>
       </ul>
     </div>
@@ -721,20 +729,20 @@
 
 <section class="section" id="courses">
   <div class="wrap">
-    <div class="kicker">教学</div>
-    <h2 class="sec-title">教授课程</h2>
+    <div class="kicker">Teaching</div>
+    <h2 class="sec-title">Courses Taught</h2>
     <div class="course-grid">
       <div class="course-block" id="course-grad">
-        <div class="course-label">研究生课程</div>
-        <div class="course-tags"><span class="course-tag">语言类型学</span></div>
+        <div class="course-label">Graduate Courses</div>
+        <div class="course-tags"><span class="course-tag">Linguistic Typology</span></div>
       </div>
       <div class="course-block" id="course-undergrad">
-        <div class="course-label">本科课程</div>
+        <div class="course-label">Undergraduate Courses</div>
         <div class="course-tags">
-          <span class="course-tag">现代汉语</span>
-          <span class="course-tag">现代语言学</span>
-          <span class="course-tag">形态学</span>
-          <a class="course-tag" href="typology-undergrad.html">语言类型学</a>
+          <span class="course-tag">Modern Chinese</span>
+          <span class="course-tag">Modern Linguistics</span>
+          <span class="course-tag">Morphology</span>
+          <a class="course-tag" href="typology-undergrad.html">Linguistic Typology</a>
         </div>
       </div>
     </div>
@@ -744,19 +752,19 @@
 <section class="section" id="contact">
   <div class="wrap">
     <div class="contact-card">
-      <h2>欢迎<em>交流</em>与合作</h2>
-      <p>如对相关研究方向感兴趣，欢迎通过以下方式联系我。</p>
+      <h2>Get in <em>Touch</em></h2>
+      <p>If you're interested in these research areas, feel free to reach out through the following channels.</p>
       <p style="font-family:var(--serif);color:var(--gold);font-size:16px;margin-bottom:24px;">louie1213@126.com</p>
       <div class="contact-row">
-        <a href="mailto:louie1213@126.com" class="btn btn-primary">发送邮件</a>
-        <a href="https://jszy.whu.edu.cn/~M3u6fq/zh_CN/index.htm" class="btn btn-ghost" target="_blank" rel="noopener">学校主页</a>
+        <a href="mailto:louie1213@126.com" class="btn btn-primary">Email Me</a>
+        <a href="https://jszy.whu.edu.cn/~M3u6fq/zh_CN/index.htm" class="btn btn-ghost" target="_blank" rel="noopener">Faculty Page</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  武汉大学文学院 · © 2026
+  School of Chinese Language and Literature, Wuhan University · © 2026
 </footer>
 
 </body>

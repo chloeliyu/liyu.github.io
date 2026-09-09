@@ -268,6 +268,29 @@
   }
   .lang-select:hover, .lang-select:focus-visible{border-color:var(--gold);}
 
+  /* TOPIC SELECT (inside exercise cards) */
+  .topic-select-row{
+    display:flex;align-items:center;gap:10px;
+    margin-top:14px;flex-wrap:wrap;
+  }
+  .topic-select-label{font-size:13px;color:var(--text-dim);}
+  .topic-select{
+    font-family:var(--sans);
+    font-size:13.5px;
+    color:var(--text);
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:6px 30px 6px 12px;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%23a85570' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+  }
+  .topic-select:hover, .topic-select:focus-visible{border-color:var(--gold);}
+
   footer{padding:40px 0 56px;text-align:center;font-size:13px;color:var(--text-dim);}
   footer a{color:var(--gold);}
 
@@ -570,6 +593,15 @@
           <span class="exercise-tag">语序类型</span>
           <span class="exercise-tag">案例分析</span>
         </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect1">题目：</label>
+          <select class="topic-select" id="topicSelect1" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="lisu-word-order.html">傈僳语语序</option>
+            <option value="japanese-word-order.html">日语语序</option>
+            <option value="jingpo-word-order.html">景颇语的语序类型</option>
+          </select>
+        </div>
       </div>
       <div class="exercise-card">
         <div class="exercise-title">练习二：名词范畴化分析</div>
@@ -577,6 +609,14 @@
         <div class="exercise-tags">
           <span class="exercise-tag">类别词</span>
           <span class="exercise-tag">名词范畴化</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect2">题目：</label>
+          <select class="topic-select" id="topicSelect2" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="uyghur-classifier.html">维吾尔语量词</option>
+            <option value="spanish-gender.html">西班牙语的性范畴</option>
+          </select>
         </div>
       </div>
       <div class="exercise-card">
@@ -586,6 +626,14 @@
           <span class="exercise-tag">格标记</span>
           <span class="exercise-tag">案例分析</span>
         </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect3">题目：</label>
+          <select class="topic-select" id="topicSelect3" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="japanese-case.html">日语的格配置模式</option>
+            <option value="spanish-case.html">西班牙语格标记</option>
+          </select>
+        </div>
       </div>
       <div class="exercise-card">
         <div class="exercise-title">练习四：人称范畴的标记模式分析</div>
@@ -593,6 +641,12 @@
         <div class="exercise-tags">
           <span class="exercise-tag">人称范畴</span>
           <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect4">题目：</label>
+          <select class="topic-select" id="topicSelect4">
+            <option value="">待添加</option>
+          </select>
         </div>
       </div>
       <div class="exercise-card">
@@ -602,6 +656,14 @@
           <span class="exercise-tag">数范畴</span>
           <span class="exercise-tag">案例分析</span>
         </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect5">题目：</label>
+          <select class="topic-select" id="topicSelect5" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="basque-number.html">巴斯克语的数范畴</option>
+            <option value="spanish-number.html">西班牙语的数范畴</option>
+          </select>
+        </div>
       </div>
       <div class="exercise-card">
         <div class="exercise-title">练习六：时体范畴分析</div>
@@ -609,6 +671,12 @@
         <div class="exercise-tags">
           <span class="exercise-tag">时体范畴</span>
           <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect6">题目：</label>
+          <select class="topic-select" id="topicSelect6">
+            <option value="">待添加</option>
+          </select>
         </div>
       </div>
     </div>
