@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>语言类型学（本科课程） — 李昱 Li Yu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #e8d9f2;
+    --bg-raised: #ddc7ec;
+    --bg-raised-2: #d0b3e5;
+    --border: #bb95d9;
+    --text: #2a1a44;
+    --text-muted: #5e4a7a;
+    --text-dim: #8874a0;
+    --gold: #a8763a;
+    --rose: #a85570;
+    --serif: 'Noto Serif SC', 'Fraunces', serif;
+    --sans: 'Noto Sans SC', 'Work Sans', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--bg);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+  em{font-style:italic;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;
+    background:rgba(232,217,242,0.82);
+    backdrop-filter:blur(12px);
+    z-index:100;
+  }
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:76px;flex-wrap:wrap;}
+  .back-link{
+    display:flex;align-items:center;gap:8px;
+    font-size:15px;color:var(--text-muted);
+    transition:color .25s;
+  }
+  .back-link:hover, .back-link:focus-visible{color:var(--gold);}
+  .back-link svg{width:14px;height:14px;}
+  .navlinks{display:flex;gap:24px;font-size:15.5px;flex-wrap:wrap;align-items:center;}
+  .navlinks a{color:var(--text-muted);transition:color .25s;}
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--gold);}
+
+  /* HEADER */
+  .course-hero{
+    padding:150px 0 60px;
+    position:relative;
+  }
+  .glow{
+    position:absolute;
+    width:480px;height:480px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(229,163,173,0.16) 0%, rgba(227,184,115,0.08) 45%, transparent 70%);
+    filter:blur(40px);
+    top:10%;left:8%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .course-hero-inner{position:relative;z-index:1;}
+  .course-eyebrow{font-size:14.5px;color:var(--gold);margin-bottom:16px;}
+  .course-hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(32px,5.4vw,50px);
+    line-height:1.3;
+    margin-bottom:18px;
+  }
+  .course-hero p{
+    font-size:16px;
+    color:var(--text-muted);
+    max-width:600px;
+  }
+  .course-meta{
+    display:flex;gap:12px;flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .meta-pill{
+    font-size:13.5px;color:var(--text-muted);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    padding:7px 16px;border-radius:20px;
+  }
+
+  /* SECTIONS */
+  .section{padding:70px 0;border-top:1px solid var(--border);}
+  .kicker{
+    font-family:var(--serif);
+    color:var(--rose);
+    font-size:16px;
+    margin-bottom:12px;
+  }
+  .sec-title{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(24px,3.2vw,30px);
+    margin-bottom:24px;
+  }
+  .prose p{color:var(--text-muted);font-size:16px;margin-bottom:16px;}
+  .prose p:last-child{margin-bottom:0;}
+  .prose strong{color:var(--text);font-weight:600;}
+
+  /* SYLLABUS */
+  .syllabus-list{list-style:none;}
+  .syllabus-item{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:18px;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+    font-size:14.5px;
+  }
+  .syllabus-item:last-child{border-bottom:none;}
+  .syllabus-week{
+    font-family:var(--serif);
+    color:var(--text-dim);
+    font-size:14.5px;
+    padding-top:1px;
+  }
+  .syllabus-topic{color:var(--text);font-weight:500;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .syllabus-method{
+    font-size:11px;color:var(--gold);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:2px 9px;
+    font-weight:400;
+  }
+  a.syllabus-method{text-decoration:none;transition:border-color .25s, background .25s;}
+  a.syllabus-method:hover, a.syllabus-method:focus-visible{border-color:var(--gold);background:rgba(201,162,75,.08);}
+  .syllabus-desc{color:var(--text-muted);font-size:14px;}
+
+  /* READINGS */
+  .subgroup{margin-top:36px;}
+  .subgroup:first-child{margin-top:0;}
+  .subgroup-title{
+    font-family:var(--serif);
+    font-size:18px;
+    color:var(--gold);
+    margin-bottom:6px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--border);
+  }
+  .reading-list{list-style:none;}
+  .reading-item{
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+    font-size:14.5px;
+    color:var(--text-muted);
+  }
+  .reading-item:last-child{border-bottom:none;}
+  .reading-item .venue{color:var(--rose);font-style:italic;}
+
+  /* EXERCISE CARDS */
+  .exercise-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  .exercise-card{
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 24px;
+  }
+  .exercise-title{
+    font-family:var(--serif);
+    font-size:17px;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+  .exercise-desc{color:var(--text-muted);font-size:14.5px;margin-bottom:14px;}
+  .exercise-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .exercise-tag{
+    font-size:12.5px;color:var(--text-muted);
+    background:var(--bg-raised-2);
+    border:1px solid var(--border);
+    padding:4px 11px;border-radius:20px;
+  }
+
+  .note-box{
+    margin-top:14px;
+    padding:14px 18px;
+    background:var(--bg-raised-2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+
+  /* TRANSCRIBE WIDGET */
+  .tw{
+    margin-top:16px;
+    padding:18px;
+    background:var(--bg-raised-2);
+    border:1px solid var(--border);
+    border-radius:14px;
+  }
+  .tw-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:14px;flex-wrap:wrap;gap:10px;
+  }
+  .tw-progress{font-size:13px;color:var(--text-dim);}
+  .tw-speaker{font-size:13px;color:var(--text-dim);margin:-6px 0 12px;}
+  .tw-speaker[hidden]{display:none;}
+  .tw-refs{
+    margin-top:16px;padding-top:12px;
+    border-top:1px dashed var(--border);
+    font-size:13px;line-height:1.7;color:var(--text-dim);
+  }
+  .tw-refs[hidden]{display:none;}
+  .tw-refs-title{margin-bottom:4px;}
+  .tw-refs-item{padding-left:2em;text-indent:-2em;word-break:break-word;}
+  .tw-refs a{color:var(--gold);text-decoration:none;}
+  .tw-refs a:hover{text-decoration:underline;}
+  .tw-btn{
+    font-family:var(--sans);
+    font-size:13.5px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:8px 16px;
+    cursor:pointer;
+    transition:border-color .2s, color .2s;
+  }
+  .tw-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .tw-btn:disabled{opacity:0.45;cursor:not-allowed;}
+  .tw-play{color:var(--gold);border-color:var(--gold);}
+  .tw-input-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+  .tw-input{
+    flex:1;min-width:200px;
+    font-family:var(--sans);
+    font-size:14.5px;
+    color:var(--text);
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:9px 14px;
+  }
+  .tw-input:focus{outline:none;border-color:var(--gold);}
+  .tw-feedback{
+    min-height:22px;
+    font-size:13.5px;
+    margin-bottom:12px;
+  }
+  .tw-feedback.correct{color:#4f9d6e;}
+  .tw-feedback.wrong{color:var(--rose);}
+  .tw-feedback.info{color:var(--text-dim);}
+  .tw-nav{display:flex;gap:10px;flex-wrap:wrap;}
+
+  /* WORD SEARCH (inside transcribe widget) */
+  .tw-search{
+    margin-bottom:16px;
+    padding-bottom:16px;
+    border-bottom:1px dashed var(--border);
+  }
+  .tw-search-label{
+    display:block;
+    font-size:13px;color:var(--text-dim);
+    margin-bottom:8px;
+  }
+  .tw-search .tw-input{width:100%;flex:none;}
+  .tw-search-results{
+    margin-top:10px;
+    max-height:260px;overflow-y:auto;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+  .tw-search-results[hidden]{display:none;}
+  .tw-hit{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:8px 12px;
+    border-bottom:1px solid var(--border);
+    font-size:14px;
+  }
+  .tw-hit:last-child{border-bottom:none;}
+  .tw-hit-no{color:var(--text-dim);font-size:12.5px;min-width:36px;}
+  .tw-hit-word{flex:1;min-width:120px;color:var(--text);word-break:break-word;}
+  .tw-hit .tw-btn{padding:5px 12px;font-size:12.5px;}
+  .tw-search-msg{padding:10px 12px;font-size:13px;color:var(--text-dim);}
+  .tw-search-msg.wrong{color:var(--rose);}
+
+  /* LANGUAGE SELECT */
+  .lang-select-row{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:28px;flex-wrap:wrap;
+  }
+  .lang-select-label{
+    font-size:14.5px;color:var(--text-muted);
+  }
+  .lang-select{
+    font-family:var(--sans);
+    font-size:14.5px;
+    color:var(--text);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:8px 36px 8px 16px;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%23a85570' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+  }
+  .lang-select:hover, .lang-select:focus-visible{border-color:var(--gold);}
+
+  /* TOPIC SELECT (inside exercise cards) */
+  .topic-select-row{
+    display:flex;align-items:center;gap:10px;
+    margin-top:14px;flex-wrap:wrap;
+  }
+  .topic-select-label{font-size:13px;color:var(--text-dim);}
+  .topic-select{
+    font-family:var(--sans);
+    font-size:13.5px;
+    color:var(--text);
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:6px 30px 6px 12px;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%23a85570' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+  }
+  .topic-select:hover, .topic-select:focus-visible{border-color:var(--gold);}
+
+  footer{padding:40px 0 56px;text-align:center;font-size:13px;color:var(--text-dim);}
+  footer a{color:var(--gold);}
+
+  @media (max-width:720px){
+    .navlinks{display:none;}
+    .syllabus-item{grid-template-columns:64px 1fr;gap:12px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="back-link" href="index.html#course-undergrad">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 2.5L3 6l4.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      返回主页
+    </a>
+    <div class="navlinks">
+      <a href="#intro">课程简介</a>
+      <a href="#syllabus">教学大纲</a>
+      <a href="#readings">参考书目</a>
+      <a href="#transcription">转写练习</a>
+      <a href="#morphosyntax">形态句法分析练习</a>
+    </div>
+  </div>
+</nav>
+
+<section class="course-hero">
+  <div class="glow"></div>
+  <div class="wrap course-hero-inner">
+    <div class="course-eyebrow">本科课程</div>
+    <h1>语言类型学</h1>
+    <p>本课程系统介绍语言类型学的基本理论、研究方法与经典案例，训练学生描写与比较不同语言的语音、形态、句法特征，并培养一手语言材料的转写与分析能力。</p>
+    <div class="course-meta">
+      <span class="meta-pill">专业选修课 · 大三开设</span>
+      <span class="meta-pill">2 学分 · 32 学时</span>
+      <span class="meta-pill">面向：汉语国际教育 / 汉语言文学</span>
+      <span class="meta-pill">授课教师：李昱</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="intro">
+  <div class="wrap">
+    <div class="kicker">课程简介</div>
+    <h2 class="sec-title">课程概述</h2>
+    <div class="prose">
+      <p>语言类型学致力于通过跨语言的系统比较，揭示人类语言在语音、形态、句法与语义层面的共性与变异范围。本课程面向本科生，从<strong>语序类型</strong>、<strong>形态类型</strong>、<strong>格标记与一致关系</strong>、<strong>名词范畴化</strong>等经典议题入手，结合世界语言样本与濒危语言一手田野材料，帮助学生掌握类型学的基本描写工具与论证方式。</p>
+      <p>课程强调"从数据出发"的训练方式：学生将接触真实的语料转写、形态切分与句法分析练习，在实践中理解类型学参项如何从具体语言现象中抽象而来。</p>
+    </div>
+
+    <div class="subgroup">
+      <div class="subgroup-title">课程目标</div>
+      <ul class="reading-list">
+        <li class="reading-item"><strong style="color:var(--text)">价值观塑造</strong> — 培养多元化的国际视野与跨文化理解，共享不同人类文明的丰硕成果。</li>
+        <li class="reading-item"><strong style="color:var(--text)">知识获得</strong> — 掌握语言类型学的基本知识体系、概念系统与研究方法，认识世界语言结构的共性与个性。</li>
+        <li class="reading-item"><strong style="color:var(--text)">能力培养</strong> — 训练跨语言分析视角、听音记音与形态句法分析能力，并通过团队协作将类型学知识转化为科普视频、游戏等实践成果。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="syllabus">
+  <div class="wrap">
+    <div class="kicker">教学安排</div>
+    <h2 class="sec-title">教学大纲</h2>
+    <ul class="syllabus-list">
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 1 周</div>
+        <div>
+          <div class="syllabus-topic">语言类型学的历史与研究方法 <span class="syllabus-method">课堂讲授</span> <a class="syllabus-method" href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fchloeliyu.github.io%2Fliyu.github.io%2Fppt%2Ftypology-introduction.pptx" target="_blank" rel="noopener">课件：绪论</a></div>
+          <div class="syllabus-desc">导论，介绍语言类型学的学科定位、基本研究对象、历史和研究方法的演变。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 2 周</div>
+        <div>
+          <div class="syllabus-topic">语言类型学的基本概念 <span class="syllabus-method">课堂讲授</span> <a class="syllabus-method" href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fchloeliyu.github.io%2Fliyu.github.io%2Fppt%2Fimplicational-universals.pptx" target="_blank" rel="noopener">课件：蕴含共性</a> <a class="syllabus-method" href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fchloeliyu.github.io%2Fliyu.github.io%2Fppt%2F%25E9%259F%25B3%25E7%25B3%25BB%25E7%25B1%25BB%25E5%259E%258B%25E5%25AD%25A6.pptx" target="_blank" rel="noopener">课件：音系类型学</a></div>
+          <div class="syllabus-desc">认识类型学中涉及的基本概念，包括音系类型学的相关知识。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 3 周</div>
+        <div>
+          <div class="syllabus-topic">语序类型学 I <span class="syllabus-method">课堂讲授 + 转写练习</span> <a class="syllabus-method" href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fchloeliyu.github.io%2Fliyu.github.io%2Fppt%2F%25E8%25AF%25AD%25E5%25BA%258F%25E7%25B1%25BB%25E5%259E%258B%25E5%25AD%25A6.pptx" target="_blank" rel="noopener">课件：语序类型学</a></div>
+          <div class="syllabus-desc">介绍语言的基本语序类型以及语言抽样方法的演变。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 4 周</div>
+        <div>
+          <div class="syllabus-topic">语序类型学 II <span class="syllabus-method">课堂讲授 + 转写练习</span></div>
+          <div class="syllabus-desc">掌握语序类型的判定。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 5 周</div>
+        <div>
+          <div class="syllabus-topic">语法性 I <span class="syllabus-method">课堂讲授 + 转写练习</span></div>
+          <div class="syllabus-desc">介绍语法性与名词的类别，以及语法性的编码方式。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 6 周</div>
+        <div>
+          <div class="syllabus-topic">语法性 II <span class="syllabus-method">课堂讲授 + 转写练习</span></div>
+          <div class="syllabus-desc">介绍语法性的语义分类。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 7 周</div>
+        <div>
+          <div class="syllabus-topic">格与论元配置 I <span class="syllabus-method">课堂讲授 + 转写练习</span></div>
+          <div class="syllabus-desc">介绍语法格范畴、语义角色。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 8 周</div>
+        <div>
+          <div class="syllabus-topic">格与论元配置 II <span class="syllabus-method">课堂讲授 + 类型学知识竞赛</span></div>
+          <div class="syllabus-desc">介绍论元配置类型与判定方法。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 9 周</div>
+        <div>
+          <div class="syllabus-topic">人称范畴 <span class="syllabus-method">课堂讲授 + 形态句法分析练习</span></div>
+          <div class="syllabus-desc">介绍人称范畴的编码形式与人称层级。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 10 周</div>
+        <div>
+          <div class="syllabus-topic">数范畴 <span class="syllabus-method">课堂讲授 + 形态句法分析练习</span></div>
+          <div class="syllabus-desc">介绍单数、复数、双数等概念及形态句法特点。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 11 周</div>
+        <div>
+          <div class="syllabus-topic">时体范畴 I <span class="syllabus-method">课堂讲授 + 形态句法分析练习</span></div>
+          <div class="syllabus-desc">介绍绝对与相对时，时范畴的跨语言编码。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 12 周</div>
+        <div>
+          <div class="syllabus-topic">时体范畴 II <span class="syllabus-method">课堂讲授 + 形态句法分析练习</span></div>
+          <div class="syllabus-desc">介绍词汇体、相位体、视角体等体范畴的编码。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 13 周</div>
+        <div>
+          <div class="syllabus-topic">情态与示证 I <span class="syllabus-method">课堂讲授 + 形态句法分析练习</span></div>
+          <div class="syllabus-desc">介绍情态与语气、句子类型。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 14 周</div>
+        <div>
+          <div class="syllabus-topic">情态与示证 II <span class="syllabus-method">课堂讲授 + 形态句法分析练习</span></div>
+          <div class="syllabus-desc">介绍信息来源的跨语言编码，掌握情态与示证的关系。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 15 周</div>
+        <div>
+          <div class="syllabus-topic">语义类型学 I <span class="syllabus-method">课堂讲授 + 语义分析练习</span></div>
+          <div class="syllabus-desc">介绍语义类型学的实证研究方法。</div>
+        </div>
+      </li>
+      <li class="syllabus-item">
+        <div class="syllabus-week">第 16 周</div>
+        <div>
+          <div class="syllabus-topic">语义类型学 II <span class="syllabus-method">课堂讲授 + 语义分析练习</span></div>
+          <div class="syllabus-desc">了解语义语用范畴的跨语言共性。</div>
+        </div>
+      </li>
+    </ul>
+    <div class="note-box">每周课时 2 学时，共 32 学时；第 3–8 周配合转写练习，第 9–14 周配合形态句法分析练习，第 15–16 周配合语义分析练习。</div>
+  </div>
+</section>
+
+<section class="section" id="readings">
+  <div class="wrap">
+    <div class="kicker">延伸阅读</div>
+    <h2 class="sec-title">参考书目</h2>
+
+    <div class="subgroup">
+      <div class="subgroup-title">主要教材</div>
+      <ul class="reading-list">
+        <li class="reading-item">自编讲义</li>
+      </ul>
+    </div>
+
+    <div class="subgroup">
+      <div class="subgroup-title">参考书目</div>
+      <ul class="reading-list">
+        <li class="reading-item">陆丙甫、金立鑫（2015）.《语言类型学教程》. 北京大学出版社.</li>
+        <li class="reading-item">刘丹青讲述，曹瑞炯整理（2017）.《语言类型学》. 中西书局.</li>
+        <li class="reading-item">Velupillai, Viveka (2012). <span class="venue">An Introduction to Linguistic Typology</span>. Amsterdam: John Benjamins Publishing.</li>
+        <li class="reading-item">Song, Jae Jung (2018). <span class="venue">Linguistic Typology</span>. Oxford: Oxford University Press.</li>
+        <li class="reading-item">Shopen, T. (ed.) (1985). <span class="venue">Language Typology and Syntactic Description</span>. Cambridge University Press.</li>
+        <li class="reading-item">Dryer, Matthew S. &amp; Haspelmath, Martin (eds.) (2013). <span class="venue">The World Atlas of Language Structures Online</span>. Leipzig: Max Planck Institute for Evolutionary Anthropology. <a href="https://wals.info" target="_blank" rel="noopener">wals.info</a></li>
+        <li class="reading-item">马嘉思、金大卫（2023）.《世界语言类型学》. 上海：复旦大学出版社.</li>
+        <li class="reading-item">Kroeger, Paul R. 著，丁健等译（2025）.《语法分析导论》. 上海：上海教育出版社.</li>
+      </ul>
+    </div>
+
+    <div class="subgroup">
+      <div class="subgroup-title">配套个案研究（供课堂讨论使用）</div>
+      <ul class="reading-list">
+        <li class="reading-item">Yu, Li. Sortal classifiers and noun categorization in Zauzou. <span class="venue">Language and Linguistics</span> 25(2), 270–317.</li>
+        <li class="reading-item">李昱. 类型学视野下柔若语趋向范畴及位移事件表达.《民族语文》第6期，70–80页.</li>
+      </ul>
+    </div>
+
+
+  </div>
+</section>
+
+<section class="section" id="transcription">
+  <div class="wrap">
+    <div class="kicker">课堂实践</div>
+    <h2 class="sec-title">转写练习</h2>
+    <div class="prose">
+      <p>转写练习对应大纲第 3–8 周（语序类型学、语法性、格与论元配置）的课堂环节。学生将接触到真实录音材料，练习使用国际音标（IPA）进行语音转写，并逐步过渡到带有语素间线标注（interlinear glossing）的规范转写格式。</p>
+    </div>
+
+    <div class="lang-select-row">
+      <label class="lang-select-label" for="twLangSelect">选择语言：</label>
+      <select class="lang-select" id="twLangSelect">
+        <option value="xianfeng">湖北咸丰方言</option>
+        <option value="baiyu">白语（剑川方言）</option>
+        <option value="lisu">傈僳语（怒江方言）</option>
+        <option value="russian">俄语</option>
+        <option value="vietnamese">越南语</option>
+        <option value="thai">泰语（标准）</option>
+        <option value="uyghur">维吾尔语</option>
+      </select>
+    </div>
+    <div class="exercise-grid">
+      <div class="exercise-card">
+        <div class="exercise-title">练习一：基础语音转写</div>
+        <div class="exercise-desc">听辨简短录音片段，完成宽式 IPA 转写，标注音节边界与声调。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">IPA 转写</span>
+          <span class="exercise-tag">课堂练习</span>
+        </div>
+
+        <div class="tw" id="tw1">
+          <div class="tw-search">
+            <label class="tw-search-label" for="twSearchInput">🔍 搜索单词录音（当前所选语言）</label>
+            <input type="text" id="twSearchInput" class="tw-input" placeholder="输入词条或题号搜索，如：太阳 / fingers / 45" autocomplete="off">
+            <div class="tw-search-results" id="twSearchResults" hidden></div>
+            <audio id="twSearchAudio" preload="none"></audio>
+          </div>
+          <div class="tw-header">
+            <span class="tw-progress">第 <span id="tw1Index">1</span> / <span id="tw1Total">5</span> 题 · 词条：<span id="tw1Word">—</span></span>
+            <button class="tw-btn tw-play" id="tw1PlayBtn" type="button">▶ 播放录音</button>
+          </div>
+          <div class="tw-speaker" id="tw1Speaker" hidden></div>
+          <audio id="tw1Audio" preload="none"></audio>
+          <div class="tw-input-row">
+            <input type="text" id="tw1Input" class="tw-input" placeholder="请输入你听到的 IPA 转写，如 [pʰa˥˧]" autocomplete="off">
+            <button class="tw-btn" id="tw1CheckBtn" type="button">检查</button>
+          </div>
+          <div class="tw-feedback info" id="tw1Feedback">点击"播放录音"开始听音，输入你的转写后点击"检查"。</div>
+          <div class="tw-nav">
+            <button class="tw-btn" id="tw1PrevBtn" type="button">上一题</button>
+            <button class="tw-btn" id="tw1NextBtn" type="button">下一题</button>
+            <button class="tw-btn" id="tw1ShowBtn" type="button">显示答案</button>
+          </div>
+          <div class="tw-refs" id="tw1Refs" hidden></div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习二：句子转写</div>
+        <div class="exercise-desc">在完成基础语音转写的基础上，练习整句层面的转写，标注语调边界、重音与语流音变现象。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">句子转写</span>
+          <span class="exercise-tag">语调标注</span>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习三：田野录音转写作业</div>
+        <div class="exercise-desc">结合课程提供的濒危语言田野录音，独立完成一段对话的完整转写与初步分析。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">课后作业</span>
+          <span class="exercise-tag">田野语料</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="morphosyntax">
+  <div class="wrap">
+    <div class="kicker">课堂实践</div>
+    <h2 class="sec-title">形态句法分析练习</h2>
+    <div class="prose">
+      <p>形态句法分析练习对应大纲第 9–14 周（人称范畴、数范畴、时体范畴、情态与示证）的课堂环节。在完成转写训练的基础上，学生将学习如何从具体语言材料中提炼形态句法参项，并运用类型学框架对不同语言进行系统比较。</p>
+    </div>
+    <div class="exercise-grid">
+      <div class="exercise-card">
+        <div class="exercise-title">练习一：语序判断</div>
+        <div class="exercise-desc">根据给定语言的带 gloss 例句，判断其基本语序类型（SOV/SVO/VSO 等），并结合语言抽样方法讨论其类型学分布。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">语序类型</span>
+          <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect1">题目：</label>
+          <select class="topic-select" id="topicSelect1" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="lisu-word-order.html">傈僳语语序</option>
+            <option value="japanese-word-order.html">日语语序</option>
+            <option value="jingpo-word-order.html">景颇语的语序类型</option>
+          </select>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习二：名词范畴化分析</div>
+        <div class="exercise-desc">分析给定语言的类别词/量词系统，归纳其语义参项与分类原则。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">类别词</span>
+          <span class="exercise-tag">名词范畴化</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect2">题目：</label>
+          <select class="topic-select" id="topicSelect2" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="uyghur-classifier.html">维吾尔语量词</option>
+            <option value="spanish-gender.html">西班牙语的性范畴</option>
+          </select>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习三：格标记模式识别</div>
+        <div class="exercise-desc">给定一组带 gloss 的例句，判断该语言的格标记系统属于宾格型还是作格型。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">格标记</span>
+          <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect3">题目：</label>
+          <select class="topic-select" id="topicSelect3" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="japanese-case.html">日语的格配置模式</option>
+            <option value="spanish-case.html">西班牙语格标记</option>
+          </select>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习四：人称范畴的标记模式分析</div>
+        <div class="exercise-desc">分析给定语言例句中人称范畴的编码方式，判断其人称层级与标记模式。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">人称范畴</span>
+          <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect4">题目：</label>
+          <select class="topic-select" id="topicSelect4">
+            <option value="">待添加</option>
+          </select>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习五：数范畴的标记模式分析</div>
+        <div class="exercise-desc">分析给定语言中单数、复数、双数等数范畴的标记方式及其形态句法特点。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">数范畴</span>
+          <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect5">题目：</label>
+          <select class="topic-select" id="topicSelect5" onchange="if(this.value) window.location.href=this.value;">
+            <option value="" selected disabled>请选择</option>
+            <option value="basque-number.html">巴斯克语的数范畴</option>
+            <option value="spanish-number.html">西班牙语的数范畴</option>
+          </select>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-title">练习六：时体范畴分析</div>
+        <div class="exercise-desc">结合具体语言例句，分析时范畴（绝对时/相对时）与体范畴（词汇体、相位体、视角体）的跨语言编码方式。</div>
+        <div class="exercise-tags">
+          <span class="exercise-tag">时体范畴</span>
+          <span class="exercise-tag">案例分析</span>
+        </div>
+        <div class="topic-select-row">
+          <label class="topic-select-label" for="topicSelect6">题目：</label>
+          <select class="topic-select" id="topicSelect6">
+            <option value="">待添加</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html">← 返回李昱个人主页</a> · 武汉大学文学院 · © 2026
+</footer>
+<script>
+/* ============================================================
+   练习一：听音转写小程序
+   —— 使用说明（供老师/助教修改）——
+   1. answer 字段现已扩展为"词汇_3_.xls"表格前100个词条
+      （E列"词1音"），均属于湖北咸丰方言。原表中"台风""湖"
+      两条E列为空，已跳过，改用第101、102条（清明、端午）补齐100条。
+      ⚠️ 目前只有前10条（太阳～淋）配有真实录音文件，
+      其余90条 audio 字段是按"编号+词条名.wav"的规则占位，
+      对应的 .wav 文件还没有上传，播放会提示"未找到音频文件"，
+      待录音到位后放入 audio/ 文件夹即可自动生效。
+   2. answer 字段目前是原表格E列的原始字符，
+      ⚠️ 该表使用自定义音标字体 IPAPANNEW 编码，
+      这些原始字符（如 Ǿ、ŋ 等组合）在没有安装该字体的浏览器中
+      不会显示为正确的国际音标符号。替换为标准 Unicode IPA 后
+      再更新 answer 字段即可。
+   3. 新增语言：在下面 languageData 里新增一个键值对，
+      key 为语言代码（自定），value 为 { name: 显示名称, items: [...] }；
+      然后在 HTML 里 <select id="twLangSelect"> 里加一行
+      <option value="对应key">显示名称</option> 即可，会自动出现在下拉菜单中。
+   4. 搜索功能：练习一上方的搜索框会在当前所选语言的词表中，按
+      word 字段（不区分大小写，越南语等带附加符号的字母可用不带符号
+      的拼写检索）或题号查找词条；结果中可直接播放该词录音，或点击
+      "转到此题"跳到对应题目。新增语言无需额外设置，自动支持搜索。
+   5. 越南语（vietnamese）：词表来自 Vietnamese.xlsx，录音放在
+      audio/vietnamese/ 下，格式与其他语言相同；如需增删，在下面
+      languageData 的 vietnamese 里改 { word, audio, answer } 即可。
+      词表为空时页面会提示"尚未上传"，不会报错。
+      泰语（thai）：词表 101 条来自 泰语（中部方言标准泰语）.xlsx，录音放在 audio/thai/ 下，文件名为两位补零的序号 + .m4a（如 01.m4a、101.m4a）。
+      维吾尔语（uyghur）：词表 190 条来自 维吾尔语.xlsx，录音放在 audio/uyghur/ 下，文件名为序号+汉语词条（如 01钱.m4a、190锋利.m4a）。
+   6. 发音人：在 languageData 各语言下加 speaker: '姓名（身份）'，
+      练习一会在题目下方显示"发音人：……"；没有 speaker 的语言不显示。
+   7. 参考文献：在 languageData 各语言下加 references: [ { text: '完整文献',
+      url: 'DOI 链接（可选）' } ]，练习一底部会显示；没有的语言不显示。
+   ============================================================ */
+(function(){
+  var languageData = {
+    xianfeng: {
+      name: '湖北咸丰方言',
+      speaker: '冯正佩（退休干部）',
+      items: [
+      { word: '太阳', audio: 'audio/0001太阳.wav', answer: '[thai24Ǿiaŋ22]' },
+      { word: '月亮', audio: 'audio/0002月亮.wav', answer: '[Ǿyɛ22niaŋ24]' },
+      { word: '星星', audio: 'audio/0003星星.wav', answer: '[ɕin55ɕiəu213]' },
+      { word: '云', audio: 'audio/0004云.wav', answer: '[Ǿyən22]' },
+      { word: '风', audio: 'audio/0005风.wav', answer: '[foŋ55]' },
+      { word: '闪电', audio: 'audio/0007闪电.wav', answer: '[xo22san42]' },
+      { word: '雷', audio: 'audio/0008雷.wav', answer: '[nuei22]' },
+      { word: '雨', audio: 'audio/0009雨.wav', answer: '[Ǿy42]' },
+      { word: '下雨', audio: 'audio/0010下雨.wav', answer: '[ɕia24Ǿy42]' },
+      { word: '淋', audio: 'audio/0011淋.wav', answer: '[nin22]' },
+      { word: '晒', audio: 'audio/0012晒.wav', answer: '[sai213]' },
+      { word: '雪', audio: 'audio/0013雪.wav', answer: '[ɕyɛ22]' },
+      { word: '冰', audio: 'audio/0014冰.wav', answer: '[pin55]' },
+      { word: '冰雹', audio: 'audio/0015冰雹.wav', answer: '[ɕyɛ22tsɿ0]' },
+      { word: '霜', audio: 'audio/0016霜.wav', answer: '[suaŋ55]' },
+      { word: '雾', audio: 'audio/0017雾.wav', answer: '[Ǿu24tsau213]' },
+      { word: '露', audio: 'audio/0018露.wav', answer: '[nəu213]' },
+      { word: '虹', audio: 'audio/0019虹.wav', answer: '[kaŋ213]' },
+      { word: '日食', audio: 'audio/0020日食.wav', answer: '[zɿ22sɿ22]' },
+      { word: '月食', audio: 'audio/0021月食.wav', answer: '[Ǿyɛ22sɿ22]' },
+      { word: '天气', audio: 'audio/0022天气.wav', answer: '[thiɛn55sɛ22]' },
+      { word: '晴', audio: 'audio/0023晴.wav', answer: '[tɕhin22]' },
+      { word: '阴', audio: 'audio/0024阴.wav', answer: '[Ǿin55]' },
+      { word: '旱', audio: 'audio/0025旱.wav', answer: '[kan55]' },
+      { word: '涝', audio: 'audio/0026涝.wav', answer: '[xan55]' },
+      { word: '天亮', audio: 'audio/0027天亮.wav', answer: '[thiɛn55niaŋ213]' },
+      { word: '水田', audio: 'audio/0028水田.wav', answer: '[suei33thiɛn22]' },
+      { word: '旱地', audio: 'audio/0029旱地.wav', answer: '[thu42]' },
+      { word: '田埂', audio: 'audio/0030田埂.wav', answer: '[thiɛn22khan42]' },
+      { word: '路', audio: 'audio/0031路.wav', answer: '[nəu213]' },
+      { word: '山', audio: 'audio/0032山.wav', answer: '[san55]' },
+      { word: '山谷', audio: 'audio/0033山谷.wav', answer: '[san55kəu55kəu55]' },
+      { word: '江', audio: 'audio/0034江.wav', answer: '[tɕiaŋ55]' },
+      { word: '溪', audio: 'audio/0035溪.wav', answer: '[kəu55kɚ55]' },
+      { word: '水沟儿', audio: 'audio/0036水沟儿.wav', answer: '[suei33kəu55kɚ55]' },
+      { word: '池塘', audio: 'audio/0038池塘.wav', answer: '[Ǿiɛn24thaŋ22]' },
+      { word: '水坑儿', audio: 'audio/0039水坑儿.wav', answer: '[suei33taŋ213tɚ55]' },
+      { word: '洪水', audio: 'audio/0040洪水.wav', answer: '[ta24suei42]' },
+      { word: '淹', audio: 'audio/0041淹.wav', answer: '[ŋan55]' },
+      { word: '河岸', audio: 'audio/0042河岸.wav', answer: '[xo22khan42]' },
+      { word: '坝', audio: 'audio/0043坝.wav', answer: '[pa213]' },
+      { word: '地震', audio: 'audio/0044地震.wav', answer: '[ti24tsən42]' },
+      { word: '窟窿', audio: 'audio/0045窟窿.wav', answer: '[Ǿiɛn33Ǿiɚ0]' },
+      { word: '缝儿', audio: 'audio/0046缝儿.wav', answer: '[foŋ213fɚ55]' },
+      { word: '石头', audio: 'audio/0047石头.wav', answer: '[ŋai22thəu0]' },
+      { word: '土', audio: 'audio/0048土.wav', answer: '[thu42]' },
+      { word: '泥', audio: 'audio/0049泥.wav', answer: '[ni22pa55]' },
+      { word: '水泥', audio: 'audio/0050水泥.wav', answer: '[Ǿiaŋ22sɿ22xuei55]' },
+      { word: '沙子', audio: 'audio/0051沙子.wav', answer: '[ŋai22sa55sa55]' },
+      { word: '砖', audio: 'audio/0052砖.wav', answer: '[suei33tsuan55]' },
+      { word: '瓦', audio: 'audio/0053瓦.wav', answer: '[Ǿua33phiɚ213]' },
+      { word: '煤', audio: 'audio/0054煤.wav', answer: '[mei22]' },
+      { word: '煤油', audio: 'audio/0055煤油.wav', answer: '[Ǿiaŋ22Ǿiau22]' },
+      { word: '炭', audio: 'audio/0056炭.wav', answer: '[kaŋ55than213]' },
+      { word: '灰', audio: 'audio/0057灰.wav', answer: '[xuei45xuei55]' },
+      { word: '灰尘', audio: 'audio/0058灰尘.wav', answer: '[xuei45xuei55]' },
+      { word: '火', audio: 'audio/0059火.wav', answer: '[xo42]' },
+      { word: '烟', audio: 'audio/0060烟.wav', answer: '[Ǿiɛn55tsɿ0]' },
+      { word: '失火', audio: 'audio/0061失火.wav', answer: '[tsau22xo42]' },
+      { word: '水', audio: 'audio/0062水.wav', answer: '[suei42]' },
+      { word: '凉水', audio: 'audio/0063凉水.wav', answer: '[nən22suei42]' },
+      { word: '热水', audio: 'audio/0064热水.wav', answer: '[nai24suei42]' },
+      { word: '开水', audio: 'audio/0065开水.wav', answer: '[khai55suei42]' },
+      { word: '磁铁', audio: 'audio/0066磁铁.wav', answer: '[tɕi22thiɛ42]' },
+      { word: '时候', audio: 'audio/0067时候.wav', answer: '[sɿ22xɚ24]' },
+      { word: '什么时候', audio: 'audio/0068什么时候.wav', answer: '[mo55tsɿ0sɿ22kɚ55]' },
+      { word: '现在', audio: 'audio/0069现在.wav', answer: '[ɕiɛn24sɿ22]' },
+      { word: '以前', audio: 'audio/0070以前.wav', answer: '[Ǿuaŋ33piɛn55]' },
+      { word: '以后', audio: 'audio/0071以后.wav', answer: '[Ǿɚ24piɛn213]' },
+      { word: '一辈子', audio: 'audio/0072一辈子.wav', answer: '[Ǿi22pei24tsɿ0 ]' },
+      { word: '今年', audio: 'audio/0073今年.wav', answer: '[tɕin55niɛn22]' },
+      { word: '明年', audio: 'audio/0074明年.wav', answer: '[min22niɛn22]' },
+      { word: '后年', audio: 'audio/0075后年.wav', answer: '[xəu24niɛn22]' },
+      { word: '去年', audio: 'audio/0076去年.wav', answer: '[tɕhy24niɛn22]' },
+      { word: '前年', audio: 'audio/0077前年.wav', answer: '[tɕhiɛn22niɛn22]' },
+      { word: '往年', audio: 'audio/0078往年.wav', answer: '[Ǿuaŋ33niɛn22tsɿ0]' },
+      { word: '年初', audio: 'audio/0079年初.wav', answer: '[niɛn22thəu0]' },
+      { word: '年底', audio: 'audio/0080年底.wav', answer: '[niɛn212Ǿuei42]' },
+      { word: '今天', audio: 'audio/0081今天.wav', answer: '[tɕin55thiɛn55]' },
+      { word: '明天', audio: 'audio/0082明天.wav', answer: '[mən22thiɛn55]' },
+      { word: '后天', audio: 'audio/0083后天.wav', answer: '[xəu213thiɛn55]' },
+      { word: '大后天', audio: 'audio/0084大后天.wav', answer: '[Ǿuai24xəu213thiɛn55]' },
+      { word: '昨天', audio: 'audio/0085昨天.wav', answer: '[tshuɚ22thiɛn55]' },
+      { word: '前天', audio: 'audio/0086前天.wav', answer: '[tɕhiɛn22thiɛn55]' },
+      { word: '大前天', audio: 'audio/0087大前天.wav', answer: '[saŋ24tɕhiɛn22thiɛn55]' },
+      { word: '整天', audio: 'audio/0088整天.wav', answer: '[kən55thiɛn55]' },
+      { word: '每天', audio: 'audio/0089每天.wav', answer: '[thiɛn45thiɛn55]' },
+      { word: '早晨', audio: 'audio/0090早晨.wav', answer: '[tsau33sən22]' },
+      { word: '上午', audio: 'audio/0091上午.wav', answer: '[saŋ24pan24thiɛn55]' },
+      { word: '中午', audio: 'audio/0092中午.wav', answer: '[tsoŋ55kən55sɿ22xɚ24]' },
+      { word: '下午', audio: 'audio/0093下午.wav', answer: '[ɕia24pan213thiɛn55]' },
+      { word: '傍晚', audio: 'audio/0094傍晚.wav', answer: '[tsha22xei22]' },
+      { word: '白天', audio: 'audio/0095白天.wav', answer: '[pɛ22thiɛn55tɕia55]' },
+      { word: '夜晚', audio: 'audio/0096夜晚.wav', answer: '[Ǿiɛ213ɕi55tɕia55]' },
+      { word: '半夜', audio: 'audio/0097半夜.wav', answer: '[pan24Ǿiɛ213tsən213]' },
+      { word: '正月', audio: 'audio/0098正月.wav', answer: '[tsən55Ǿyɛ22tɕiɛn55]' },
+      { word: '大年初一', audio: 'audio/0099大年初一.wav', answer: '[tshu55Ǿi22]' },
+      { word: '元宵节', audio: 'audio/0100元宵节.wav', answer: '[tsən55Ǿyɛ22sɿ22Ǿu42]' },
+      { word: '清明', audio: 'audio/0101清明.wav', answer: '[tɕhin55min22]' },
+      { word: '端午', audio: 'audio/0102端午.wav', answer: '[tuan55Ǿiaŋ22]' }
+      ]
+    },
+    /* 白语、傈僳语词表来源：李慧珍田野调查转写数据（各 100 条，
+       word=汉语词条，answer=IPA 转写，音标含调值数字，与原始表格
+       一致，未做改动）。audio 字段路径规则：audio/<语言代码>/<四位
+       编号><词条>.m4a，与录音文件放入 audio/baiyu/、audio/lisu/
+       文件夹后对应的文件名一致（编号+词条+扩展名，需为 .m4a）。 */
+    baiyu: {
+      name: '白语（剑川方言）',
+      speaker: '李慧珍（云南省兰坪县兔峨乡果力村村民）',
+      items: [
+      { word: '我', audio: 'audio/baiyu/0001我.m4a', answer: '[ŋɔ⁴²]' },
+      { word: '你', audio: 'audio/baiyu/0002你.m4a', answer: '[nɔ⁴²]' },
+      { word: '我们', audio: 'audio/baiyu/0003我们.m4a', answer: '[ȵia⁵⁵]' },
+      { word: '这', audio: 'audio/baiyu/0004这.m4a', answer: '[a⁴⁴ta³³]' },
+      { word: '那', audio: 'audio/baiyu/0005那.m4a', answer: '[tə⁵⁵ŋua³³]' },
+      { word: '谁', audio: 'audio/baiyu/0006谁.m4a', answer: '[a⁵⁵ma³³ni³³]' },
+      { word: '什么', audio: 'audio/baiyu/0007什么.m4a', answer: '[a⁵⁵sɤ³³]' },
+      { word: '不', audio: 'audio/baiyu/0008不.m4a', answer: '[a³¹piɔ³³]' },
+      { word: '所有', audio: 'audio/baiyu/0009所有.m4a', answer: '[ta³⁵kɯ³¹kɯ³¹]' },
+      { word: '许多', audio: 'audio/baiyu/0010许多.m4a', answer: '[a³¹kɯ³³kɯ³³]' },
+      { word: '一', audio: 'audio/baiyu/0011一.m4a', answer: '[a³¹ȵi³³]' },
+      { word: '二', audio: 'audio/baiyu/0012二.m4a', answer: '[ku⁴⁴ȵi³³]' },
+      { word: '大', audio: 'audio/baiyu/0013大.m4a', answer: '[dɔ⁴²]' },
+      { word: '长', audio: 'audio/baiyu/0014长.m4a', answer: '[tso²¹]' },
+      { word: '小', audio: 'audio/baiyu/0015小.m4a', answer: '[se²¹]' },
+      { word: '女', audio: 'audio/baiyu/0016女.m4a', answer: '[nio⁴⁴tsɿ⁴⁴]' },
+      { word: '男', audio: 'audio/baiyu/0017男.m4a', answer: '[tsɿ⁴⁴ni³¹]' },
+      { word: '人', audio: 'audio/baiyu/0018人.m4a', answer: '[ni³¹kæ³⁵]' },
+      { word: '鱼', audio: 'audio/baiyu/0019鱼.m4a', answer: '[ŋɯ³⁵]' },
+      { word: '鸟', audio: 'audio/baiyu/0020鸟.m4a', answer: '[tsɔ⁴⁴tsɿ⁴⁴]' },
+      { word: '狗', audio: 'audio/baiyu/0021狗.m4a', answer: '[kʰua⁴⁴]' },
+      { word: '虱', audio: 'audio/baiyu/0022虱.m4a', answer: '[ɕɛ⁴⁴tsɿ⁴⁴]' },
+      { word: '树', audio: 'audio/baiyu/0023树.m4a', answer: '[tsɤ²¹]' },
+      { word: '种子', audio: 'audio/baiyu/0024种子.m4a', answer: '[pə⁴⁴tsu³³]' },
+      { word: '树叶', audio: 'audio/baiyu/0025树叶.m4a', answer: '[tsɤ²¹se⁴⁴]' },
+      { word: '根', audio: 'audio/baiyu/0026根.m4a', answer: '[pə⁴⁴kua³³]' },
+      { word: '树皮', audio: 'audio/baiyu/0027树皮.m4a', answer: '[tsɤ²¹pe²¹]' },
+      { word: '皮肤', audio: 'audio/baiyu/0028皮肤.m4a', answer: '[kæ²¹pe³¹]' },
+      { word: '肉', audio: 'audio/baiyu/0029肉.m4a', answer: '[kæ⁴²]' },
+      { word: '血', audio: 'audio/baiyu/0030血.m4a', answer: '[sua³³]' },
+      { word: '骨', audio: 'audio/baiyu/0031骨.m4a', answer: '[kua³³tse⁴⁴]' },
+      { word: '脂肪', audio: 'audio/baiyu/0032脂肪.m4a', answer: '[fa³³kæ²¹]' },
+      { word: '蛋', audio: 'audio/baiyu/0033蛋.m4a', answer: '[pə⁵⁵se⁴²]' },
+      { word: '角', audio: 'audio/baiyu/0034角.m4a', answer: '[kɔ⁴⁴]' },
+      { word: '尾', audio: 'audio/baiyu/0035尾.m4a', answer: '[ŋue³¹tu³⁵]' },
+      { word: '羽毛', audio: 'audio/baiyu/0036羽毛.m4a', answer: '[ke⁴⁴mɑ²¹]' },
+      { word: '头发', audio: 'audio/baiyu/0037头发.m4a', answer: '[tɯ²¹mɑ³⁵]' },
+      { word: '头', audio: 'audio/baiyu/0038头.m4a', answer: '[tɯ²¹pə²¹kʰɔ³³]' },
+      { word: '耳朵', audio: 'audio/baiyu/0039耳朵.m4a', answer: '[mi³³pi³¹pʰɤ⁴⁴]' },
+      { word: '眼睛', audio: 'audio/baiyu/0040眼睛.m4a', answer: '[ŋue²¹su³⁵]' },
+      { word: '鼻子', audio: 'audio/baiyu/0041鼻子.m4a', answer: '[pi²¹kʰu³³tiə²¹]' },
+      { word: '口', audio: 'audio/baiyu/0042口.m4a', answer: '[tso²¹kuɛ⁴⁴kʰɔ³³]' },
+      { word: '牙齿', audio: 'audio/baiyu/0043牙齿.m4a', answer: '[tsue⁴⁴pa⁴⁴]' },
+      { word: '舌头', audio: 'audio/baiyu/0044舌头.m4a', answer: '[la⁴⁴pʰi⁴²]' },
+      { word: '爪子', audio: 'audio/baiyu/0045爪子.m4a', answer: '[tsua⁵⁵tsɿ³¹]' },
+      { word: '脚', audio: 'audio/baiyu/0046脚.m4a', answer: '[kɔ³³pʰɔ³³]' },
+      { word: '膝盖', audio: 'audio/baiyu/0047膝盖.m4a', answer: '[ku⁴⁴tse⁴⁴se⁴⁴]' },
+      { word: '手', audio: 'audio/baiyu/0048手.m4a', answer: '[sɔ⁴⁴pʰɔ⁴⁴]' },
+      { word: '腹部', audio: 'audio/baiyu/0049腹部.m4a', answer: '[fɯ³³kʰɔ³³]' },
+      { word: '脖子', audio: 'audio/baiyu/0050脖子.m4a', answer: '[po³⁵tsɿ³¹ȵi³¹]' },
+      { word: '胸部', audio: 'audio/baiyu/0051胸部.m4a', answer: '[ɕi⁴⁴ti³¹kʰɔ³⁵]' },
+      { word: '心', audio: 'audio/baiyu/0052心.m4a', answer: '[ɕi³⁵kʰɔ³³]' },
+      { word: '肝', audio: 'audio/baiyu/0053肝.m4a', answer: '[pə⁴⁴kɔ⁴⁴ni³¹]' },
+      { word: '喝', audio: 'audio/baiyu/0054喝.m4a', answer: '[ɣɤ⁴⁴]' },
+      { word: '吃', audio: 'audio/baiyu/0055吃.m4a', answer: '[jɤ⁴⁴]' },
+      { word: '咬', audio: 'audio/baiyu/0056咬.m4a', answer: '[ŋɑ⁴⁴]' },
+      { word: '看', audio: 'audio/baiyu/0057看.m4a', answer: '[ʔa⁴⁴]' },
+      { word: '听', audio: 'audio/baiyu/0058听.m4a', answer: '[tɕʰɛ³⁵]' },
+      { word: '知道', audio: 'audio/baiyu/0059知道.m4a', answer: '[sue⁴⁴lɤ⁴⁴]' },
+      { word: '睡觉', audio: 'audio/baiyu/0060睡觉.m4a', answer: '[tɕʰɛ⁴⁴]' },
+      { word: '死', audio: 'audio/baiyu/0061死.m4a', answer: '[ɕi⁴⁴]' },
+      { word: '杀', audio: 'audio/baiyu/0062杀.m4a', answer: '[ɕa³³]' },
+      { word: '游泳', audio: 'audio/baiyu/0063游泳.m4a', answer: '[pə²¹ʔa⁴⁴tsɿ⁴⁴]' },
+      { word: '飞', audio: 'audio/baiyu/0064飞.m4a', answer: '[fɛ⁵⁵]' },
+      { word: '走', audio: 'audio/baiyu/0065走.m4a', answer: '[pe̠⁵⁵]' },
+      { word: '来', audio: 'audio/baiyu/0066来.m4a', answer: '[ŋɛ²¹jə³³]' },
+      { word: '躺', audio: 'audio/baiyu/0067躺.m4a', answer: '[kʰɔ³³kʰɤ³³]' },
+      { word: '坐', audio: 'audio/baiyu/0068坐.m4a', answer: '[kɯ⁴²]' },
+      { word: '站立', audio: 'audio/baiyu/0069站立.m4a', answer: '[tsɤ³¹kʰɤ³³]' },
+      { word: '给', audio: 'audio/baiyu/0070给.m4a', answer: '[zɤ⁴²]' },
+      { word: '说', audio: 'audio/baiyu/0071说.m4a', answer: '[sua³³]' },
+      { word: '太阳', audio: 'audio/baiyu/0072太阳.m4a', answer: '[xe⁵⁵pʰi³¹]' },
+      { word: '月亮', audio: 'audio/baiyu/0073月亮.m4a', answer: '[ji̠⁵⁵ɣua³³pʰi³¹]' },
+      { word: '星星', audio: 'audio/baiyu/0074星星.m4a', answer: '[xe⁵⁵tsɿ³³]' },
+      { word: '水', audio: 'audio/baiyu/0075水.m4a', answer: '[ɕy³³]' },
+      { word: '雨', audio: 'audio/baiyu/0076雨.m4a', answer: '[ʔu³³ɕy³³]' },
+      { word: '石头', audio: 'audio/baiyu/0077石头.m4a', answer: '[tso²¹kʰue³⁵kʰɔ³³]' },
+      { word: '沙', audio: 'audio/baiyu/0078沙.m4a', answer: '[su⁵⁵tsɿ³³]' },
+      { word: '土壤', audio: 'audio/baiyu/0079土壤.m4a', answer: '[tʰu³³ɕi³³]' },
+      { word: '云', audio: 'audio/baiyu/0080云.m4a', answer: '[ʔuɛ⁴²lu⁴²]' },
+      { word: '烟', audio: 'audio/baiyu/0081烟.m4a', answer: '[jɛ³³]' },
+      { word: '火', audio: 'audio/baiyu/0082火.m4a', answer: '[xue³³ni⁴²]' },
+      { word: '烟灰', audio: 'audio/baiyu/0083烟灰.m4a', answer: '[jɛ³³xue³³]' },
+      { word: '烧', audio: 'audio/baiyu/0084烧.m4a', answer: '[xu³⁵]' },
+      { word: '小路', audio: 'audio/baiyu/0085小路.m4a', answer: '[se²¹tu³³]' },
+      { word: '山脉', audio: 'audio/baiyu/0086山脉.m4a', answer: '[ŋɛ⁴⁴tsʰɿ⁴⁴]' },
+      { word: '红色', audio: 'audio/baiyu/0087红色.m4a', answer: '[tsʰɛ²¹ɕy⁴⁴ɕy⁴⁴]' },
+      { word: '绿色', audio: 'audio/baiyu/0088绿色.m4a', answer: '[tɕʰɛ²¹tɕi³³tɕi³³]' },
+      { word: '黄色', audio: 'audio/baiyu/0089黄色.m4a', answer: '[ŋu³¹nɔ³³]' },
+      { word: '白色', audio: 'audio/baiyu/0090白色.m4a', answer: '[pɛ̠⁴²nɔ³³]' },
+      { word: '黑色', audio: 'audio/baiyu/0091黑色.m4a', answer: '[xə⁴⁴tɕʰy⁴⁴tɕʰy⁴⁴]' },
+      { word: '夜', audio: 'audio/baiyu/0092夜.m4a', answer: '[xe⁴⁴miɛ³¹]' },
+      { word: '热', audio: 'audio/baiyu/0093热.m4a', answer: '[tɕʰye⁴⁴]' },
+      { word: '冷', audio: 'audio/baiyu/0094冷.m4a', answer: '[kɤ³⁵]' },
+      { word: '满', audio: 'audio/baiyu/0095满.m4a', answer: '[mɑ³³]' },
+      { word: '新', audio: 'audio/baiyu/0096新.m4a', answer: '[ɕi⁴⁴]' },
+      { word: '好', audio: 'audio/baiyu/0097好.m4a', answer: '[tɕʰo³⁵lɤ²¹]' },
+      { word: '圆', audio: 'audio/baiyu/0098圆.m4a', answer: '[ŋue²¹lo³³lo³³]' },
+      { word: '干燥', audio: 'audio/baiyu/0099干燥.m4a', answer: '[kʰɔ²¹ka³³]' },
+      { word: '名', audio: 'audio/baiyu/0100名.m4a', answer: '[mi⁵⁵tɕʰɛ⁵⁵]' }
+      ]
+    },
+    lisu: {
+      name: '傈僳语（怒江方言）',
+      speaker: '李慧珍（云南省兰坪县兔峨乡果力村村民）',
+      items: [
+      { word: '我', audio: 'audio/lisu/0001我.m4a', answer: '[ti³¹ma⁵⁵]' },
+      { word: '你', audio: 'audio/lisu/0002你.m4a', answer: '[nu⁴⁴]' },
+      { word: '我们', audio: 'audio/lisu/0003我们.m4a', answer: '[ŋɑ³³nu³¹]' },
+      { word: '这', audio: 'audio/lisu/0004这.m4a', answer: '[tʰi⁴⁴ka⁴⁴]' },
+      { word: '那', audio: 'audio/lisu/0005那.m4a', answer: '[kua⁵⁵]' },
+      { word: '谁', audio: 'audio/lisu/0006谁.m4a', answer: '[a³¹ma³³]' },
+      { word: '什么', audio: 'audio/lisu/0007什么.m4a', answer: '[a³³ɕi³¹]' },
+      { word: '不', audio: 'audio/lisu/0008不.m4a', answer: '[mə³¹ŋa³³]' },
+      { word: '所有', audio: 'audio/lisu/0009所有.m4a', answer: '[a³¹tɕi⁴²]' },
+      { word: '许多', audio: 'audio/lisu/0010许多.m4a', answer: '[a³¹miɛ³⁵]' },
+      { word: '一', audio: 'audio/lisu/0011一.m4a', answer: '[tʰi⁴²]' },
+      { word: '二', audio: 'audio/lisu/0012二.m4a', answer: '[ni⁴²]' },
+      { word: '大', audio: 'audio/lisu/0013大.m4a', answer: '[vɯ³¹]' },
+      { word: '长', audio: 'audio/lisu/0014长.m4a', answer: '[ɕi³³]' },
+      { word: '小', audio: 'audio/lisu/0015小.m4a', answer: '[jɔ³³]' },
+      { word: '女', audio: 'audio/lisu/0016女.m4a', answer: '[za³¹mə̃⁴²]' },
+      { word: '男', audio: 'audio/lisu/0017男.m4a', answer: '[za³¹pa⁵⁵]' },
+      { word: '人', audio: 'audio/lisu/0018人.m4a', answer: '[tsʰo³³za³¹]' },
+      { word: '鱼', audio: 'audio/lisu/0019鱼.m4a', answer: '[ⁿŋua̠⁵⁵]' },
+      { word: '鸟', audio: 'audio/lisu/0020鸟.m4a', answer: '[niɛ³⁵]' },
+      { word: '狗', audio: 'audio/lisu/0021狗.m4a', answer: '[a⁵⁵na³³]' },
+      { word: '虱', audio: 'audio/lisu/0022虱.m4a', answer: '[kʰə³¹xɤ³³]' },
+      { word: '树', audio: 'audio/lisu/0023树.m4a', answer: '[sɿ³⁵tsɿ³³]' },
+      { word: '种子', audio: 'audio/lisu/0024种子.m4a', answer: '[tsa³¹ɕi⁵⁵]' },
+      { word: '树叶', audio: 'audio/lisu/0025树叶.m4a', answer: '[sɿ³⁵pʰiɛ³¹]' },
+      { word: '根', audio: 'audio/lisu/0026根.m4a', answer: '[sɿ³⁵tsu³¹]' },
+      { word: '树皮', audio: 'audio/lisu/0027树皮.m4a', answer: '[sɿ³⁵ku³⁵tɕi³³]' },
+      { word: '皮肤', audio: 'audio/lisu/0028皮肤.m4a', answer: '[pʰiɛ³¹me̠³³]' },
+      { word: '肉', audio: 'audio/lisu/0029肉.m4a', answer: '[xua⁴²]' },
+      { word: '血', audio: 'audio/lisu/0030血.m4a', answer: '[sɿ⁴²]' },
+      { word: '骨', audio: 'audio/lisu/0031骨.m4a', answer: '[ʔo³¹to³³]' },
+      { word: '脂肪', audio: 'audio/lisu/0032脂肪.m4a', answer: '[xua³¹tsʰɤ³³]' },
+      { word: '蛋', audio: 'audio/lisu/0033蛋.m4a', answer: '[ʔa⁵⁵ji⁵⁵fɯ³³]' },
+      { word: '角', audio: 'audio/lisu/0034角.m4a', answer: '[ʔo⁵⁵tɕʰi³³]' },
+      { word: '尾', audio: 'audio/lisu/0035尾.m4a', answer: '[ji̠⁵⁵mɤ⁵⁵]' },
+      { word: '羽毛', audio: 'audio/lisu/0036羽毛.m4a', answer: '[ji̠⁵⁵mo³³]' },
+      { word: '头发', audio: 'audio/lisu/0037头发.m4a', answer: '[ʔo⁵⁵tsʰe³³]' },
+      { word: '头', audio: 'audio/lisu/0038头.m4a', answer: '[ʔo⁵⁵tu³³]' },
+      { word: '耳朵', audio: 'audio/lisu/0039耳朵.m4a', answer: '[na⁵⁵po³³]' },
+      { word: '眼睛', audio: 'audio/lisu/0040眼睛.m4a', answer: '[mi⁴⁴sɿ³³]' },
+      { word: '鼻子', audio: 'audio/lisu/0041鼻子.m4a', answer: '[na³³ke̠³³]' },
+      { word: '口', audio: 'audio/lisu/0042口.m4a', answer: '[mə̃³¹lɯ³⁵]' },
+      { word: '牙齿', audio: 'audio/lisu/0043牙齿.m4a', answer: '[sɿ³¹tɕʰi³⁵]' },
+      { word: '舌头', audio: 'audio/lisu/0044舌头.m4a', answer: '[la⁴⁴pʰe⁴²]' },
+      { word: '爪子', audio: 'audio/lisu/0045爪子.m4a', answer: '[tsua⁴⁴tu⁴⁴]' },
+      { word: '脚', audio: 'audio/lisu/0046脚.m4a', answer: '[tɕʰi³⁵pʰɛ³⁵]' },
+      { word: '膝盖', audio: 'audio/lisu/0047膝盖.m4a', answer: '[tɕʰi³³tsɿ⁵⁵]' },
+      { word: '手', audio: 'audio/lisu/0048手.m4a', answer: '[lɛ³¹pʰɛ³⁵]' },
+      { word: '腹部', audio: 'audio/lisu/0049腹部.m4a', answer: '[xe⁴²mɑ³³]' },
+      { word: '脖子', audio: 'audio/lisu/0050脖子.m4a', answer: '[kə⁵⁵tsɿ⁵⁵]' },
+      { word: '胸部', audio: 'audio/lisu/0051胸部.m4a', answer: '[ʔo³³mə³¹]' },
+      { word: '心', audio: 'audio/lisu/0052心.m4a', answer: '[ni³⁵mɑ³¹]' },
+      { word: '肝', audio: 'audio/lisu/0053肝.m4a', answer: '[ʔi̠³³ka³⁵]' },
+      { word: '喝', audio: 'audio/lisu/0054喝.m4a', answer: '[to³³]' },
+      { word: '吃', audio: 'audio/lisu/0055吃.m4a', answer: '[tsa⁴²]' },
+      { word: '咬', audio: 'audio/lisu/0056咬.m4a', answer: '[kʰo⁴²]' },
+      { word: '看', audio: 'audio/lisu/0057看.m4a', answer: '[ni³³]' },
+      { word: '听', audio: 'audio/lisu/0058听.m4a', answer: '[na³¹na³⁵]' },
+      { word: '知道', audio: 'audio/lisu/0059知道.m4a', answer: '[sə⁵⁵ʔu³⁵]' },
+      { word: '睡觉', audio: 'audio/lisu/0060睡觉.m4a', answer: '[ji̠³¹ta⁵⁵]' },
+      { word: '死', audio: 'audio/lisu/0061死.m4a', answer: '[ɕi³³ʔu³³]' },
+      { word: '杀', audio: 'audio/lisu/0062杀.m4a', answer: '[se⁴²]' },
+      { word: '游泳', audio: 'audio/lisu/0063游泳.m4a', answer: '[ʔu³³]' },
+      { word: '飞', audio: 'audio/lisu/0064飞.m4a', answer: '[piɛ³³]' },
+      { word: '走', audio: 'audio/lisu/0065走.m4a', answer: '[ke̠³³]' },
+      { word: '来', audio: 'audio/lisu/0066来.m4a', answer: '[lɑ³³]' },
+      { word: '躺', audio: 'audio/lisu/0067躺.m4a', answer: '[kʰo⁴⁴la⁴⁴]' },
+      { word: '坐', audio: 'audio/lisu/0068坐.m4a', answer: '[ɣu³⁵]' },
+      { word: '站立', audio: 'audio/lisu/0069站立.m4a', answer: '[xe⁴²tu̠⁴⁴]' },
+      { word: '给', audio: 'audio/lisu/0070给.m4a', answer: '[ko³¹]' },
+      { word: '说', audio: 'audio/lisu/0071说.m4a', answer: '[pɛ³³]' },
+      { word: '太阳', audio: 'audio/lisu/0072太阳.m4a', answer: '[mə̃³¹tsʰa³³]' },
+      { word: '月亮', audio: 'audio/lisu/0073月亮.m4a', answer: '[xa³³pa³³]' },
+      { word: '星星', audio: 'audio/lisu/0074星星.m4a', answer: '[kɯ³³za³¹]' },
+      { word: '水', audio: 'audio/lisu/0075水.m4a', answer: '[ɣi̠³³tɕɛ³³]' },
+      { word: '雨', audio: 'audio/lisu/0076雨.m4a', answer: '[mə̃³¹xa³³]' },
+      { word: '石头', audio: 'audio/lisu/0077石头.m4a', answer: '[lo³⁵tɕe̠³³]' },
+      { word: '沙', audio: 'audio/lisu/0078沙.m4a', answer: '[ɕo³⁵tsɿ³¹]' },
+      { word: '土壤', audio: 'audio/lisu/0079土壤.m4a', answer: '[ne⁵⁵tsʰɿ⁴²]' },
+      { word: '云', audio: 'audio/lisu/0080云.m4a', answer: '[mi³¹kɯ³³]' },
+      { word: '烟', audio: 'audio/lisu/0081烟.m4a', answer: '[a³³to⁵⁵mɯ³¹kʰɯ³¹]' },
+      { word: '火', audio: 'audio/lisu/0082火.m4a', answer: '[a³³to⁵⁵]' },
+      { word: '烟灰', audio: 'audio/lisu/0083烟灰.m4a', answer: '[jo³⁵xə³¹]' },
+      { word: '烧', audio: 'audio/lisu/0084烧.m4a', answer: '[tsʰu³³]' },
+      { word: '小路', audio: 'audio/lisu/0085小路.m4a', answer: '[tɕa³⁵ku³³jɔ³³]' },
+      { word: '山脉', audio: 'audio/lisu/0086山脉.m4a', answer: '[uɔ³³tsu⁴²]' },
+      { word: '红色', audio: 'audio/lisu/0087红色.m4a', answer: '[ʔe̠⁵⁵ni³³sɿ³¹]' },
+      { word: '绿色', audio: 'audio/lisu/0088绿色.m4a', answer: '[ʔe̠⁵⁵ni³⁵tɕʰi³¹]' },
+      { word: '黄色', audio: 'audio/lisu/0089黄色.m4a', answer: '[ʔe̠⁵⁵ʔue⁵⁵ɕi³¹]' },
+      { word: '白色', audio: 'audio/lisu/0090白色.m4a', answer: '[ʔe̠⁵⁵pʰɯ³³la⁵⁵]' },
+      { word: '黑色', audio: 'audio/lisu/0091黑色.m4a', answer: '[ʔe̠⁵⁵nɛ³³kʰə³¹]' },
+      { word: '夜', audio: 'audio/lisu/0092夜.m4a', answer: '[sa³³kʰo³⁵]' },
+      { word: '热', audio: 'audio/lisu/0093热.m4a', answer: '[tsʰa³³]' },
+      { word: '冷', audio: 'audio/lisu/0094冷.m4a', answer: '[tɕɛ̠³³]' },
+      { word: '满', audio: 'audio/lisu/0095满.m4a', answer: '[piɛ̠³³]' },
+      { word: '新', audio: 'audio/lisu/0096新.m4a', answer: '[ji̠⁴⁴ɕi³¹]' },
+      { word: '好', audio: 'audio/lisu/0097好.m4a', answer: '[tɕi³³]' },
+      { word: '圆', audio: 'audio/lisu/0098圆.m4a', answer: '[ue³¹lo³³lo³³]' },
+      { word: '干燥', audio: 'audio/lisu/0099干燥.m4a', answer: '[tsʰu³³tsʰɔ³³]' },
+      { word: '名', audio: 'audio/lisu/0100名.m4a', answer: '[mi̠³³]' }
+      ]
+    },
+    /* 俄语词表来源：russian.xlsx 的 "full word list" 表（共 155 条）。
+       word=表中词条释义（第 1–46 条表中为英文释义，其余为汉语），
+       answer=表中 IPA 转写，原样录入未改动（重音符号为表中的直引号 '）。
+       audio 路径规则：audio/russian/<表中序号，两位补零，如 01、48、155>.m4a（仅用序号命名，
+       避免中文、撇号等字符带来的文件名问题）。 */
+    russian: {
+      name: '俄语',
+      speaker: '亦宁（武汉大学2025级硕士研究生）',
+      references: [
+        { text: 'Yanushevskaya I, Bunčić D. Russian. Journal of the International Phonetic Association. 2015;45(2):221-228. doi:10.1017/S0025100314000395', url: 'https://doi.org/10.1017/S0025100314000395' }
+      ],
+      items: [
+      { word: 'fingers', audio: 'audio/russian/01.m4a', answer: '[palʲ͡tsɨ]' },
+      { word: 'embroidery hoop', audio: 'audio/russian/02.m4a', answer: '[pʲalʲ͡tsɨ]' },
+      { word: 'bass', audio: 'audio/russian/03.m4a', answer: '[bas]' },
+      { word: 'calico', audio: 'audio/russian/04.m4a', answer: '[bʲasʲ]' },
+      { word: 'little, not enough', audio: 'audio/russian/05.m4a', answer: '[mala]' },
+      { word: '(she) crumpled', audio: 'audio/russian/06.m4a', answer: '[mʲala]' },
+      { word: 'photo', audio: 'audio/russian/07.m4a', answer: '[fota]' },
+      { word: 'Fëdor (name)', audio: 'audio/russian/08.m4a', answer: '[fʲodar]' },
+      { word: 'bolster', audio: 'audio/russian/09.m4a', answer: '[valʲik]' },
+      { word: '(s/he) dry-cures', audio: 'audio/russian/10.m4a', answer: '[vʲalʲit]' },
+      { word: 'slipper', audio: 'audio/russian/11.m4a', answer: '[tapka]' },
+      { word: 'chopper (tool)', audio: 'audio/russian/12.m4a', answer: '[tʲapka]' },
+      { word: 'house', audio: 'audio/russian/13.m4a', answer: '[dom]' },
+      { word: 'turf', audio: 'audio/russian/14.m4a', answer: '[dʲorn]' },
+      { word: 'nose', audio: 'audio/russian/15.m4a', answer: '[nos]' },
+      { word: '(he) carried', audio: 'audio/russian/16.m4a', answer: '[nʲos]' },
+      { word: 'plummet', audio: 'audio/russian/17.m4a', answer: '[lot]' },
+      { word: 'ice', audio: 'audio/russian/18.m4a', answer: '[lʲot]' },
+      { word: 'glad', audio: 'audio/russian/19.m4a', answer: '[rat]' },
+      { word: 'row', audio: 'audio/russian/20.m4a', answer: '[rʲat]' },
+      { word: 'garden', audio: 'audio/russian/21.m4a', answer: '[sat]' },
+      { word: 'sit (imperative)', audio: 'audio/russian/22.m4a', answer: '[sʲatʲ]' },
+      { word: 'smell (noun)', audio: 'audio/russian/23.m4a', answer: '[zapax]' },
+      { word: 'sensitive to cold', audio: 'audio/russian/24.m4a', answer: '[zʲapkʲij]' },
+      { word: 'tzar', audio: 'audio/russian/25.m4a', answer: '[t͡sarʲ]' },
+      { word: 'charms', audio: 'audio/russian/26.m4a', answer: '[t͡ʃʲarɨ]' },
+      { word: 'pike', audio: 'audio/russian/27.m4a', answer: '[ʃʲːuka]' },
+      { word: 'ball', audio: 'audio/russian/28.m4a', answer: '[ʃar]' },
+      { word: 'heat', audio: 'audio/russian/29.m4a', answer: '[ʒar]' },
+      { word: 'pit', audio: 'audio/russian/30.m4a', answer: '[jama]' },
+      { word: 'tomcat', audio: 'audio/russian/31.m4a', answer: '[kot]' },
+      { word: '(s/he) weaves', audio: 'audio/russian/32.m4a', answer: '[tkʲot]' },
+      { word: 'year', audio: 'audio/russian/33.m4a', answer: '[got]' },
+      { word: 'Goethe', audio: 'audio/russian/34.m4a', answer: '[gʲote]' },
+      { word: 'junta', audio: 'audio/russian/35.m4a', answer: '[xunta]' },
+      { word: 'Hübner (name)', audio: 'audio/russian/36.m4a', answer: '[xʲubner]' },
+      { word: 'ardour', audio: 'audio/russian/37.m4a', answer: '[pɨˑɬ̪]' },
+      { word: 'drank', audio: 'audio/russian/38.m4a', answer: '[pʲiˑl̠ʲɪ]' },
+      { word: 'pole', audio: 'audio/russian/39.m4a', answer: '[ʃɛ̠ˑst̪]' },
+      { word: 'honour', audio: 'audio/russian/40.m4a', answer: '[t͡ʃʲeˑsʲt̠ʲ]' },
+      { word: 'feet', audio: 'audio/russian/41.m4a', answer: '[st̪ɔˑpɨ]' },
+      { word: 'of Stëpa (name)', audio: 'audio/russian/42.m4a', answer: '[st̠ʲo̟ˑpʲɪn̪]' },
+      { word: 'onion', audio: 'audio/russian/43.m4a', answer: '[ɬ̪uˑk]' },
+      { word: 'hatches', audio: 'audio/russian/44.m4a', answer: '[l̠ʲu̟ˑkʲɪ]' },
+      { word: 'garden', audio: 'audio/russian/45.m4a', answer: '[sɑ̟ˑt̪]' },
+      { word: 'sit (imperative)', audio: 'audio/russian/46.m4a', answer: '[sʲæˑt̠ʲ]' },
+      { word: '田地', audio: 'audio/russian/47.m4a', answer: '[polʲe]' },
+      { word: '公园', audio: 'audio/russian/48.m4a', answer: '[park]' },
+      { word: '灰', audio: 'audio/russian/49.m4a', answer: '[pɨlʲ]' },
+      { word: '斑驳', audio: 'audio/russian/50.m4a', answer: '[pʲɵstrɨj]' },
+      { word: '五', audio: 'audio/russian/51.m4a', answer: '[pʲatʲ]' },
+      { word: '上帝', audio: 'audio/russian/52.m4a', answer: '[box]' },
+      { word: '狗', audio: 'audio/russian/53.m4a', answer: '[pʲɵs]' },
+      { word: '兄弟', audio: 'audio/russian/54.m4a', answer: '[brat]' },
+      { word: '香蕉', audio: 'audio/russian/55.m4a', answer: '[bɐ\'nan]' },
+      { word: '白色的', audio: 'audio/russian/56.m4a', answer: '[bʲelɨj]' },
+      { word: '午饭', audio: 'audio/russian/57.m4a', answer: '[ɐ\'bʲet]' },
+      { word: '办公室', audio: 'audio/russian/58.m4a', answer: '[bʲu\'ro]' },
+      { word: '妈妈', audio: 'audio/russian/59.m4a', answer: '[mamə]' },
+      { word: '肌肉', audio: 'audio/russian/60.m4a', answer: '[mɨʂt͡sə]' },
+      { word: '脑子', audio: 'audio/russian/61.m4a', answer: '[mosk]' },
+      { word: '蜂蜜', audio: 'audio/russian/62.m4a', answer: '[mʲɵt]' },
+      { word: '肉类', audio: 'audio/russian/63.m4a', answer: '[mʲasə]' },
+      { word: '地方', audio: 'audio/russian/64.m4a', answer: '[mʲestə]' },
+      { word: '足球', audio: 'audio/russian/65.m4a', answer: '[fʊd\'bol]' },
+      { word: '事实', audio: 'audio/russian/66.m4a', answer: '[fakt]' },
+      { word: '旗', audio: 'audio/russian/67.m4a', answer: '[flak]' },
+      { word: '仙女', audio: 'audio/russian/68.m4a', answer: '[fʲejə]' },
+      { word: '电影', audio: 'audio/russian/69.m4a', answer: '[fʲilʲm]' },
+      { word: '农场', audio: 'audio/russian/70.m4a', answer: '[fʲermə]' },
+      { word: '伏特加', audio: 'audio/russian/71.m4a', answer: '[votkə]' },
+      { word: '水', audio: 'audio/russian/72.m4a', answer: '[vɐ\'da]' },
+      { word: '狼', audio: 'audio/russian/73.m4a', answer: '[volk]' },
+      { word: '水桶', audio: 'audio/russian/74.m4a', answer: '[vʲɪ\'dro]' },
+      { word: '春天', audio: 'audio/russian/75.m4a', answer: '[vʲɪs\'na]' },
+      { word: '叉子', audio: 'audio/russian/76.m4a', answer: '[vʲilkə]' },
+      { word: '也', audio: 'audio/russian/77.m4a', answer: '[toʐɨ]' },
+      { word: '那里', audio: 'audio/russian/78.m4a', answer: '[tam]' },
+      { word: '那个', audio: 'audio/russian/79.m4a', answer: '[tot]' },
+      { word: '暖和', audio: 'audio/russian/80.m4a', answer: '[tʲɵplɨj]' },
+      { word: '老虎', audio: 'audio/russian/81.m4a', answer: '[tʲigr]' },
+      { word: '身体', audio: 'audio/russian/82.m4a', answer: '[tʲelə]' },
+      { word: '甚至', audio: 'audio/russian/83.m4a', answer: '[dɐʐɨ]' },
+      { word: '烟', audio: 'audio/russian/84.m4a', answer: '[dɨm]' },
+      { word: '洗澡', audio: 'audio/russian/85.m4a', answer: '[duʂ]' },
+      { word: '沙发', audio: 'audio/russian/86.m4a', answer: '[dʲɪ\'van]' },
+      { word: '白天', audio: 'audio/russian/87.m4a', answer: '[dʲenʲ]' },
+      { word: '事情', audio: 'audio/russian/88.m4a', answer: '[dʲelə]' },
+      { word: '我们的', audio: 'audio/russian/89.m4a', answer: '[nɐʂ]' },
+      { word: '抱怨', audio: 'audio/russian/90.m4a', answer: '[nətʲ]' },
+      { word: '月亮', audio: 'audio/russian/91.m4a', answer: '[lʊ\'na]' },
+      { word: '腿', audio: 'audio/russian/92.m4a', answer: '[nɐ\'ga]' },
+      { word: '尼罗河', audio: 'audio/russian/93.m4a', answer: '[nʲil]' },
+      { word: '不', audio: 'audio/russian/94.m4a', answer: '[nʲe]' },
+      { word: '下面', audio: 'audio/russian/95.m4a', answer: '[nʲis]' },
+      { word: '岩浆', audio: 'audio/russian/96.m4a', answer: '[lɐvə]' },
+      { word: '小船', audio: 'audio/russian/97.m4a', answer: '[lotkə]' },
+      { word: '灯', audio: 'audio/russian/98.m4a', answer: '[lampə]' },
+      { word: '森林', audio: 'audio/russian/99.m4a', answer: '[lʲes]' },
+      { word: '懒惰', audio: 'audio/russian/100.m4a', answer: '[lʲenʲ]' },
+      { word: '夏天', audio: 'audio/russian/101.m4a', answer: '[lʲetə]' },
+      { word: '嘴', audio: 'audio/russian/102.m4a', answer: '[rot]' },
+      { word: '鱼', audio: 'audio/russian/103.m4a', answer: '[rɨbə]' },
+      { word: '玫瑰', audio: 'audio/russian/104.m4a', answer: '[rozə]' },
+      { word: '米', audio: 'audio/russian/105.m4a', answer: '[rʲis]' },
+      { word: '萝卜', audio: 'audio/russian/106.m4a', answer: '[rʲepə]' },
+      { word: '酒杯', audio: 'audio/russian/107.m4a', answer: '[rʲumkə]' },
+      { word: '太阳', audio: 'audio/russian/108.m4a', answer: '[sont͡sə]' },
+      { word: '奶酪', audio: 'audio/russian/109.m4a', answer: '[sɨr]' },
+      { word: '桌子', audio: 'audio/russian/110.m4a', answer: '[stol]' },
+      { word: '干草', audio: 'audio/russian/111.m4a', answer: '[sʲenə]' },
+      { word: '心脏', audio: 'audio/russian/112.m4a', answer: '[sʲert͡sə]' },
+      { word: '季节', audio: 'audio/russian/113.m4a', answer: '[sʲɪ\'zon]' },
+      { word: '牙齿', audio: 'audio/russian/114.m4a', answer: '[zup]' },
+      { word: '雨伞', audio: 'audio/russian/115.m4a', answer: '[zont]' },
+      { word: '工厂', audio: 'audio/russian/116.m4a', answer: '[zɐ\'vot]' },
+      { word: '冬天', audio: 'audio/russian/117.m4a', answer: '[zʲɪ\'ma]' },
+      { word: '土地', audio: 'audio/russian/118.m4a', answer: '[zʲɪ\'mlʲa]' },
+      { word: '镜子', audio: 'audio/russian/119.m4a', answer: '[zʲerkələ]' },
+      { word: '颜色', audio: 'audio/russian/120.m4a', answer: '[t͡svʲet]' },
+      { word: '价格', audio: 'audio/russian/121.m4a', answer: '[t͡sɨ\'na]' },
+      { word: '马戏团', audio: 'audio/russian/122.m4a', answer: '[t͡sɨrk]' },
+      { word: '人', audio: 'audio/russian/123.m4a', answer: '[tɕʲɪlɐ\'vʲek]' },
+      { word: '鼠疫', audio: 'audio/russian/124.m4a', answer: '[tɕʲʊ\'ma]' },
+      { word: '星期四', audio: 'audio/russian/125.m4a', answer: '[tɕʲɪt\'vʲerk]' },
+      { word: '腮', audio: 'audio/russian/126.m4a', answer: '[ʃʲɪ\'ka]' },
+      { word: '小狗', audio: 'audio/russian/127.m4a', answer: '[ʃʲɪ\'nok]' },
+      { word: '盾牌', audio: 'audio/russian/128.m4a', answer: '[ʃʲit]' },
+      { word: '小丑', audio: 'audio/russian/129.m4a', answer: '[ʃut]' },
+      { word: '噪声', audio: 'audio/russian/130.m4a', answer: '[ʃum]' },
+      { word: '疤痕', audio: 'audio/russian/131.m4a', answer: '[ʃram]' },
+      { word: '妻子', audio: 'audio/russian/132.m4a', answer: '[ʒɨ\'na]' },
+      { word: '肚子', audio: 'audio/russian/133.m4a', answer: '[ʒɨ\'vot]' },
+      { word: '虫子', audio: 'audio/russian/134.m4a', answer: '[ʒuk]' },
+      { word: '酸奶', audio: 'audio/russian/135.m4a', answer: '[jɵgʊrt]' },
+      { word: '瑜伽', audio: 'audio/russian/136.m4a', answer: '[jɵk]' },
+      { word: '食物', audio: 'audio/russian/137.m4a', answer: '[jɪ\'da]' },
+      { word: '粥', audio: 'audio/russian/138.m4a', answer: '[kaʃə]' },
+      { word: '谁', audio: 'audio/russian/139.m4a', answer: '[kto]' },
+      { word: '马', audio: 'audio/russian/140.m4a', answer: '[konʲ]' },
+      { word: '电影', audio: 'audio/russian/141.m4a', answer: '[kʲɪ\'no]' },
+      { word: '鲸鱼', audio: 'audio/russian/142.m4a', answer: '[kʲit]' },
+      { word: '蛋糕', audio: 'audio/russian/143.m4a', answer: '[kʲeks]' },
+      { word: '矮人', audio: 'audio/russian/144.m4a', answer: '[gnom]' },
+      { word: '山', audio: 'audio/russian/145.m4a', answer: '[gɐ\'ra]' },
+      { word: '车库', audio: 'audio/russian/146.m4a', answer: '[gɐ\'raʂ]' },
+      { word: '国歌', audio: 'audio/russian/147.m4a', answer: '[gʲimn]' },
+      { word: '天才', audio: 'audio/russian/148.m4a', answer: '[gʲenʲɪj]' },
+      { word: '石膏', audio: 'audio/russian/149.m4a', answer: '[gʲips]' },
+      { word: '好', audio: 'audio/russian/150.m4a', answer: '[xərɐ\'ʂo]' },
+      { word: '寒冷', audio: 'audio/russian/151.m4a', answer: '[xolət]' },
+      { word: '教堂', audio: 'audio/russian/152.m4a', answer: '[xram]' },
+      { word: '小屋', audio: 'audio/russian/153.m4a', answer: '[xʲiʐɨnə]' },
+      { word: '虚弱的', audio: 'audio/russian/154.m4a', answer: '[xʲilɨj]' },
+      { word: '猛兽', audio: 'audio/russian/155.m4a', answer: '[xʲiʃnʲɪk]' }
+      ]
+    },
+    /* 越南语：词条与 IPA 来自 Vietnamese.xlsx（共 209 条；答案中的 A1/B2/C1/D1 等为表中原有的声调类别标记）。
+       录音放在 audio/vietnamese/ 下：第 45–159 条、第 168–209 条的文件名为"序号+词条"（如 45shovel.wav、168僧尼或师傅.wav）；
+       第 1–44 条、第 160–167 条的文件名为按词条推测的"序号+词条(空格换成下划线).wav"，如与实际文件名不符，请在此处修改。 */
+    vietnamese: {
+      name: '越南语(河内方言)',
+      speaker: '邓艳琼（武汉大学2025级硕士研究生）',
+      references: [
+        { text: 'Kirby JP. Vietnamese (Hanoi Vietnamese). Journal of the International Phonetic Association. 2011;41(3):381-392. doi:10.1017/S0025100311000181', url: 'https://doi.org/10.1017/S0025100311000181' }
+      ],
+      items: [
+      { word: 'three', audio: 'audio/vietnamese/01three.wav', answer: '[ɓaA1]' },
+      { word: 'ghost', audio: 'audio/vietnamese/02ghost.wav', answer: '[maA1]' },
+      { word: 'to brew', audio: 'audio/vietnamese/03to_brew.wav', answer: '[faA1]' },
+      { word: 'and', audio: 'audio/vietnamese/04and.wav', answer: '[vaA2]' },
+      { word: 'unjustly', audio: 'audio/vietnamese/05unjustly.wav', answer: '[wanA1]' },
+      { word: 'we or our', audio: 'audio/vietnamese/06we_or_our.wav', answer: '[taA1]' },
+      { word: 'to forgive', audio: 'audio/vietnamese/07to_forgive.wav', answer: '[tʰaA1]' },
+      { word: 'banyan tree', audio: 'audio/vietnamese/08banyan_tree.wav', answer: '[ɗaA1]' },
+      { word: 'custard apple', audio: 'audio/vietnamese/09custard_apple.wav', answer: '[naA1]' },
+      { word: 'far', audio: 'audio/vietnamese/10far.wav', answer: '[saA1]' },
+      { word: 'skin', audio: 'audio/vietnamese/11skin.wav', answer: '[zaA1]' },
+      { word: 'exist or COP', audio: 'audio/vietnamese/12exist_or_COP.wav', answer: '[laA2]' },
+      { word: 'father', audio: 'audio/vietnamese/13father.wav', answer: '[tɕaA1]' },
+      { word: 'house building', audio: 'audio/vietnamese/14house_building.wav', answer: '[ɲaA2]' },
+      { word: 'river', audio: 'audio/vietnamese/15river.wav', answer: '[haA2]' },
+      { word: 'flower', audio: 'audio/vietnamese/16flower.wav', answer: '[hʷaA1]' },
+      { word: 'mug', audio: 'audio/vietnamese/17mug.wav', answer: '[kaA1]' },
+      { word: 'Russian', audio: 'audio/vietnamese/18Russian.wav', answer: '[ŋaA1]' },
+      { word: 'rather', audio: 'audio/vietnamese/19rather.wav', answer: '[xaB1]' },
+      { word: 'chicken', audio: 'audio/vietnamese/20chicken.wav', answer: '[ɣaA2]' },
+      { word: 'question particle', audio: 'audio/vietnamese/21question_particle.wav', answer: '[ʔaA2]' },
+      { word: 'Vietnamese', audio: 'audio/vietnamese/22Vietnamese.wav', answer: '[kiŋ̟A1]' },
+      { word: 'channel', audio: 'audio/vietnamese/23channel.wav', answer: '[keŋ̟A1]' },
+      { word: 'broth', audio: 'audio/vietnamese/24broth.wav', answer: '[kɛŋ̟A1]' },
+      { word: 'chain', audio: 'audio/vietnamese/25chain.wav', answer: '[sik̟D1]' },
+      { word: 'slanting', audio: 'audio/vietnamese/26slanting.wav', answer: '[sek̟D1]' },
+      { word: 'book', audio: 'audio/vietnamese/27book.wav', answer: '[sɛk̟D1]' },
+      { word: 'shovel', audio: 'audio/vietnamese/28shovel.wav', answer: '[sɛːŋC1]' },
+      { word: 'tumor', audio: 'audio/vietnamese/29tumor.wav', answer: '[uŋ͡mA1]' },
+      { word: 'grandfather', audio: 'audio/vietnamese/30grandfather.wav', answer: '[oŋ͡mA1]' },
+      { word: 'bee', audio: 'audio/vietnamese/31bee.wav', answer: '[ɔŋ͡mA1]' },
+      { word: 'Australia', audio: 'audio/vietnamese/32Australia.wav', answer: '[uk͡pD1]' },
+      { word: 'snail', audio: 'audio/vietnamese/33snail.wav', answer: '[ok͡pD1]' },
+      { word: 'mind or brain', audio: 'audio/vietnamese/34mind_or_brain.wav', answer: '[ɔk͡pD1]' },
+      { word: 'to scoop', audio: 'audio/vietnamese/35to_scoop.wav', answer: '[suk͡pD1]' },
+      { word: 'soup', audio: 'audio/vietnamese/36soup.wav', answer: '[supD1]' },
+      { word: 'hip', audio: 'audio/vietnamese/37hip.wav', answer: '[hoŋ͡mA1]' },
+      { word: 'day', audio: 'audio/vietnamese/38day.wav', answer: '[homA1]' },
+      { word: 'to study', audio: 'audio/vietnamese/39to_study.wav', answer: '[hɔk͡pD2]' },
+      { word: 'to meet', audio: 'audio/vietnamese/40to_meet.wav', answer: '[hɔpD2]' },
+      { word: 'wave', audio: 'audio/vietnamese/41wave.wav', answer: '[sɔŋ͡mB1]' },
+      { word: 'hamlet', audio: 'audio/vietnamese/42hamlet.wav', answer: '[sɔmB1]' },
+      { word: 'to detach itself', audio: 'audio/vietnamese/43to_detach_itself.wav', answer: '[bɔŋ͡mA1]' },
+      { word: 'deck of ship', audio: 'audio/vietnamese/44deck_of_ship.wav', answer: '[bɔːŋA1]' },
+      { word: 'shovel', audio: 'audio/vietnamese/45shovel.wav', answer: '[sɛːŋC1]' },
+      { word: 'green', audio: 'audio/vietnamese/46green.wav', answer: '[sɛŋ̟A1]' },
+      { word: 'saucepan', audio: 'audio/vietnamese/47saucepan.wav', answer: '[sɔːŋA1]' },
+      { word: 'to finish', audio: 'audio/vietnamese/48to_finish.wav', answer: '[sɔŋ͡mA1]' },
+      { word: 'soft', audio: 'audio/vietnamese/49soft.wav', answer: '[ziwB2]' },
+      { word: 'liquor', audio: 'audio/vietnamese/50liquor.wav', answer: '[zɯəwB2]' },
+      { word: 'test', audio: 'audio/vietnamese/51test.wav', answer: '[tʰiA1]' },
+      { word: 'heart', audio: 'audio/vietnamese/52heart.wav', answer: '[timA1]' },
+      { word: 'occasion', audio: 'audio/vietnamese/53occasion.wav', answer: '[zipD2]' },
+      { word: 'news', audio: 'audio/vietnamese/54news.wav', answer: '[tinA1]' },
+      { word: 'jackfruit', audio: 'audio/vietnamese/55jackfruit.wav', answer: '[mitD1]' },
+      { word: 'pretty', audio: 'audio/vietnamese/56pretty.wav', answer: '[siŋ̟A1]' },
+      { word: 'to like', audio: 'audio/vietnamese/57to_like.wav', answer: '[tʰik̟D1]' },
+      { word: 'soft', audio: 'audio/vietnamese/58soft.wav', answer: '[ziwB2]' },
+      { word: 'so', audio: 'audio/vietnamese/59so.wav', answer: '[tʰeB1]' },
+      { word: 'night', audio: 'audio/vietnamese/60night.wav', answer: '[ɗemA1]' },
+      { word: 'to pile', audio: 'audio/vietnamese/61to_pile.wav', answer: '[sepD1]' },
+      { word: 'go up', audio: 'audio/vietnamese/62go_up.wav', answer: '[lenA1]' },
+      { word: 'tired', audio: 'audio/vietnamese/63tired.wav', answer: '[metD2]' },
+      { word: 'channel', audio: 'audio/vietnamese/64channel.wav', answer: '[keŋ̟A1]' },
+      { word: 'slanting', audio: 'audio/vietnamese/65slanting.wav', answer: '[sek̟D1]' },
+      { word: 'if', audio: 'audio/vietnamese/66if.wav', answer: '[newB1]' },
+      { word: 'card', audio: 'audio/vietnamese/67card.wav', answer: '[tʰɛC1]' },
+      { word: 'stamp', audio: 'audio/vietnamese/68stamp.wav', answer: '[tɛmA1]' },
+      { word: 'sandals', audio: 'audio/vietnamese/69sandals.wav', answer: '[zɛpD1]' },
+      { word: 'to praise', audio: 'audio/vietnamese/70to_praise.wav', answer: '[xɛnA1]' },
+      { word: 'meter', audio: 'audio/vietnamese/71meter.wav', answer: '[mɛtD1]' },
+      { word: 'green', audio: 'audio/vietnamese/72green.wav', answer: '[sɛŋ̟A1]' },
+      { word: 'book', audio: 'audio/vietnamese/73book.wav', answer: '[sɛk̟D1]' },
+      { word: 'to plant', audio: 'audio/vietnamese/74to_plant.wav', answer: '[zɛwA1]' },
+      { word: 'word', audio: 'audio/vietnamese/75word.wav', answer: '[tɯA2]' },
+      { word: 'jam', audio: 'audio/vietnamese/76jam.wav', answer: '[mɯtD1]' },
+      { word: 'to swell', audio: 'audio/vietnamese/77to_swell.wav', answer: '[sɯŋA1]' },
+      { word: 'energy', audio: 'audio/vietnamese/78energy.wav', answer: '[sɯkD1]' },
+      { word: 'to sniff', audio: 'audio/vietnamese/79to_sniff.wav', answer: '[ŋɯjC1]' },
+      { word: 'to rescue', audio: 'audio/vietnamese/80to_rescue.wav', answer: '[kɯwB1]' },
+      { word: 'sheet', audio: 'audio/vietnamese/81sheet.wav', answer: '[tɤA2]' },
+      { word: 'fragrant', audio: 'audio/vietnamese/82fragrant.wav', answer: '[tʰɤmA1]' },
+      { word: 'class', audio: 'audio/vietnamese/83class.wav', answer: '[lɤpD1]' },
+      { word: 'big', audio: 'audio/vietnamese/84big.wav', answer: '[lɤnB1]' },
+      { word: 'to reduce', audio: 'audio/vietnamese/85to_reduce.wav', answer: '[ɓɤtD1]' },
+      { word: 'new', audio: 'audio/vietnamese/86new.wav', answer: '[mɤjB1]' },
+      { word: 'to forgive', audio: 'audio/vietnamese/87to_forgive.wav', answer: '[tʰaA1]' },
+      { word: 'eight', audio: 'audio/vietnamese/88eight.wav', answer: '[tamB1]' },
+      { word: 'wax', audio: 'audio/vietnamese/89wax.wav', answer: '[sapD1]' },
+      { word: 'orchid', audio: 'audio/vietnamese/90orchid.wav', answer: '[lanA1]' },
+      { word: 'bowl', audio: 'audio/vietnamese/91bowl.wav', answer: '[ɓatD1]' },
+      { word: 'to cross', audio: 'audio/vietnamese/92to_cross.wav', answer: '[saŋA1]' },
+      { word: 'corpse', audio: 'audio/vietnamese/93corpse.wav', answer: '[sakD1]' },
+      { word: 'tomorrow', audio: 'audio/vietnamese/94tomorrow.wav', answer: '[majA1]' },
+      { word: 'knife', audio: 'audio/vietnamese/95knife.wav', answer: '[zawA1]' },
+      { word: 'prison', audio: 'audio/vietnamese/96prison.wav', answer: '[tuA2]' },
+      { word: 'Tum-placename', audio: 'audio/vietnamese/97Tum-PLACENAME.wav', answer: '[tumA1]' },
+      { word: 'to help', audio: 'audio/vietnamese/98to_help.wav', answer: '[zupD1]' },
+      { word: 'short', audio: 'audio/vietnamese/99short.wav', answer: '[lunA2]' },
+      { word: 'pen', audio: 'audio/vietnamese/100pen.wav', answer: '[ɓutD1]' },
+      { word: 'gun', audio: 'audio/vietnamese/101gun.wav', answer: '[suŋ͡mB1]' },
+      { word: 'to scoop', audio: 'audio/vietnamese/102to_scoop.wav', answer: '[suk͡pD1]' },
+      { word: 'smell odor taste', audio: 'audio/vietnamese/103smell-odor-taste.wav', answer: '[mujA2]' },
+      { word: 'center', audio: 'audio/vietnamese/104center.wav', answer: '[tɤ̆mA1]' },
+      { word: 'to fill in', audio: 'audio/vietnamese/105to_fill_in.wav', answer: '[lɤ̆pD1]' },
+      { word: 'time turn', audio: 'audio/vietnamese/106time-turn.wav', answer: '[lɤ̆nA2]' },
+      { word: 'no none', audio: 'audio/vietnamese/107no-none.wav', answer: '[ɓɤ̆tD1]' },
+      { word: 'floor storey', audio: 'audio/vietnamese/108floor-storey.wav', answer: '[tɤ̆ŋA2]' },
+      { word: 'take up', audio: 'audio/vietnamese/109take_up.wav', answer: '[ɲɤ̆kD1]' },
+      { word: 'how many', audio: 'audio/vietnamese/110how_many.wav', answer: '[mɤ̆jB1]' },
+      { word: 'beard', audio: 'audio/vietnamese/111beard.wav', answer: '[zɤ̆wA1]' },
+      { word: 'to bathe', audio: 'audio/vietnamese/112to_bathe.wav', answer: '[tămB1]' },
+      { word: 'soon', audio: 'audio/vietnamese/113soon.wav', answer: '[săpD1]' },
+      { word: 'to roll', audio: 'audio/vietnamese/114to_roll.wav', answer: '[lănA1]' },
+      { word: 'to catch', audio: 'audio/vietnamese/115to_catch.wav', answer: '[ɓătD1]' },
+      { word: 'petrol', audio: 'audio/vietnamese/116petrol.wav', answer: '[săŋA1]' },
+      { word: 'sharp', audio: 'audio/vietnamese/117sharp.wav', answer: '[săkD1]' },
+      { word: 'lucky', audio: 'audio/vietnamese/118lucky.wav', answer: '[măjA1]' },
+      { word: 'vegetable', audio: 'audio/vietnamese/119vegetable.wav', answer: '[zăwA1]' },
+      { word: 'to fill', audio: 'audio/vietnamese/120to_fill.wav', answer: '[toA1]' },
+      { word: 'shrimp', audio: 'audio/vietnamese/121shrimp.wav', answer: '[tomA1]' },
+      { word: 'box', audio: 'audio/vietnamese/122box.wav', answer: '[hopD2]' },
+      { word: 'to vomit', audio: 'audio/vietnamese/123to_vomit.wav', answer: '[nonA1]' },
+      { word: 'powder', audio: 'audio/vietnamese/124powder.wav', answer: '[ɓotD2]' },
+      { word: 'river', audio: 'audio/vietnamese/125river.wav', answer: '[soŋ͡mA1]' },
+      { word: 'shock', audio: 'audio/vietnamese/126shock.wav', answer: '[sok͡pD1]' },
+      { word: 'lip', audio: 'audio/vietnamese/127lip.wav', answer: '[mojA1]' },
+      { word: 'large', audio: 'audio/vietnamese/128large.wav', answer: '[tɔA1]' },
+      { word: 'ONMPTC', audio: 'audio/vietnamese/129ONMPTC.wav', answer: '[tɔmA1]' },
+      { word: 'to meet', audio: 'audio/vietnamese/130to-meet.wav', answer: '[hɔpD2]' },
+      { word: 'can', audio: 'audio/vietnamese/131can.wav', answer: '[lɔnA1]' },
+      { word: 'foam', audio: 'audio/vietnamese/132foam.wav', answer: '[ɓɔtD2]' },
+      { word: 'to finish', audio: 'audio/vietnamese/133to_finish.wav', answer: '[sɔŋ͡mA1]' },
+      { word: 'squirrel', audio: 'audio/vietnamese/134squirrel.wav', answer: '[sɔk͡pD1]' },
+      { word: 'every', audio: 'audio/vietnamese/135every.wav', answer: '[mɔjB2]' },
+      { word: 'spoon', audio: 'audio/vietnamese/136spoon.wav', answer: '[tʰiəA2]' },
+      { word: 'to inject', audio: 'audio/vietnamese/137to_inject.wav', answer: '[tiəmA1]' },
+      { word: 'to continue', audio: 'audio/vietnamese/138to_continue.wav', answer: '[tiəpD1]' },
+      { word: 'to link', audio: 'audio/vietnamese/139to_link.wav', answer: '[liənA1]' },
+      { word: 'to know', audio: 'audio/vietnamese/140to_know.wav', answer: '[ɓiətD1]' },
+      { word: 'sound', audio: 'audio/vietnamese/141sound.wav', answer: '[tiəŋB1]' },
+      { word: 'tin', audio: 'audio/vietnamese/142tin.wav', answer: '[tʰiəkD1]' },
+      { word: 'many', audio: 'audio/vietnamese/143many.wav', answer: '[ɲiəwA2]' },
+      { word: 'to lose', audio: 'audio/vietnamese/144to_lose.wav', answer: '[tʰuəA1]' },
+      { word: 'sail', audio: 'audio/vietnamese/145sail.wav', answer: '[ɓuəmA2]' },
+      { word: 'often', audio: 'audio/vietnamese/146often.wav', answer: '[luənA1]' },
+      { word: 'sharp pain', audio: 'audio/vietnamese/147sharp_pain.wav', answer: '[ɓuətD1]' },
+      { word: 'go down', audio: 'audio/vietnamese/148go_down.wav', answer: '[suəŋB1]' },
+      { word: 'medicine', audio: 'audio/vietnamese/149medicine.wav', answer: '[tʰuəkD1]' },
+      { word: 'time period', audio: 'audio/vietnamese/150time_period.wav', answer: '[ɓuəjC1]' },
+      { word: 'POL PARTICLE', audio: 'audio/vietnamese/151POL_PARTICLE.wav', answer: '[tʰɯəA1]' },
+      { word: 'torn', audio: 'audio/vietnamese/152torn.wav', answer: '[tɯəmA1]' },
+      { word: 'rent torn', audio: 'audio/vietnamese/153rent-torn.wav', answer: '[tɯəpD1]' },
+      { word: 'eel', audio: 'audio/vietnamese/154eel.wav', answer: '[lɯənA1]' },
+      { word: 'wet', audio: 'audio/vietnamese/155wet.wav', answer: '[ɯətD1]' },
+      { word: 'bone', audio: 'audio/vietnamese/156bone.wav', answer: '[sɯəŋA1]' },
+      { word: 'ruler', audio: 'audio/vietnamese/157ruler.wav', answer: '[tʰɯəkD1]' },
+      { word: 'pomelo', audio: 'audio/vietnamese/158pomelo.wav', answer: '[ɓɯəjC1]' },
+      { word: 'liquor', audio: 'audio/vietnamese/159liquor.wav', answer: '[zɯəwB2]' },
+      { word: 'ghost', audio: 'audio/vietnamese/160ghost.wav', answer: '[maA1]' },
+      { word: 'but or yet', audio: 'audio/vietnamese/161but_or_yet.wav', answer: '[maA2]' },
+      { word: 'cheek', audio: 'audio/vietnamese/162cheek.wav', answer: '[maB1]' },
+      { word: 'cool', audio: 'audio/vietnamese/163cool.wav', answer: '[matD1]' },
+      { word: 'rice seedling', audio: 'audio/vietnamese/164rice_seedling.wav', answer: '[maB2]' },
+      { word: 'louse or bug', audio: 'audio/vietnamese/165louse_or_bug.wav', answer: '[matD2]' },
+      { word: 'tomb', audio: 'audio/vietnamese/166tomb.wav', answer: '[maC1]' },
+      { word: 'code', audio: 'audio/vietnamese/167code.wav', answer: '[maC2]' },
+      { word: '僧尼或师傅', audio: 'audio/vietnamese/168僧尼或师傅.wav', answer: '[sɯA1]' },
+      { word: '断', audio: 'audio/vietnamese/169断.wav', answer: '[ɗɯtD1]' },
+      { word: '后背', audio: 'audio/vietnamese/170后背.wav', answer: '[lɯŋA1]' },
+      { word: '痛', audio: 'audio/vietnamese/171痛.wav', answer: '[ɲɯkD1]' },
+      { word: '送或寄', audio: 'audio/vietnamese/172送或寄.wav', answer: '[ɣɯjC1]' },
+      { word: '生肖牛', audio: 'audio/vietnamese/173生肖牛.wav', answer: '[sɯwC1]' },
+      { word: '补', audio: 'audio/vietnamese/174补.wav', answer: '[ɓuA2]' },
+      { word: '团结', audio: 'audio/vietnamese/175团结.wav', answer: '[ɗumA2ɓɔk͡pD2]' },
+      { word: '放大镜', audio: 'audio/vietnamese/176放大镜.wav', answer: '[lupD1]' },
+      { word: '留级', audio: 'audio/vietnamese/177留级.wav', answer: '[ɗupD1]' },
+      { word: '缩', audio: 'audio/vietnamese/178缩.wav', answer: '[sunA1]' },
+      { word: '取', audio: 'audio/vietnamese/179取.wav', answer: '[zutD1]' },
+      { word: '蘸', audio: 'audio/vietnamese/180蘸.wav', answer: '[ɲuŋ͡mB1]' },
+      { word: '腐烂', audio: 'audio/vietnamese/181腐烂.wav', answer: '[muk͡pD2]' },
+      { word: '倒霉', audio: 'audio/vietnamese/182倒霉.wav', answer: '[sujA1]' },
+      { word: '小', audio: 'audio/vietnamese/183小.wav', answer: '[ɓɛB1]' },
+      { word: '看', audio: 'audio/vietnamese/184看.wav', answer: '[sɛmA1]' },
+      { word: '漂亮', audio: 'audio/vietnamese/185漂亮.wav', answer: '[ɗɛpD2]' },
+      { word: '嫉妒', audio: 'audio/vietnamese/186嫉妒.wav', answer: '[ɣɛnA1]' },
+      { word: '扁', audio: 'audio/vietnamese/187扁.wav', answer: '[zɛtD2]' },
+      { word: '好', audio: 'audio/vietnamese/188好.wav', answer: '[lɛŋA2]' },
+      { word: '用刀划', audio: 'audio/vietnamese/189用刀划.wav', answer: '[zɛkD2]' },
+      { word: '猫', audio: 'audio/vietnamese/190猫.wav', answer: '[mɛwA2]' },
+      { word: '丢掉', audio: 'audio/vietnamese/191丢掉.wav', answer: '[ɓɔC1]' },
+      { word: '窥视', audio: 'audio/vietnamese/192窥视.wav', answer: '[ɲɔmA2]' },
+      { word: '老虎', audio: 'audio/vietnamese/193老虎.wav', answer: '[kɔpA2]' },
+      { word: '好吃', audio: 'audio/vietnamese/194好吃.wav', answer: '[ŋɔnA1]' },
+      { word: '垫', audio: 'audio/vietnamese/195垫.wav', answer: '[lɔtD1]' },
+      { word: '脱胶', audio: 'audio/vietnamese/196脱胶.wav', answer: '[ɓɔŋ͡mA1]' },
+      { word: '屋顶', audio: 'audio/vietnamese/197屋顶.wav', answer: '[nɔk͡pD1]' },
+      { word: '说', audio: 'audio/vietnamese/198说.wav', answer: '[nɔjB1]' },
+      { word: '奶奶', audio: 'audio/vietnamese/199奶奶.wav', answer: '[ɓaA2]' },
+      { word: '做', audio: 'audio/vietnamese/200做.wav', answer: '[lamA2]' },
+      { word: '答案', audio: 'audio/vietnamese/201答案.wav', answer: '[ɗapD1anB1]' },
+      { word: '骑', audio: 'audio/vietnamese/202骑.wav', answer: '[ɗapD2]' },
+      { word: '散开', audio: 'audio/vietnamese/203散开.wav', answer: '[tanC1]' },
+      { word: '杀', audio: 'audio/vietnamese/204杀.wav', answer: '[satD1]' },
+      { word: '带', audio: 'audio/vietnamese/205带.wav', answer: '[maŋA1]' },
+      { word: '朴素', audio: 'audio/vietnamese/206朴素.wav', answer: '[mok͡pD2makD2]' },
+      { word: '傻', audio: 'audio/vietnamese/207傻.wav', answer: '[zajB2]' },
+      { word: '剃', audio: 'audio/vietnamese/208剃.wav', answer: '[kawB2]' },
+      { word: '高', audio: 'audio/vietnamese/209高.wav', answer: '[kawA1]' }
+      ]
+    },
+    /* 泰语（标准泰语，即中部方言/曼谷一带）：词表来自"泰语（中部方言标准泰语）.xlsx"的 full list 表（共 101 条）。
+       word=表中汉语词条，answer=表中 IPA 转写（含声调符号），原样录入未改动；表中另有 class list 表（20 条，为 full list 的子集），未单独录入。
+       audio 路径规则同俄语：audio/thai/<表中序号，两位补零，如 01、48、101>.m4a；录音上传后按此命名放入 audio/thai/ 即可生效，
+       如实际文件名或扩展名不同，请在此处统一修改。 */
+    thai: {
+      name: '泰语（标准）',
+      speaker: '萧如菁（武汉大学2024级硕士研究生）',
+      references: [
+        { text: 'Tingsabadh MRK, Abramson AS. Thai. Journal of the International Phonetic Association. 1993;23(1):24-28. doi:10.1017/S0025100300004746', url: 'https://doi.org/10.1017/S0025100300004746' }
+      ],
+      items: [
+      { word: '阿姨', audio: 'audio/thai/01.m4a', answer: '[pâː]' },
+      { word: '投掷', audio: 'audio/thai/02.m4a', answer: '[pāː]' },
+      { word: '森林', audio: 'audio/thai/03.m4a', answer: '[pàː]' },
+      { word: '布', audio: 'audio/thai/04.m4a', answer: '[pʰâː]' },
+      { word: '带', audio: 'audio/thai/05.m4a', answer: '[pʰāː]' },
+      { word: '峡谷', audio: 'audio/thai/06.m4a', answer: '[pʰăː]' },
+      { word: '切开', audio: 'audio/thai/07.m4a', answer: '[pʰàː]' },
+      { word: '疯狂', audio: 'audio/thai/08.m4a', answer: '[bâː]' },
+      { word: '面条', audio: 'audio/thai/09.m4a', answer: '[bàmìː]' },
+      { word: '酒吧', audio: 'audio/thai/10.m4a', answer: '[bāː]' },
+      { word: '肩膀', audio: 'audio/thai/11.m4a', answer: '[bàː]' },
+      { word: '来', audio: 'audio/thai/12.m4a', answer: '[māː]' },
+      { word: '马', audio: 'audio/thai/13.m4a', answer: '[máː]' },
+      { word: '狗', audio: 'audio/thai/14.m4a', answer: '[măː]' },
+      { word: '血浆', audio: 'audio/thai/15.m4a', answer: '[pʰláːsmâː]' },
+      { word: '奶奶', audio: 'audio/thai/16.m4a', answer: '[āːmâː]' },
+      { word: '天空', audio: 'audio/thai/17.m4a', answer: '[fáː]' },
+      { word: '闯', audio: 'audio/thai/18.m4a', answer: '[fàː]' },
+      { word: '色斑', audio: 'audio/thai/19.m4a', answer: '[fâː]' },
+      { word: '盖子', audio: 'audio/thai/20.m4a', answer: '[făː]' },
+      { word: '捶打', audio: 'audio/thai/21.m4a', answer: '[tām]' },
+      { word: '低', audio: 'audio/thai/22.m4a', answer: '[tàm]' },
+      { word: '爆炸', audio: 'audio/thai/23.m4a', answer: '[tâm]' },
+      { word: '做', audio: 'audio/thai/24.m4a', answer: '[tʰām]' },
+      { word: '山洞', audio: 'audio/thai/25.m4a', answer: '[tʰâm]' },
+      { word: '黑', audio: 'audio/thai/26.m4a', answer: '[dām]' },
+      { word: '眼睛', audio: 'audio/thai/27.m4a', answer: '[dāː]' },
+      { word: '树桩', audio: 'audio/thai/28.m4a', answer: '[dɔ̄ː]' },
+      { word: '黄蜂', audio: 'audio/thai/29.m4a', answer: '[dɔ̀ː]' },
+      { word: '白内障', audio: 'audio/thai/30.m4a', answer: '[dɔ̂ː]' },
+      { word: '稻田', audio: 'audio/thai/31.m4a', answer: '[nāː]' },
+      { word: '厚', audio: 'audio/thai/32.m4a', answer: '[năː]' },
+      { word: '脸', audio: 'audio/thai/33.m4a', answer: '[nâː]' },
+      { word: '番荔枝', audio: 'audio/thai/34.m4a', answer: '[nɔ́jnàː]' },
+      { word: '清楚', audio: 'audio/thai/35.m4a', answer: '[săj]' },
+      { word: '穿', audio: 'audio/thai/36.m4a', answer: '[sàj]' },
+      { word: '内脏', audio: 'audio/thai/37.m4a', answer: '[sâj]' },
+      { word: '爱', audio: 'audio/thai/38.m4a', answer: '[rák]' },
+      { word: '霉', audio: 'audio/thai/39.m4a', answer: '[rāː]' },
+      { word: '活泼', audio: 'audio/thai/40.m4a', answer: '[râː]' },
+      { word: '荒凉', audio: 'audio/thai/41.m4a', answer: '[ráːŋ]' },
+      { word: '偷', audio: 'audio/thai/42.m4a', answer: '[lák]' },
+      { word: '打猎', audio: 'audio/thai/43.m4a', answer: '[lâː]' },
+      { word: '主要', audio: 'audio/thai/44.m4a', answer: '[làk]' },
+      { word: '驴', audio: 'audio/thai/45.m4a', answer: '[lāː]' },
+      { word: '疲劳', audio: 'audio/thai/46.m4a', answer: '[láː]' },
+      { word: '码', audio: 'audio/thai/47.m4a', answer: '[lăː]' },
+      { word: '打喷嚏', audio: 'audio/thai/48.m4a', answer: '[tsāːm]' },
+      { word: '警官', audio: 'audio/thai/49.m4a', answer: '[tsàː]' },
+      { word: '是', audio: 'audio/thai/50.m4a', answer: '[tsâː]' },
+      { word: '饭碗', audio: 'audio/thai/51.m4a', answer: '[tɕʰāːm]' },
+      { word: '大象', audio: 'audio/thai/52.m4a', answer: '[tɕʰáːŋ]' },
+      { word: '名字', audio: 'audio/thai/53.m4a', answer: '[tɕʰɯ̂ː]' },
+      { word: '鱼骨', audio: 'audio/thai/54.m4a', answer: '[kâːŋ]' },
+      { word: '乌鸦', audio: 'audio/thai/55.m4a', answer: '[kāː]' },
+      { word: '鸡', audio: 'audio/thai/56.m4a', answer: '[kài]' },
+      { word: '水龙头', audio: 'audio/thai/57.m4a', answer: '[kɔ́ːk]' },
+      { word: '面条', audio: 'audio/thai/58.m4a', answer: '[kuăjtiăw]' },
+      { word: '边', audio: 'audio/thai/59.m4a', answer: '[kʰâːŋ]' },
+      { word: '象牙', audio: 'audio/thai/60.m4a', answer: '[ŋāː]' },
+      { word: '生气', audio: 'audio/thai/61.m4a', answer: '[ŋùtŋìt]' },
+      { word: '拉弓', audio: 'audio/thai/62.m4a', answer: '[ŋáːŋ]' },
+      { word: '天', audio: 'audio/thai/63.m4a', answer: '[wān]' },
+      { word: '空', audio: 'audio/thai/64.m4a', answer: '[wâːŋ]' },
+      { word: '果冻', audio: 'audio/thai/65.m4a', answer: '[wún]' },
+      { word: '守卫', audio: 'audio/thai/66.m4a', answer: '[jāːm]' },
+      { word: '奶奶', audio: 'audio/thai/67.m4a', answer: '[jâː]' },
+      { word: '不要', audio: 'audio/thai/68.m4a', answer: '[jàː]' },
+      { word: '胖', audio: 'audio/thai/69.m4a', answer: '[ʔûan]' },
+      { word: '渔网', audio: 'audio/thai/70.m4a', answer: '[ʔūan]' },
+      { word: '疼（叹词）', audio: 'audio/thai/71.m4a', answer: '[ʔój]' },
+      { word: '土罐', audio: 'audio/thai/72.m4a', answer: '[hăj]' },
+      { word: '距离', audio: 'audio/thai/73.m4a', answer: '[hàːŋ]' },
+      { word: '找', audio: 'audio/thai/74.m4a', answer: '[hăː]' },
+      { word: '五', audio: 'audio/thai/75.m4a', answer: '[hâː]' },
+      { word: '匕首', audio: 'audio/thai/76.m4a', answer: '[krìt]' },
+      { word: '切', audio: 'audio/thai/77.m4a', answer: '[krìːt]' },
+      { word: '韧带', audio: 'audio/thai/78.m4a', answer: '[ʔēn]' },
+      { word: '斜靠', audio: 'audio/thai/79.m4a', answer: '[ʔēːn]' },
+      { word: '羊', audio: 'audio/thai/80.m4a', answer: '[pʰɛ́ʔ]' },
+      { word: '打败', audio: 'audio/thai/81.m4a', answer: '[pʰɛ́ː]' },
+      { word: '做梦', audio: 'audio/thai/82.m4a', answer: '[făn]' },
+      { word: '切片', audio: 'audio/thai/83.m4a', answer: '[făːn]' },
+      { word: '箱子', audio: 'audio/thai/84.m4a', answer: '[klɔ̀ŋ]' },
+      { word: '鼓', audio: 'audio/thai/85.m4a', answer: '[klɔ̄ːŋ]' },
+      { word: '浓稠', audio: 'audio/thai/86.m4a', answer: '[kʰôn]' },
+      { word: '掉下来', audio: 'audio/thai/87.m4a', answer: '[kʰôːn]' },
+      { word: '最后', audio: 'audio/thai/88.m4a', answer: '[sùt]' },
+      { word: '吸气', audio: 'audio/thai/89.m4a', answer: '[sùːt]' },
+      { word: '银', audio: 'audio/thai/90.m4a', answer: '[ŋɤ̄n]' },
+      { word: '走', audio: 'audio/thai/91.m4a', answer: '[dɤ̄ːn]' },
+      { word: '上去', audio: 'audio/thai/92.m4a', answer: '[kʰɯ̂n]' },
+      { word: '波', audio: 'audio/thai/93.m4a', answer: '[kʰlɯ̂ːn]' },
+      { word: '学习', audio: 'audio/thai/94.m4a', answer: '[riān]' },
+      { word: '房子', audio: 'audio/thai/95.m4a', answer: '[rɯ̄an]' },
+      { word: '挑衅的', audio: 'audio/thai/96.m4a', answer: '[rūan]' },
+      { word: '缠住', audio: 'audio/thai/97.m4a', answer: '[kʰāː]' },
+      { word: '一种生姜', audio: 'audio/thai/98.m4a', answer: '[kʰàː]' },
+      { word: '我', audio: 'audio/thai/99.m4a', answer: '[kʰâː]' },
+      { word: '贸易', audio: 'audio/thai/100.m4a', answer: '[kʰáː]' },
+      { word: '腿', audio: 'audio/thai/101.m4a', answer: '[kʰăː]' }
+      ]
+    },
+    /* 维吾尔语：词表来自"维吾尔语.xlsx"的 full word list 表（共 190 条）。
+       word=表中汉语词条，answer=表中 IPA 转写，原样录入未改动；表中另有 class 表（20 条，为 full list 的子集），未单独录入。
+       audio 路径为 audio/uyghur/<序号+汉语词条>.m4a（如 01钱.m4a、190锋利.m4a），与录音文件原名一致。
+       如需显示发音人或参考文献，可在此加 speaker、references 字段（格式同上）。 */
+    uyghur: {
+      name: '维吾尔语',
+      speaker: '蔡萌（武汉大学文学院博士研究生）',
+      items: [
+      { word: '钱', audio: 'audio/uyghur/01钱.m4a', answer: '[pul]' },
+      { word: '弄干净', audio: 'audio/uyghur/02弄干净.m4a', answer: '[pakla]' },
+      { word: '刀子', audio: 'audio/uyghur/03刀子.m4a', answer: '[pitʃaq]' },
+      { word: '白色', audio: 'audio/uyghur/04白色.m4a', answer: '[apaq]' },
+      { word: '鞋底', audio: 'audio/uyghur/05鞋底.m4a', answer: '[tapan]' },
+      { word: '母亲', audio: 'audio/uyghur/06母亲.m4a', answer: '[apa]' },
+      { word: '球', audio: 'audio/uyghur/07球.m4a', answer: '[top]' },
+      { word: '踢', audio: 'audio/uyghur/08踢.m4a', answer: '[tɛp]' },
+      { word: '亲吻', audio: 'audio/uyghur/09亲吻.m4a', answer: '[øp]' },
+      { word: '孩子', audio: 'audio/uyghur/10孩子.m4a', answer: '[bala]' },
+      { word: '腰', audio: 'audio/uyghur/11腰.m4a', answer: '[bɛl]' },
+      { word: '果园', audio: 'audio/uyghur/12果园.m4a', answer: '[bir/baʁ]' },
+      { word: '仓库', audio: 'audio/uyghur/13仓库.m4a', answer: '[ambar]' },
+      { word: '器具', audio: 'audio/uyghur/14器具.m4a', answer: '[dʒabduq]' },
+      { word: '盘子', audio: 'audio/uyghur/15盘子.m4a', answer: '[tabaq]' },
+      { word: '原因', audio: 'audio/uyghur/16原因.m4a', answer: '[sɛvɛb]' },
+      { word: '学校', audio: 'audio/uyghur/17学校.m4a', answer: '[mɛktɛb]' },
+      { word: '书籍', audio: 'audio/uyghur/18书籍.m4a', answer: '[kitab]' },
+      { word: '石头', audio: 'audio/uyghur/19石头.m4a', answer: '[taʃ]' },
+      { word: '舌头或语言', audio: 'audio/uyghur/20舌头或语言.m4a', answer: '[til]' },
+      { word: '铁', audio: 'audio/uyghur/21铁.m4a', answer: '[tømyr]' },
+      { word: '父亲', audio: 'audio/uyghur/22父亲.m4a', answer: '[ata]' },
+      { word: '七', audio: 'audio/uyghur/23七.m4a', answer: '[jɛttɛ]' },
+      { word: '脓', audio: 'audio/uyghur/24脓.m4a', answer: '[søtɛk]' },
+      { word: '脚', audio: 'audio/uyghur/25脚.m4a', answer: '[put]' },
+      { word: '马', audio: 'audio/uyghur/26马.m4a', answer: '[at]' },
+      { word: '屁股', audio: 'audio/uyghur/27屁股.m4a', answer: '[køt]' },
+      { word: '朋友', audio: 'audio/uyghur/28朋友.m4a', answer: '[dost]' },
+      { word: '父亲', audio: 'audio/uyghur/29父亲.m4a', answer: '[dada]' },
+      { word: '烟雾', audio: 'audio/uyghur/30烟雾.m4a', answer: '[dim]' },
+      { word: '人', audio: 'audio/uyghur/31人.m4a', answer: '[adæm]' },
+      { word: '紧急的', audio: 'audio/uyghur/32紧急的.m4a', answer: '[dʒiddi]' },
+      { word: '捆', audio: 'audio/uyghur/33捆.m4a', answer: '[qadaq]' },
+      { word: '前面', audio: 'audio/uyghur/34前面.m4a', answer: '[ald]' },
+      { word: '书籍', audio: 'audio/uyghur/35书籍.m4a', answer: '[kitab]' },
+      { word: '牛', audio: 'audio/uyghur/36牛.m4a', answer: '[kala]' },
+      { word: '母牛', audio: 'audio/uyghur/37母牛.m4a', answer: '[kalɛ]' },
+      { word: '八', audio: 'audio/uyghur/38八.m4a', answer: '[sɛkkiz]' },
+      { word: '哥哥', audio: 'audio/uyghur/39哥哥.m4a', answer: '[aka]' },
+      { word: '小包袱', audio: 'audio/uyghur/40小包袱.m4a', answer: '[økɛt]' },
+      { word: '门', audio: 'audio/uyghur/41门.m4a', answer: '[iʃik]' },
+      { word: '驼背', audio: 'audio/uyghur/42驼背.m4a', answer: '[buk]' },
+      { word: '公牛', audio: 'audio/uyghur/43公牛.m4a', answer: '[øk]' },
+      { word: '花', audio: 'audio/uyghur/44花.m4a', answer: '[gyl]' },
+      { word: '尺或幅面', audio: 'audio/uyghur/45尺或幅面.m4a', answer: '[gɛz]' },
+      { word: '银', audio: 'audio/uyghur/46银.m4a', answer: '[gymyʃ]' },
+      { word: '马鞍', audio: 'audio/uyghur/47马鞍.m4a', answer: '[igɛr]' },
+      { word: '母畜', audio: 'audio/uyghur/48母畜.m4a', answer: '[øgɛ]' },
+      { word: '柳树', audio: 'audio/uyghur/49柳树.m4a', answer: '[søgɛt]' },
+      { word: '接触', audio: 'audio/uyghur/50接触.m4a', answer: '[tɛg-]' },
+      { word: '礼物', audio: 'audio/uyghur/51礼物.m4a', answer: '[bɛlɛg]' },
+      { word: '手', audio: 'audio/uyghur/52手.m4a', answer: '[qol]' },
+      { word: '雪', audio: 'audio/uyghur/53雪.m4a', answer: '[qar]' },
+      { word: '黑色', audio: 'audio/uyghur/54黑色.m4a', answer: '[qara]' },
+      { word: '衣领', audio: 'audio/uyghur/55衣领.m4a', answer: '[jaqa]' },
+      { word: '九', audio: 'audio/uyghur/56九.m4a', answer: '[toqquz]' },
+      { word: '胡子', audio: 'audio/uyghur/57胡子.m4a', answer: '[saqal]' },
+      { word: '大蒜', audio: 'audio/uyghur/58大蒜.m4a', answer: '[samsaq]' },
+      { word: '白色', audio: 'audio/uyghur/59白色.m4a', answer: '[aq]' },
+      { word: '健康的', audio: 'audio/uyghur/60健康的.m4a', answer: '[saq]' },
+      { word: '大', audio: 'audio/uyghur/61大.m4a', answer: '[tʃoŋ]' },
+      { word: '牙', audio: 'audio/uyghur/62牙.m4a', answer: '[tʃiʃ]' },
+      { word: '头发', audio: 'audio/uyghur/63头发.m4a', answer: '[tʃatʃ]' },
+      { word: '喝', audio: 'audio/uyghur/64喝.m4a', answer: '[itʃiʃ]' },
+      { word: '苦的', audio: 'audio/uyghur/65苦的.m4a', answer: '[atʃtʃiq]' },
+      { word: '小树枝', audio: 'audio/uyghur/66小树枝.m4a', answer: '[søtʃɛk]' },
+      { word: '三', audio: 'audio/uyghur/67三.m4a', answer: '[ytʃ]' },
+      { word: '擀面杖', audio: 'audio/uyghur/68擀面杖.m4a', answer: '[noʁutʃ]' },
+      { word: '罐子', audio: 'audio/uyghur/69罐子.m4a', answer: '[qatʃ]' },
+      { word: '惩罚', audio: 'audio/uyghur/70惩罚.m4a', answer: '[dʒaza]' },
+      { word: '聚集', audio: 'audio/uyghur/71聚集.m4a', answer: '[dʒɛm]' },
+      { word: '桌子', audio: 'audio/uyghur/72桌子.m4a', answer: '[dʒoza]' },
+      { word: '奇怪', audio: 'audio/uyghur/73奇怪.m4a', answer: '[adʒajip]' },
+      { word: '弱小的', audio: 'audio/uyghur/74弱小的.m4a', answer: '[adʒiz]' },
+      { word: '瘙痒', audio: 'audio/uyghur/75瘙痒.m4a', answer: '[qidʒiq]' },
+      { word: '办法', audio: 'audio/uyghur/76办法.m4a', answer: '[iladʒ]' },
+      { word: '税', audio: 'audio/uyghur/77税.m4a', answer: '[badʒ]' },
+      { word: '水', audio: 'audio/uyghur/78水.m4a', answer: '[su]' },
+      { word: '词', audio: 'audio/uyghur/79词.m4a', answer: '[søz]' },
+      { word: '你', audio: 'audio/uyghur/80你.m4a', answer: '[sɛn]' },
+      { word: '幼崽', audio: 'audio/uyghur/81幼崽.m4a', answer: '[køsɛk]' },
+      { word: '天空', audio: 'audio/uyghur/82天空.m4a', answer: '[asman]' },
+      { word: '基础', audio: 'audio/uyghur/83基础.m4a', answer: '[asas]' },
+      { word: '盘子', audio: 'audio/uyghur/84盘子.m4a', answer: '[tas]' },
+      { word: '压', audio: 'audio/uyghur/85压.m4a', answer: '[bas]' },
+      { word: '肋骨', audio: 'audio/uyghur/86肋骨.m4a', answer: '[qas]' },
+      { word: '时代', audio: 'audio/uyghur/87时代.m4a', answer: '[zaman]' },
+      { word: '种子', audio: 'audio/uyghur/88种子.m4a', answer: '[zɛrɛ]' },
+      { word: '寒冬', audio: 'audio/uyghur/89寒冬.m4a', answer: '[zimistan]' },
+      { word: '美丽的', audio: 'audio/uyghur/90美丽的.m4a', answer: '[gyzɛl]' },
+      { word: '自己', audio: 'audio/uyghur/91自己.m4a', answer: '[øzym]' },
+      { word: '清澈的', audio: 'audio/uyghur/92清澈的.m4a', answer: '[søzyk]' },
+      { word: '我们', audio: 'audio/uyghur/93我们.m4a', answer: '[biz]' },
+      { word: '盐', audio: 'audio/uyghur/94盐.m4a', answer: '[tuz]' },
+      { word: '词', audio: 'audio/uyghur/95词.m4a', answer: '[søz]' },
+      { word: '那样', audio: 'audio/uyghur/96那样.m4a', answer: '[ʃundaq]' },
+      { word: '城市', audio: 'audio/uyghur/97城市.m4a', answer: '[ʃɛhɛr]' },
+      { word: '傍晚', audio: 'audio/uyghur/98傍晚.m4a', answer: '[ʃam]' },
+      { word: '小猫', audio: 'audio/uyghur/99小猫.m4a', answer: '[myʃyk]' },
+      { word: '绿色', audio: 'audio/uyghur/100绿色.m4a', answer: '[jiʃil]' },
+      { word: '扔掉', audio: 'audio/uyghur/101扔掉.m4a', answer: '[taʃla]' },
+      { word: '好', audio: 'audio/uyghur/102好.m4a', answer: '[jaχʃi]' },
+      { word: '五', audio: 'audio/uyghur/103五.m4a', answer: '[bɛʃ]' },
+      { word: '头', audio: 'audio/uyghur/104头.m4a', answer: '[baʃ]' },
+      { word: '眉毛', audio: 'audio/uyghur/105眉毛.m4a', answer: '[qaʃ]' },
+      { word: '信或字', audio: 'audio/uyghur/106信或字.m4a', answer: '[χæt]' },
+      { word: '妻子', audio: 'audio/uyghur/107妻子.m4a', answer: '[χotun]' },
+      { word: '想法', audio: 'audio/uyghur/108想法.m4a', answer: '[χijal]' },
+      { word: '棉花', audio: 'audio/uyghur/109棉花.m4a', answer: '[paχta]' },
+      { word: '最后', audio: 'audio/uyghur/110最后.m4a', answer: '[aχir]' },
+      { word: '愚蠢的', audio: 'audio/uyghur/111愚蠢的.m4a', answer: '[ɛχmɛq]' },
+      { word: '树枝', audio: 'audio/uyghur/112树枝.m4a', answer: '[ʃaχ]' },
+      { word: '树', audio: 'audio/uyghur/113树.m4a', answer: '[dɛrɛk]' },
+      { word: '蛆', audio: 'audio/uyghur/114蛆.m4a', answer: '[muχ]' },
+      { word: '空气', audio: 'audio/uyghur/115空气.m4a', answer: '[hawa]' },
+      { word: '现在', audio: 'audio/uyghur/116现在.m4a', answer: '[hazir]' },
+      { word: '状态', audio: 'audio/uyghur/117状态.m4a', answer: '[hal]' },
+      { word: '分析', audio: 'audio/uyghur/118分析.m4a', answer: '[tɛhlil]' },
+      { word: '清晨', audio: 'audio/uyghur/119清晨.m4a', answer: '[sɛhɛr]' },
+      { word: '城市', audio: 'audio/uyghur/120城市.m4a', answer: '[ʃɛhɛr]' },
+      { word: '嘿（叹词）', audio: 'audio/uyghur/121嘿（叹词）.m4a', answer: '[pah]' },
+      { word: '鹅', audio: 'audio/uyghur/122鹅.m4a', answer: '[ʁaz]' },
+      { word: '悲伤', audio: 'audio/uyghur/123悲伤.m4a', answer: '[ʁɛm]' },
+      { word: '维吾尔族', audio: 'audio/uyghur/124维吾尔族.m4a', answer: '[ujʁur]' },
+      { word: '青蛙', audio: 'audio/uyghur/125青蛙.m4a', answer: '[baʁa]' },
+      { word: '（他的）儿子', audio: 'audio/uyghur/126（他的）儿子.m4a', answer: '[uʁli]' },
+      { word: '山', audio: 'audio/uyghur/127山.m4a', answer: '[taʁ]' },
+      { word: '果园', audio: 'audio/uyghur/128果园.m4a', answer: '[baʁ]' },
+      { word: '伤疤', audio: 'audio/uyghur/129伤疤.m4a', answer: '[daʁ]' },
+      { word: '我', audio: 'audio/uyghur/130我.m4a', answer: '[mɛn]' },
+      { word: '冰', audio: 'audio/uyghur/131冰.m4a', answer: '[muz]' },
+      { word: '民族', audio: 'audio/uyghur/132民族.m4a', answer: '[milɛt]' },
+      { word: '喜爱的', audio: 'audio/uyghur/133喜爱的.m4a', answer: '[amraq]' },
+      { word: '圆满', audio: 'audio/uyghur/134圆满.m4a', answer: '[kamal]' },
+      { word: '饭菜', audio: 'audio/uyghur/135饭菜.m4a', answer: '[tamaq]' },
+      { word: '鸡蛋', audio: 'audio/uyghur/136鸡蛋.m4a', answer: '[tuχum]' },
+      { word: '气息', audio: 'audio/uyghur/137气息.m4a', answer: '[dɛm]' },
+      { word: '墙', audio: 'audio/uyghur/138墙.m4a', answer: '[tam]' },
+      { word: '馕', audio: 'audio/uyghur/139馕.m4a', answer: '[nan]' },
+      { word: '光芒', audio: 'audio/uyghur/140光芒.m4a', answer: '[nur]' },
+      { word: '目光', audio: 'audio/uyghur/141目光.m4a', answer: '[nɛzɛr]' },
+      { word: '母亲', audio: 'audio/uyghur/142母亲.m4a', answer: '[ana]' },
+      { word: '考试', audio: 'audio/uyghur/143考试.m4a', answer: '[sinaq]' },
+      { word: '如此', audio: 'audio/uyghur/144如此.m4a', answer: '[intʃɛ]' },
+      { word: '太阳', audio: 'audio/uyghur/145太阳.m4a', answer: '[kyn]' },
+      { word: '鼻子', audio: 'audio/uyghur/146鼻子.m4a', answer: '[burun]' },
+      { word: '生命', audio: 'audio/uyghur/147生命.m4a', answer: '[dʒan]' },
+      { word: '妹妹', audio: 'audio/uyghur/148妹妹.m4a', answer: '[siŋil]' },
+      { word: '走', audio: 'audio/uyghur/149走.m4a', answer: '[maŋ]' },
+      { word: '声音', audio: 'audio/uyghur/150声音.m4a', answer: '[ahaŋ]' },
+      { word: '牢固的', audio: 'audio/uyghur/151牢固的.m4a', answer: '[tʃiŋ]' },
+      { word: '鹰', audio: 'audio/uyghur/152鹰.m4a', answer: '[latʃin]' },
+      { word: '薄片', audio: 'audio/uyghur/153薄片.m4a', answer: '[lɛm]' },
+      { word: '柠檬', audio: 'audio/uyghur/154柠檬.m4a', answer: '[limon]' },
+      { word: '孩子', audio: 'audio/uyghur/155孩子.m4a', answer: '[bala]' },
+      { word: '苹果', audio: 'audio/uyghur/156苹果.m4a', answer: '[alma]' },
+      { word: '标记', audio: 'audio/uyghur/157标记.m4a', answer: '[bɛlgɛ]' },
+      { word: '花朵', audio: 'audio/uyghur/158花朵.m4a', answer: '[gyl]' },
+      { word: '路', audio: 'audio/uyghur/159路.m4a', answer: '[jol]' },
+      { word: '谢谢', audio: 'audio/uyghur/160谢谢.m4a', answer: '[rɛχmɛt]' },
+      { word: '颜色', audio: 'audio/uyghur/161颜色.m4a', answer: '[rɛŋ]' },
+      { word: '许可', audio: 'audio/uyghur/162许可.m4a', answer: '[ruχsɛt]' },
+      { word: '睫毛', audio: 'audio/uyghur/163睫毛.m4a', answer: '[kirpik]' },
+      { word: '挥霍', audio: 'audio/uyghur/164挥霍.m4a', answer: '[sɛrɛp]' },
+      { word: '杨树', audio: 'audio/uyghur/165杨树.m4a', answer: '[tɛrɛk]' },
+      { word: '必需的', audio: 'audio/uyghur/166必需的.m4a', answer: '[zøryr]' },
+      { word: '痛苦', audio: 'audio/uyghur/167痛苦.m4a', answer: '[dɛr]' },
+      { word: '爱人', audio: 'audio/uyghur/168爱人.m4a', answer: '[jar]' },
+      { word: '年', audio: 'audio/uyghur/169年.m4a', answer: '[jil]' },
+      { word: '夏天', audio: 'audio/uyghur/170夏天.m4a', answer: '[jaz]' },
+      { word: '新的', audio: 'audio/uyghur/171新的.m4a', answer: '[jɛŋi]' },
+      { word: '哪一个', audio: 'audio/uyghur/172哪一个.m4a', answer: '[qajsi]' },
+      { word: '小船', audio: 'audio/uyghur/173小船.m4a', answer: '[qajiq]' },
+      { word: '爱或吻', audio: 'audio/uyghur/174爱或吻.m4a', answer: '[søjyʃ]' },
+      { word: '月亮', audio: 'audio/uyghur/175月亮.m4a', answer: '[aj]' },
+      { word: '祖国', audio: 'audio/uyghur/176祖国.m4a', answer: '[vɛtɛn]' },
+      { word: '和', audio: 'audio/uyghur/177和.m4a', answer: '[vɛ]' },
+      { word: '时间', audio: 'audio/uyghur/178时间.m4a', answer: '[vaqit]' },
+      { word: '震动', audio: 'audio/uyghur/179震动.m4a', answer: '[tɛvrɛʃ]' },
+      { word: '声音', audio: 'audio/uyghur/180声音.m4a', answer: '[avaz]' },
+      { word: '功课', audio: 'audio/uyghur/181功课.m4a', answer: '[savaq]' },
+      { word: '心情', audio: 'audio/uyghur/182心情.m4a', answer: '[tav]' },
+      { word: '马', audio: 'audio/uyghur/183马.m4a', answer: '[ɑt]' },
+      { word: '肉', audio: 'audio/uyghur/184肉.m4a', answer: '[ɛt]' },
+      { word: '扔', audio: 'audio/uyghur/185扔.m4a', answer: '[et]' },
+      { word: '狗', audio: 'audio/uyghur/186狗.m4a', answer: '[it]' },
+      { word: '火', audio: 'audio/uyghur/187火.m4a', answer: '[ot]' },
+      { word: '经过', audio: 'audio/uyghur/188经过.m4a', answer: '[øt]' },
+      { word: '草', audio: 'audio/uyghur/189草.m4a', answer: '[ut]' },
+      { word: '锋利', audio: 'audio/uyghur/190锋利.m4a', answer: '[yt]' }
+      ]
+    }
+  };
+
+  var currentLang = 'xianfeng';
+  var currentItems = languageData[currentLang].items;
+  var idx = 0;
+
+  var els = {
+    langSelect: document.getElementById('twLangSelect'),
+    index: document.getElementById('tw1Index'),
+    total: document.getElementById('tw1Total'),
+    word: document.getElementById('tw1Word'),
+    playBtn: document.getElementById('tw1PlayBtn'),
+    audio: document.getElementById('tw1Audio'),
+    input: document.getElementById('tw1Input'),
+    checkBtn: document.getElementById('tw1CheckBtn'),
+    feedback: document.getElementById('tw1Feedback'),
+    prevBtn: document.getElementById('tw1PrevBtn'),
+    nextBtn: document.getElementById('tw1NextBtn'),
+    showBtn: document.getElementById('tw1ShowBtn'),
+    speaker: document.getElementById('tw1Speaker'),
+    refs: document.getElementById('tw1Refs'),
+    searchInput: document.getElementById('twSearchInput'),
+    searchResults: document.getElementById('twSearchResults'),
+    searchAudio: document.getElementById('twSearchAudio')
+  };
+
+  function normalize(s){
+    return (s || '')
+      .normalize('NFC')                        // 统一组合符号写法（如泰语声调符号，预组合/分解形式均可判对）
+      .toLowerCase()
+      .replace(/[\[\]]/g, '')
+      .replace(/['\u2019\u02c8\u02cc]/g, '')   // 判分时忽略重音符号（' ˈ ˌ）
+      .replace(/[\u0361\u035c]/g, '')          // 判分时忽略连音符（͡ ͜）
+      .replace(/\s+/g, '')
+      .trim();
+  }
+
+  function setFeedback(msg, type){
+    els.feedback.textContent = msg;
+    els.feedback.className = 'tw-feedback' + (type ? ' ' + type : '');
+  }
+
+  function loadItem(){
+    if (!currentItems.length){
+      els.index.textContent = 0;
+      els.word.textContent = '—';
+      els.input.value = '';
+      els.audio.removeAttribute('src');
+      setFeedback('该语言的录音与答案尚未上传，敬请期待。', 'info');
+      els.prevBtn.disabled = true;
+      els.nextBtn.disabled = true;
+      els.playBtn.disabled = true;
+      els.checkBtn.disabled = true;
+      els.showBtn.disabled = true;
+      return;
+    }
+    els.playBtn.disabled = false;
+    els.checkBtn.disabled = false;
+    els.showBtn.disabled = false;
+    els.index.textContent = idx + 1;
+    els.word.textContent = currentItems[idx].word;
+    els.input.value = '';
+    els.audio.src = currentItems[idx].audio;
+    setFeedback('点击"播放录音"开始听音，输入你的转写后点击"检查"。', 'info');
+    els.prevBtn.disabled = (idx === 0);
+    els.nextBtn.disabled = (idx === currentItems.length - 1);
+  }
+
+  function loadLanguage(langKey){
+    currentLang = langKey;
+    currentItems = languageData[langKey].items;
+    idx = 0;
+    els.total.textContent = currentItems.length;
+    var spk = languageData[langKey].speaker;
+    if (spk){
+      els.speaker.textContent = '发音人：' + spk;
+      els.speaker.hidden = false;
+    } else {
+      els.speaker.textContent = '';
+      els.speaker.hidden = true;
+    }
+    renderRefs(languageData[langKey].references);
+    els.searchInput.value = '';
+    clearSearch();
+    loadItem();
+  }
+
+  /* ---------- 参考文献 ---------- */
+  function renderRefs(list){
+    els.refs.innerHTML = '';
+    if (!list || !list.length){
+      els.refs.hidden = true;
+      return;
+    }
+    var title = document.createElement('div');
+    title.className = 'tw-refs-title';
+    title.textContent = '参考文献';
+    els.refs.appendChild(title);
+    list.forEach(function(r){
+      var line = document.createElement('div');
+      line.className = 'tw-refs-item';
+      var text = r.text || '';
+      var doiPos = r.url ? text.indexOf('doi:') : -1;
+      if (doiPos > -1){
+        line.appendChild(document.createTextNode(text.slice(0, doiPos)));
+        var a = document.createElement('a');
+        a.href = r.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = text.slice(doiPos);
+        line.appendChild(a);
+      } else {
+        line.appendChild(document.createTextNode(text));
+      }
+      els.refs.appendChild(line);
+    });
+    els.refs.hidden = false;
+  }
+
+  /* ---------- 单词录音搜索 ---------- */
+  function fold(s){
+    return (s || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\u0111/g, 'd');
+  }
+
+  function clearSearch(){
+    els.searchResults.innerHTML = '';
+    els.searchResults.hidden = true;
+    els.searchAudio.pause();
+  }
+
+  function showSearchMsg(text, type){
+    els.searchResults.innerHTML = '';
+    var m = document.createElement('div');
+    m.className = 'tw-search-msg' + (type ? ' ' + type : '');
+    m.textContent = text;
+    els.searchResults.appendChild(m);
+    els.searchResults.hidden = false;
+  }
+
+  function playSearchHit(i, msgHolder){
+    var item = currentItems[i];
+    els.audio.pause();
+    els.searchAudio.src = item.audio;
+    els.searchAudio.currentTime = 0;
+    var pr = els.searchAudio.play();
+    if (pr && pr.catch){
+      pr.catch(function(){
+        msgHolder.textContent = '⚠️ 未找到音频文件：' + item.audio;
+        msgHolder.className = 'tw-search-msg wrong';
+      });
+    }
+  }
+
+  function runSearch(){
+    var raw = els.searchInput.value.trim();
+    if (!raw){ clearSearch(); return; }
+    if (!currentItems.length){
+      showSearchMsg('该语言的词表尚未上传，暂时无法搜索。', '');
+      return;
+    }
+    var q = fold(raw);
+    var hits = [];
+    for (var i = 0; i < currentItems.length; i++){
+      if (fold(currentItems[i].word).indexOf(q) !== -1 || String(i + 1) === raw){
+        hits.push(i);
+      }
+    }
+    if (!hits.length){
+      showSearchMsg('没有找到与“' + raw + '”相关的词条。', '');
+      return;
+    }
+    els.searchResults.innerHTML = '';
+    var LIMIT = 30;
+    var errBox = document.createElement('div');
+    errBox.className = 'tw-search-msg';
+    hits.slice(0, LIMIT).forEach(function(i){
+      var row = document.createElement('div');
+      row.className = 'tw-hit';
+      var no = document.createElement('span');
+      no.className = 'tw-hit-no';
+      no.textContent = '#' + (i + 1);
+      var w = document.createElement('span');
+      w.className = 'tw-hit-word';
+      w.textContent = currentItems[i].word;
+      var play = document.createElement('button');
+      play.type = 'button';
+      play.className = 'tw-btn tw-play';
+      play.textContent = '▶ 播放';
+      play.addEventListener('click', function(){
+        errBox.textContent = '';
+        errBox.className = 'tw-search-msg';
+        playSearchHit(i, errBox);
+      });
+      var go = document.createElement('button');
+      go.type = 'button';
+      go.className = 'tw-btn';
+      go.textContent = '转到此题';
+      go.addEventListener('click', function(){
+        idx = i;
+        loadItem();
+        els.input.focus();
+      });
+      row.appendChild(no);
+      row.appendChild(w);
+      row.appendChild(play);
+      row.appendChild(go);
+      els.searchResults.appendChild(row);
+    });
+    if (hits.length > LIMIT){
+      var more = document.createElement('div');
+      more.className = 'tw-search-msg';
+      more.textContent = '共 ' + hits.length + ' 条结果，仅显示前 ' + LIMIT + ' 条，请输入更多字符缩小范围。';
+      els.searchResults.appendChild(more);
+    }
+    els.searchResults.appendChild(errBox);
+    els.searchResults.hidden = false;
+  }
+
+  els.searchInput.addEventListener('input', runSearch);
+  els.searchInput.addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){ e.preventDefault(); }
+  });
+
+  els.langSelect.addEventListener('change', function(){
+    loadLanguage(this.value);
+  });
+
+  els.playBtn.addEventListener('click', function(){
+    els.audio.currentTime = 0;
+    var playPromise = els.audio.play();
+    if (playPromise && playPromise.catch){
+      playPromise.catch(function(){
+        setFeedback('⚠️ 未找到音频文件，请确认 audio/ 文件夹中已放入对应录音（' + currentItems[idx].audio + '）。', 'wrong');
+      });
+    }
+  });
+
+  els.checkBtn.addEventListener('click', function(){
+    var userAns = normalize(els.input.value);
+    var correctAns = normalize(currentItems[idx].answer);
+    if (!userAns){
+      setFeedback('请先输入你的转写。', 'info');
+      return;
+    }
+    if (userAns === correctAns){
+      setFeedback('✓ 正确！', 'correct');
+    } else {
+      setFeedback('✗ 再听一遍试试看。', 'wrong');
+    }
+  });
+
+  els.input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      els.checkBtn.click();
+    }
+  });
+
+  els.showBtn.addEventListener('click', function(){
+    setFeedback('参考答案：' + currentItems[idx].answer, 'info');
+  });
+
+  els.prevBtn.addEventListener('click', function(){
+    if (idx > 0){ idx--; loadItem(); }
+  });
+
+  els.nextBtn.addEventListener('click', function(){
+    if (idx < currentItems.length - 1){ idx++; loadItem(); }
+  });
+
+  els.total.textContent = currentItems.length;
+  loadItem();
+})();
+</script>
+</body>
+</html>
