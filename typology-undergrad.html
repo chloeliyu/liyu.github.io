@@ -582,6 +582,7 @@
         <option value="lisu">傈僳语（怒江方言）</option>
         <option value="russian">俄语</option>
         <option value="vietnamese">越南语</option>
+        <option value="thai">泰语（标准）</option>
       </select>
     </div>
     <div class="exercise-grid">
@@ -775,6 +776,7 @@
       audio/vietnamese/ 下，格式与其他语言相同；如需增删，在下面
       languageData 的 vietnamese 里改 { word, audio, answer } 即可。
       词表为空时页面会提示"尚未上传"，不会报错。
+      泰语（thai）：词表 101 条来自 泰语（中部方言标准泰语）.xlsx，录音放在 audio/thai/ 下，文件名为两位补零的序号 + .m4a（如 01.m4a、101.m4a）。
    6. 发音人：在 languageData 各语言下加 speaker: '姓名（身份）'，
       练习一会在题目下方显示"发音人：……"；没有 speaker 的语言不显示。
    7. 参考文献：在 languageData 各语言下加 references: [ { text: '完整文献',
@@ -1278,21 +1280,21 @@
        录音放在 audio/vietnamese/ 下：第 45–159 条、第 168–209 条的文件名为"序号+词条"（如 45shovel.wav、168僧尼或师傅.wav）；
        第 1–44 条、第 160–167 条的文件名为按词条推测的"序号+词条(空格换成下划线).wav"，如与实际文件名不符，请在此处修改。 */
     vietnamese: {
-      name: '越南语',
+      name: '越南语(河内方言)',
       speaker: '邓艳琼（武汉大学2025级硕士研究生）',
       references: [
         { text: 'Kirby JP. Vietnamese (Hanoi Vietnamese). Journal of the International Phonetic Association. 2011;41(3):381-392. doi:10.1017/S0025100311000181', url: 'https://doi.org/10.1017/S0025100311000181' }
       ],
       items: [
-      { word: 'three', audio: 'audio/vietnamese/1three.wav', answer: '[ɓaA1]' },
-      { word: 'ghost', audio: 'audio/vietnamese/2ghost.wav', answer: '[maA1]' },
-      { word: 'to brew', audio: 'audio/vietnamese/3to_brew.wav', answer: '[faA1]' },
-      { word: 'and', audio: 'audio/vietnamese/4and.wav', answer: '[vaA2]' },
-      { word: 'unjustly', audio: 'audio/vietnamese/5unjustly.wav', answer: '[wanA1]' },
-      { word: 'we or our', audio: 'audio/vietnamese/6we_or_our.wav', answer: '[taA1]' },
-      { word: 'to forgive', audio: 'audio/vietnamese/7to_forgive.wav', answer: '[tʰaA1]' },
-      { word: 'banyan tree', audio: 'audio/vietnamese/8banyan_tree.wav', answer: '[ɗaA1]' },
-      { word: 'custard apple', audio: 'audio/vietnamese/9custard_apple.wav', answer: '[naA1]' },
+      { word: 'three', audio: 'audio/vietnamese/01three.wav', answer: '[ɓaA1]' },
+      { word: 'ghost', audio: 'audio/vietnamese/02ghost.wav', answer: '[maA1]' },
+      { word: 'to brew', audio: 'audio/vietnamese/03to_brew.wav', answer: '[faA1]' },
+      { word: 'and', audio: 'audio/vietnamese/04and.wav', answer: '[vaA2]' },
+      { word: 'unjustly', audio: 'audio/vietnamese/05unjustly.wav', answer: '[wanA1]' },
+      { word: 'we or our', audio: 'audio/vietnamese/06we_or_our.wav', answer: '[taA1]' },
+      { word: 'to forgive', audio: 'audio/vietnamese/07to_forgive.wav', answer: '[tʰaA1]' },
+      { word: 'banyan tree', audio: 'audio/vietnamese/08banyan_tree.wav', answer: '[ɗaA1]' },
+      { word: 'custard apple', audio: 'audio/vietnamese/09custard_apple.wav', answer: '[naA1]' },
       { word: 'far', audio: 'audio/vietnamese/10far.wav', answer: '[saA1]' },
       { word: 'skin', audio: 'audio/vietnamese/11skin.wav', answer: '[zaA1]' },
       { word: 'exist or COP', audio: 'audio/vietnamese/12exist_or_COP.wav', answer: '[laA2]' },
@@ -1494,6 +1496,120 @@
       { word: '剃', audio: 'audio/vietnamese/208剃.wav', answer: '[kawB2]' },
       { word: '高', audio: 'audio/vietnamese/209高.wav', answer: '[kawA1]' }
       ]
+    },
+    /* 泰语（标准泰语，即中部方言/曼谷一带）：词表来自"泰语（中部方言标准泰语）.xlsx"的 full list 表（共 101 条）。
+       word=表中汉语词条，answer=表中 IPA 转写（含声调符号），原样录入未改动；表中另有 class list 表（20 条，为 full list 的子集），未单独录入。
+       audio 路径规则同俄语：audio/thai/<表中序号，两位补零，如 01、48、101>.m4a；录音上传后按此命名放入 audio/thai/ 即可生效，
+       如实际文件名或扩展名不同，请在此处统一修改。 */
+    thai: {
+      name: '泰语（标准）',
+      speaker: '萧如菁（武汉大学2024级硕士研究生）',
+      references: [
+        { text: 'Tingsabadh MRK, Abramson AS. Thai. Journal of the International Phonetic Association. 1993;23(1):24-28. doi:10.1017/S0025100300004746', url: 'https://doi.org/10.1017/S0025100300004746' }
+      ],
+      items: [
+      { word: '阿姨', audio: 'audio/thai/01.m4a', answer: '[pâː]' },
+      { word: '投掷', audio: 'audio/thai/02.m4a', answer: '[pāː]' },
+      { word: '森林', audio: 'audio/thai/03.m4a', answer: '[pàː]' },
+      { word: '布', audio: 'audio/thai/04.m4a', answer: '[pʰâː]' },
+      { word: '带', audio: 'audio/thai/05.m4a', answer: '[pʰāː]' },
+      { word: '峡谷', audio: 'audio/thai/06.m4a', answer: '[pʰăː]' },
+      { word: '切开', audio: 'audio/thai/07.m4a', answer: '[pʰàː]' },
+      { word: '疯狂', audio: 'audio/thai/08.m4a', answer: '[bâː]' },
+      { word: '面条', audio: 'audio/thai/09.m4a', answer: '[bàmìː]' },
+      { word: '酒吧', audio: 'audio/thai/10.m4a', answer: '[bāː]' },
+      { word: '肩膀', audio: 'audio/thai/11.m4a', answer: '[bàː]' },
+      { word: '来', audio: 'audio/thai/12.m4a', answer: '[māː]' },
+      { word: '马', audio: 'audio/thai/13.m4a', answer: '[máː]' },
+      { word: '狗', audio: 'audio/thai/14.m4a', answer: '[măː]' },
+      { word: '血浆', audio: 'audio/thai/15.m4a', answer: '[pʰláːsmâː]' },
+      { word: '奶奶', audio: 'audio/thai/16.m4a', answer: '[āːmâː]' },
+      { word: '天空', audio: 'audio/thai/17.m4a', answer: '[fáː]' },
+      { word: '闯', audio: 'audio/thai/18.m4a', answer: '[fàː]' },
+      { word: '色斑', audio: 'audio/thai/19.m4a', answer: '[fâː]' },
+      { word: '盖子', audio: 'audio/thai/20.m4a', answer: '[făː]' },
+      { word: '捶打', audio: 'audio/thai/21.m4a', answer: '[tām]' },
+      { word: '低', audio: 'audio/thai/22.m4a', answer: '[tàm]' },
+      { word: '爆炸', audio: 'audio/thai/23.m4a', answer: '[tâm]' },
+      { word: '做', audio: 'audio/thai/24.m4a', answer: '[tʰām]' },
+      { word: '山洞', audio: 'audio/thai/25.m4a', answer: '[tʰâm]' },
+      { word: '黑', audio: 'audio/thai/26.m4a', answer: '[dām]' },
+      { word: '眼睛', audio: 'audio/thai/27.m4a', answer: '[dāː]' },
+      { word: '树桩', audio: 'audio/thai/28.m4a', answer: '[dɔ̄ː]' },
+      { word: '黄蜂', audio: 'audio/thai/29.m4a', answer: '[dɔ̀ː]' },
+      { word: '白内障', audio: 'audio/thai/30.m4a', answer: '[dɔ̂ː]' },
+      { word: '稻田', audio: 'audio/thai/31.m4a', answer: '[nāː]' },
+      { word: '厚', audio: 'audio/thai/32.m4a', answer: '[năː]' },
+      { word: '脸', audio: 'audio/thai/33.m4a', answer: '[nâː]' },
+      { word: '番荔枝', audio: 'audio/thai/34.m4a', answer: '[nɔ́jnàː]' },
+      { word: '清楚', audio: 'audio/thai/35.m4a', answer: '[săj]' },
+      { word: '穿', audio: 'audio/thai/36.m4a', answer: '[sàj]' },
+      { word: '内脏', audio: 'audio/thai/37.m4a', answer: '[sâj]' },
+      { word: '爱', audio: 'audio/thai/38.m4a', answer: '[rák]' },
+      { word: '霉', audio: 'audio/thai/39.m4a', answer: '[rāː]' },
+      { word: '活泼', audio: 'audio/thai/40.m4a', answer: '[râː]' },
+      { word: '荒凉', audio: 'audio/thai/41.m4a', answer: '[ráːŋ]' },
+      { word: '偷', audio: 'audio/thai/42.m4a', answer: '[lák]' },
+      { word: '打猎', audio: 'audio/thai/43.m4a', answer: '[lâː]' },
+      { word: '主要', audio: 'audio/thai/44.m4a', answer: '[làk]' },
+      { word: '驴', audio: 'audio/thai/45.m4a', answer: '[lāː]' },
+      { word: '疲劳', audio: 'audio/thai/46.m4a', answer: '[láː]' },
+      { word: '码', audio: 'audio/thai/47.m4a', answer: '[lăː]' },
+      { word: '打喷嚏', audio: 'audio/thai/48.m4a', answer: '[tsāːm]' },
+      { word: '警官', audio: 'audio/thai/49.m4a', answer: '[tsàː]' },
+      { word: '是', audio: 'audio/thai/50.m4a', answer: '[tsâː]' },
+      { word: '饭碗', audio: 'audio/thai/51.m4a', answer: '[tɕʰāːm]' },
+      { word: '大象', audio: 'audio/thai/52.m4a', answer: '[tɕʰáːŋ]' },
+      { word: '名字', audio: 'audio/thai/53.m4a', answer: '[tɕʰɯ̂ː]' },
+      { word: '鱼骨', audio: 'audio/thai/54.m4a', answer: '[kâːŋ]' },
+      { word: '乌鸦', audio: 'audio/thai/55.m4a', answer: '[kāː]' },
+      { word: '鸡', audio: 'audio/thai/56.m4a', answer: '[kài]' },
+      { word: '水龙头', audio: 'audio/thai/57.m4a', answer: '[kɔ́ːk]' },
+      { word: '面条', audio: 'audio/thai/58.m4a', answer: '[kuăjtiăw]' },
+      { word: '边', audio: 'audio/thai/59.m4a', answer: '[kʰâːŋ]' },
+      { word: '象牙', audio: 'audio/thai/60.m4a', answer: '[ŋāː]' },
+      { word: '生气', audio: 'audio/thai/61.m4a', answer: '[ŋùtŋìt]' },
+      { word: '拉弓', audio: 'audio/thai/62.m4a', answer: '[ŋáːŋ]' },
+      { word: '天', audio: 'audio/thai/63.m4a', answer: '[wān]' },
+      { word: '空', audio: 'audio/thai/64.m4a', answer: '[wâːŋ]' },
+      { word: '果冻', audio: 'audio/thai/65.m4a', answer: '[wún]' },
+      { word: '守卫', audio: 'audio/thai/66.m4a', answer: '[jāːm]' },
+      { word: '奶奶', audio: 'audio/thai/67.m4a', answer: '[jâː]' },
+      { word: '不要', audio: 'audio/thai/68.m4a', answer: '[jàː]' },
+      { word: '胖', audio: 'audio/thai/69.m4a', answer: '[ʔûan]' },
+      { word: '渔网', audio: 'audio/thai/70.m4a', answer: '[ʔūan]' },
+      { word: '疼（叹词）', audio: 'audio/thai/71.m4a', answer: '[ʔój]' },
+      { word: '土罐', audio: 'audio/thai/72.m4a', answer: '[hăj]' },
+      { word: '距离', audio: 'audio/thai/73.m4a', answer: '[hàːŋ]' },
+      { word: '找', audio: 'audio/thai/74.m4a', answer: '[hăː]' },
+      { word: '五', audio: 'audio/thai/75.m4a', answer: '[hâː]' },
+      { word: '匕首', audio: 'audio/thai/76.m4a', answer: '[krìt]' },
+      { word: '切', audio: 'audio/thai/77.m4a', answer: '[krìːt]' },
+      { word: '韧带', audio: 'audio/thai/78.m4a', answer: '[ʔēn]' },
+      { word: '斜靠', audio: 'audio/thai/79.m4a', answer: '[ʔēːn]' },
+      { word: '羊', audio: 'audio/thai/80.m4a', answer: '[pʰɛ́ʔ]' },
+      { word: '打败', audio: 'audio/thai/81.m4a', answer: '[pʰɛ́ː]' },
+      { word: '做梦', audio: 'audio/thai/82.m4a', answer: '[făn]' },
+      { word: '切片', audio: 'audio/thai/83.m4a', answer: '[făːn]' },
+      { word: '箱子', audio: 'audio/thai/84.m4a', answer: '[klɔ̀ŋ]' },
+      { word: '鼓', audio: 'audio/thai/85.m4a', answer: '[klɔ̄ːŋ]' },
+      { word: '浓稠', audio: 'audio/thai/86.m4a', answer: '[kʰôn]' },
+      { word: '掉下来', audio: 'audio/thai/87.m4a', answer: '[kʰôːn]' },
+      { word: '最后', audio: 'audio/thai/88.m4a', answer: '[sùt]' },
+      { word: '吸气', audio: 'audio/thai/89.m4a', answer: '[sùːt]' },
+      { word: '银', audio: 'audio/thai/90.m4a', answer: '[ŋɤ̄n]' },
+      { word: '走', audio: 'audio/thai/91.m4a', answer: '[dɤ̄ːn]' },
+      { word: '上去', audio: 'audio/thai/92.m4a', answer: '[kʰɯ̂n]' },
+      { word: '波', audio: 'audio/thai/93.m4a', answer: '[kʰlɯ̂ːn]' },
+      { word: '学习', audio: 'audio/thai/94.m4a', answer: '[riān]' },
+      { word: '房子', audio: 'audio/thai/95.m4a', answer: '[rɯ̄an]' },
+      { word: '挑衅的', audio: 'audio/thai/96.m4a', answer: '[rūan]' },
+      { word: '缠住', audio: 'audio/thai/97.m4a', answer: '[kʰāː]' },
+      { word: '一种生姜', audio: 'audio/thai/98.m4a', answer: '[kʰàː]' },
+      { word: '我', audio: 'audio/thai/99.m4a', answer: '[kʰâː]' },
+      { word: '贸易', audio: 'audio/thai/100.m4a', answer: '[kʰáː]' },
+      { word: '腿', audio: 'audio/thai/101.m4a', answer: '[kʰăː]' }
+      ]
     }
   };
 
@@ -1523,6 +1639,7 @@
 
   function normalize(s){
     return (s || '')
+      .normalize('NFC')                        // 统一组合符号写法（如泰语声调符号，预组合/分解形式均可判对）
       .toLowerCase()
       .replace(/[\[\]]/g, '')
       .replace(/['\u2019\u02c8\u02cc]/g, '')   // 判分时忽略重音符号（' ˈ ˌ）
