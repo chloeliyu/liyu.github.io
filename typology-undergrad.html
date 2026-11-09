@@ -351,6 +351,57 @@
   }
 
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  /* IPA GAME（国际音标记音游戏） */
+  .ig{background:var(--bg-raised);border:1px solid var(--border);border-radius:14px;padding:22px 24px;}
+  .ig-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+  .ig-lives{font-size:13.5px;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+  .ig-heart{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--rose);margin-right:5px;}
+  #ipa-game .lang-select-row{margin-top:20px;}
+  .ig-heart.lost{background:transparent;border:1.5px solid var(--border);}
+  .ig-meta{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;}
+  .ig-group{font-family:var(--serif);color:var(--rose);font-size:16px;}
+  .ig-progress{font-size:13px;color:var(--text-dim);}
+  .ig-score{font-size:13px;color:var(--text-dim);margin-left:auto;}
+  .ig-stem-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 4px;}
+  .ig-stem{font-family:var(--serif);font-size:24px;color:var(--text);line-height:1.5;}
+  .ig-stem.ipa{font-family:'Times New Roman','Doulos SIL','Charis SIL',serif;font-size:30px;}
+  .ig-prompt{font-size:14px;color:var(--text-muted);margin-bottom:16px;}
+  .ig-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .ig-opt{
+    display:flex;align-items:center;gap:12px;
+    background:var(--bg);border:1.5px solid var(--border);border-radius:12px;
+    padding:12px 14px;min-height:62px;cursor:pointer;text-align:left;
+    font-family:var(--sans);color:var(--text);transition:border-color .2s, background .2s;
+  }
+  .ig-opt:hover:not(:disabled), .ig-opt:focus-visible{border-color:var(--gold);}
+  .ig-opt:disabled{cursor:default;}
+  .ig-opt.picked-right{border-color:#4f9d6e;background:#e4f1e8;}
+  .ig-opt.picked-wrong{border-color:var(--rose);background:#f4e0e6;}
+  .ig-letter{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--rose);min-width:20px;}
+  .ig-label{flex:1;font-size:16px;word-break:break-word;}
+  .ig-label.ipa{font-family:'Times New Roman','Doulos SIL','Charis SIL',serif;font-size:21px;}
+  .ig-play{
+    flex:none;width:36px;height:36px;border-radius:50%;
+    border:1px solid var(--gold);background:transparent;color:var(--gold);
+    font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .ig-play:hover{background:var(--gold);color:var(--bg);}
+  .ig-hint{font-size:12.5px;color:var(--text-dim);margin-bottom:10px;}
+  .ig-feedback{min-height:22px;font-size:14px;margin-bottom:12px;}
+  .ig-feedback.correct{color:#4f9d6e;}
+  .ig-feedback.wrong{color:var(--rose);}
+  .ig-feedback.info{color:var(--text-dim);}
+  .ig-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .ig-done{text-align:center;padding:26px 10px;}
+  .ig-done h3{font-family:var(--serif);font-weight:500;font-size:24px;margin-bottom:8px;}
+  .ig-done p{color:var(--text-muted);margin-bottom:18px;}
+  .ig-modal{position:fixed;inset:0;background:rgba(42,26,68,0.45);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;}
+  .ig-modal[hidden]{display:none;}
+  .ig-modal-box{background:var(--bg);border:1px solid var(--border);border-radius:16px;max-width:380px;width:100%;padding:30px 26px 24px;text-align:center;box-shadow:0 18px 50px rgba(42,26,68,0.25);}
+  .ig-modal-box p{font-family:var(--serif);font-size:19px;color:var(--text);margin-bottom:8px;}
+  .ig-modal-box .ig-modal-sub{font-family:var(--sans);font-size:13.5px;color:var(--text-muted);margin-bottom:20px;}
+  @media (max-width:720px){ .ig-options{grid-template-columns:1fr;} .ig{padding:18px 16px;} }
 </style>
 </head>
 <body>
@@ -367,6 +418,7 @@
       <a href="#readings">参考书目</a>
       <a href="#transcription">转写练习</a>
       <a href="#morphosyntax">形态句法分析练习</a>
+      <a href="#ipa-game">记音游戏</a>
     </div>
   </div>
 </nav>
@@ -741,6 +793,69 @@
             <option value="">待添加</option>
           </select>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ipa-game">
+  <div class="wrap">
+    <div class="kicker">课堂实践</div>
+    <h2 class="sec-title">国际音标记音游戏</h2>
+    <div class="prose">
+      <p>听录音，从四个选项中选出正确答案。题目包括俄语、泰语、越南语、维吾尔语的记音必答题，以及泰语声调、越南语元音和综合知识抢答题。答对继续前进；连续答错 3 题即挑战失败。</p>
+    </div>
+
+    <div class="lang-select-row">
+      <label class="lang-select-label" for="igSetSelect">题目范围：</label>
+      <select class="lang-select" id="igSetSelect">
+        <option value="all">全部题目</option>
+        <option value="俄语">必答 · 俄语</option>
+        <option value="泰语">必答 · 泰语</option>
+        <option value="越南语">必答 · 越南语</option>
+        <option value="维吾尔语">必答 · 维吾尔语</option>
+        <option value="抢答·泰语声调">抢答 · 泰语声调</option>
+        <option value="抢答·越南语元音">抢答 · 越南语元音</option>
+        <option value="抢答·综合题">抢答 · 综合题</option>
+      </select>
+    </div>
+
+    <div class="ig" id="igBox">
+      <div id="igPlay">
+        <div class="ig-top">
+          <div class="ig-lives" aria-label="剩余机会">剩余机会：<span id="igLives"></span></div>
+          <button class="tw-btn" id="igRestartBtn" type="button">重新开始</button>
+        </div>
+        <div class="ig-meta">
+          <span class="ig-group" id="igGroup"></span>
+          <span class="ig-progress" id="igProgress"></span>
+          <span class="ig-score" id="igScore"></span>
+        </div>
+        <div class="ig-stem-row">
+          <div class="ig-stem" id="igStem"></div>
+          <button class="tw-btn tw-play" id="igStemPlay" type="button" hidden>▶ 播放录音</button>
+        </div>
+        <div class="ig-prompt" id="igPrompt"></div>
+        <div class="ig-hint" id="igHint" hidden>点击 ▶ 试听各选项的录音，点击选项其他位置作答。</div>
+        <div class="ig-options" id="igOptions"></div>
+        <div class="ig-feedback info" id="igFeedback">选择一个选项作答。</div>
+        <div class="ig-actions">
+          <button class="tw-btn" id="igNextBtn" type="button" hidden>下一题 →</button>
+        </div>
+      </div>
+      <div class="ig-done" id="igDone" hidden>
+        <h3 id="igDoneTitle">挑战完成！</h3>
+        <p id="igDoneText"></p>
+        <button class="tw-btn tw-play" id="igAgainBtn" type="button">再玩一次</button>
+      </div>
+      <audio id="igAudio" preload="none"></audio>
+    </div>
+
+    <div class="ig-modal" id="igModal" role="dialog" aria-modal="true" aria-labelledby="igModalMsg" hidden>
+      <div class="ig-modal-box">
+        <p id="igModalMsg">十分遗憾，挑战失败，继续加油哦！</p>
+        <div class="ig-modal-sub" id="igModalSub"></div>
+        <button class="tw-btn tw-play" id="igModalBtn" type="button">重新挑战</button>
       </div>
     </div>
   </div>
@@ -2091,5 +2206,155 @@
   loadItem();
 })();
 </script>
+<script>
+/* ============================================================
+   国际音标记音游戏
+   —— 使用说明（供老师/助教修改）——
+   题目来自《记音比赛录音.pptx》第 1–56 页。每题字段：
+     g  题组（俄语 / 泰语 / 越南语 / 维吾尔语 / 抢答·泰语声调 / 抢答·越南语元音 / 抢答·综合题）
+     s  题干（词义或题目文字）；p 提示语
+     o  四个选项的文字（录音选项可为空字符串）
+     a  正确选项序号（0=A, 1=B, 2=C, 3=D）
+     sa 题干录音路径（可选）；oa 四个选项各自的录音路径（可选）
+   录音文件放在 audio/ipa-game/ 文件夹。
+   规则：答对继续；答错不显示答案，直接进入下一题；连续答错 MAX_WRONG 题即挑战失败。
+   ============================================================ */
+(function(){
+  var QUESTIONS = [{"g": "俄语", "s": "row", "p": "听录音，选出正确的记音", "o": ["rʲat", "rɛt", "liat", "rat"], "a": 0, "sa": "audio/ipa-game/q01.mp3"}, {"g": "俄语", "s": "Hübner (name)", "p": "听录音，选出正确的记音", "o": ["xubner", "xʲubner", "hʲubner", "hubner"], "a": 1, "sa": "audio/ipa-game/q02.mp3"}, {"g": "俄语", "s": "肌肉", "p": "听录音，选出正确的记音", "o": ["mɨst͡sə", "mɨʂt͡su", "mɨst͡sɿ", "mɨʂt͡sə"], "a": 3, "sa": "audio/ipa-game/q03.mp3"}, {"g": "俄语", "s": "足球", "p": "听录音，选出正确的记音", "o": ["fʊt'pʰol", "fʊtʰ'bol", "fʊd'bol", "fʊd'pʰol"], "a": 2, "sa": "audio/ipa-game/q04.mp3"}, {"g": "俄语", "s": "农场", "p": "听录音，选出正确的记音", "o": ["fʲelmə", "felmə", "fermə", "fʲermə"], "a": 3, "sa": "audio/ipa-game/q05.mp3"}, {"g": "俄语", "s": "马戏团", "p": "听录音，选出正确的记音", "o": ["t͡sʰɨlk", "t͡sɨk", "t͡sɨrk", "t͡sɨək"], "a": 2, "sa": "audio/ipa-game/q06.mp3"}, {"g": "俄语", "s": "疤痕", "p": "听录音，选出正确的记音", "o": ["ʃam", "ʃram", "ʃrum", "ʃum"], "a": 1, "sa": "audio/ipa-game/q07.mp3"}, {"g": "俄语", "s": "蛋糕", "p": "听录音，选出正确的记音", "o": ["kʲeks", "kɑks", "kiɛks", "kʲɑks"], "a": 0, "sa": "audio/ipa-game/q08.mp3"}, {"g": "俄语", "s": "酒杯", "p": "听录音，选出正确的记音", "o": ["ʐʲumkə", "rʲumkə", "lʲumkə", "zʲumkə"], "a": 1, "sa": "audio/ipa-game/q09.mp3"}, {"g": "俄语", "s": "老虎", "p": "听录音，选出正确的记音", "o": ["tʲigr", "dʒikə", "tɕigr", "tʃikr"], "a": 0, "sa": "audio/ipa-game/q10.mp3"}, {"g": "俄语", "s": "沙发", "p": "听录音，选出正确的记音", "o": ["tʲɪ'vɛn", "dɨ'van", "dʲɪ'van", "tɪ'van"], "a": 2, "sa": "audio/ipa-game/q11.mp3"}, {"g": "泰语", "s": "面条", "p": "听录音，选出正确的记音", "o": ["pàmíː", "ɓàːmì", "pàːmí", "bàmìː"], "a": 3, "sa": "audio/ipa-game/q12.mp3"}, {"g": "泰语", "s": "奶奶", "p": "听录音，选出正确的记音", "o": ["áːmâː", "àːmāː", "āːmâː", "âːmàː"], "a": 2, "sa": "audio/ipa-game/q13.mp3"}, {"g": "泰语", "s": "做", "p": "听录音，选出正确的记音", "o": ["tʰām", "tʰâm", "tʰám", "tʰàm"], "a": 0, "sa": "audio/ipa-game/q14.mp3"}, {"g": "泰语", "s": "大象", "p": "听录音，选出正确的记音", "o": ["tɕʰāːŋ", "tɕʰáːŋ", "tɕʰâːŋ", "tɕʰàːŋ"], "a": 1, "sa": "audio/ipa-game/q15.mp3"}, {"g": "泰语", "s": "土罐", "p": "听录音，选出正确的记音", "o": ["hái", "hàj", "hǎi", "hǎj"], "a": 3, "sa": "audio/ipa-game/q16.mp3"}, {"g": "泰语", "s": "水龙头", "p": "听录音，选出正确的记音", "o": ["kɔ́ːb", "kɔ́ːm", "kɔ́ːq", "kɔ́ːk"], "a": 3, "sa": "audio/ipa-game/q17.mp3"}, {"g": "泰语", "s": "果冻", "p": "听录音，选出正确的记音", "o": ["vûn", "wə̄n", "wún", "və́n"], "a": 2, "sa": "audio/ipa-game/q18.mp3"}, {"g": "越南语", "s": "bone", "p": "听录音，选出正确的记音", "o": ["sunA1", "sɯəŋA1", "sɛŋA1", "sɐŋA1"], "a": 1, "sa": "audio/ipa-game/q19.mp3"}, {"g": "越南语", "s": "time period", "p": "听录音，选出正确的记音", "o": ["ɓuəjC1", "wəjC1", "poiC1", "ɓoiC1"], "a": 0, "sa": "audio/ipa-game/q20.mp3"}, {"g": "越南语", "s": "留级", "p": "听录音，选出正确的记音", "o": ["lupD1", "ɓupD1", "rupD1", "ɗupD1"], "a": 3, "sa": "audio/ipa-game/q21.mp3"}, {"g": "越南语", "s": "痛", "p": "听录音，选出正确的记音", "o": ["nikD1", "ɲɯkD1", "ŋɯkD1", "ɲikD1"], "a": 1, "sa": "audio/ipa-game/q22.mp3"}, {"g": "越南语", "s": "sharp pain", "p": "听录音，选出正确的记音", "o": ["buatD1", "ɓɔtD1", "ɓuətD1", "batD1"], "a": 2, "sa": "audio/ipa-game/q23.mp3"}, {"g": "越南语", "s": "knife", "p": "听录音，选出正确的记音", "o": ["zawA1", "zauA1", "zɔuA1", "zɔwA1"], "a": 0, "sa": "audio/ipa-game/q24.mp3"}, {"g": "越南语", "s": "often", "p": "听录音，选出正确的记音", "o": ["lənA1", "ruənA1", "rwənA1", "luənA1"], "a": 3, "sa": "audio/ipa-game/q25.mp3"}, {"g": "维吾尔语", "s": "头发", "p": "听录音，选出正确的记音", "o": ["tɕʰatɕʰ", "tʃag", "tʃatʃ", "tʃatɕ"], "a": 2, "sa": "audio/ipa-game/q26.mp3"}, {"g": "维吾尔语", "s": "税", "p": "听录音，选出正确的记音", "o": ["badʒ", "paʒ", "pɛdʒ", "bɛdg"], "a": 0, "sa": "audio/ipa-game/q27.mp3"}, {"g": "维吾尔语", "s": "谢谢", "p": "听录音，选出正确的记音", "o": ["raχmet", "rɛχmɛt", "rahmet", "rɛhmet"], "a": 1, "sa": "audio/ipa-game/q28.mp3"}, {"g": "维吾尔语", "s": "清澈的", "p": "听录音，选出正确的记音", "o": ["søzyk", "syzyk", "syzøk", "søzøk"], "a": 0, "sa": "audio/ipa-game/q29.mp3"}, {"g": "维吾尔语", "s": "城市", "p": "听录音，选出正确的记音", "o": ["ʃɛɣɛr", "ʂɛχɛr", "ʃɛhɛr", "ʂɛhɛr"], "a": 2, "sa": "audio/ipa-game/q30.mp3"}, {"g": "维吾尔语", "s": "擀面杖", "p": "听录音，选出正确的记音", "o": ["nolutʃ", "noʁutʃ", "nohutʃ", "norutʃ"], "a": 1, "sa": "audio/ipa-game/q31.mp3"}, {"g": "维吾尔语", "s": "幼崽", "p": "听录音，选出正确的记音", "o": ["kʰysɛk", "kʰɯsɛk", "kɯsɛk", "køsɛk"], "a": 3, "sa": "audio/ipa-game/q32.mp3"}, {"g": "维吾尔语", "s": "想法", "p": "听录音，选出正确的记音", "o": ["xijal", "rijal", "hijal", "χijal"], "a": 3, "sa": "audio/ipa-game/q33.mp3"}, {"g": "维吾尔语", "s": "桌子", "p": "听录音，选出正确的记音", "o": ["dʒoza", "joza", "tɕoza", "ʐoza"], "a": 0, "sa": "audio/ipa-game/q34.mp3"}, {"g": "维吾尔语", "s": "八", "p": "听录音，选出正确的记音", "o": ["sɑkkiz", "sɛkkiz", "sɔkkiz", "søkkiz"], "a": 1, "sa": "audio/ipa-game/q35.mp3"}, {"g": "维吾尔语", "s": "大蒜", "p": "听录音，选出正确的记音", "o": ["sæmsæq", "sɑmsok", "samsaq", "sɛmsɔq"], "a": 2, "sa": "audio/ipa-game/q36.mp3"}, {"g": "抢答·泰语声调", "s": "[pʰāː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 1, "oa": ["audio/ipa-game/q37a.mp3", "audio/ipa-game/q37b.mp3", "audio/ipa-game/q37c.mp3", "audio/ipa-game/q37d.mp3"]}, {"g": "抢答·泰语声调", "s": "[fáː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q38a.mp3", "audio/ipa-game/q38b.mp3", "audio/ipa-game/q38c.mp3", "audio/ipa-game/q38d.mp3"]}, {"g": "抢答·泰语声调", "s": "[dɔ̀ː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q39a.mp3", "audio/ipa-game/q39b.mp3", "audio/ipa-game/q39c.mp3", "audio/ipa-game/q39d.mp3"]}, {"g": "抢答·泰语声调", "s": "[râː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q40a.mp3", "audio/ipa-game/q40b.mp3", "audio/ipa-game/q40c.mp3", "audio/ipa-game/q40d.mp3"]}, {"g": "抢答·泰语声调", "s": "[láː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q41a.mp3", "audio/ipa-game/q41b.mp3", "audio/ipa-game/q41c.mp3", "audio/ipa-game/q41d.mp3"]}, {"g": "抢答·越南语元音", "s": "[taA1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q42a.mp3", "audio/ipa-game/q42b.mp3", "audio/ipa-game/q42c.mp3", "audio/ipa-game/q42d.mp3"]}, {"g": "抢答·越南语元音", "s": "[sɛkD1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q43a.mp3", "audio/ipa-game/q43b.mp3", "audio/ipa-game/q43c.mp3", "audio/ipa-game/q43d.mp3"]}, {"g": "抢答·越南语元音", "s": "[ɔŋ͡mA1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q44a.mp3", "audio/ipa-game/q44b.mp3", "audio/ipa-game/q44c.mp3", "audio/ipa-game/q44d.mp3"]}, {"g": "抢答·越南语元音", "s": "[hɔk͡pD2]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q45a.mp3", "audio/ipa-game/q45b.mp3", "audio/ipa-game/q45c.mp3", "audio/ipa-game/q45d.mp3"]}, {"g": "抢答·越南语元音", "s": "[suəŋB1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 1, "oa": ["audio/ipa-game/q46a.mp3", "audio/ipa-game/q46b.mp3", "audio/ipa-game/q46c.mp3", "audio/ipa-game/q46d.mp3"]}, {"g": "抢答·越南语元音", "s": "[tiəmA1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q47a.mp3", "audio/ipa-game/q47b.mp3", "audio/ipa-game/q47c.mp3", "audio/ipa-game/q47d.mp3"]}, {"g": "抢答·综合题", "s": "以下哪个音不属于咽音？", "p": "", "o": ["/ʡ/", "/ħ/", "/ʔ/", "/H/"], "a": 2, "oa": ["audio/ipa-game/q48a.mp3", "audio/ipa-game/q48b.mp3", "audio/ipa-game/q48c.mp3", "audio/ipa-game/q48d.mp3"]}, {"g": "抢答·综合题", "s": "Ibibio语中哪个词采用两个低平调？", "p": "", "o": ["/ákpá/", "/àkpà/", "[ákù]", "[àkpá]"], "a": 1, "oa": ["audio/ipa-game/q49a.mp3", "audio/ipa-game/q49b.mp3", "audio/ipa-game/q49c.mp3", "audio/ipa-game/q49d.mp3"]}, {"g": "抢答·综合题", "s": "你听到的这个音最有可能在哪个地区出现？", "p": "", "o": ["墨西哥", "澳大利亚", "高加索地区", "非洲坦桑尼亚"], "a": 3, "sa": "audio/ipa-game/q50.mp3"}, {"g": "抢答·综合题", "s": "你听到的这个音最有可能在哪个地区出现？", "p": "", "o": ["印度", "澳大利亚", "高加索地区", "非洲南部"], "a": 2, "sa": "audio/ipa-game/q51.mp3"}, {"g": "抢答·综合题", "s": "以下哪组词的声调与其他几组属于不同类型？", "p": "", "o": ["粤语", "壮语", "苗语", "纳瓦霍语"], "a": 3}, {"g": "抢答·综合题", "s": "以下哪个辅音不属于双唇音？", "p": "", "o": ["β", "ʙ", "ɰ", "ɸ"], "a": 2}, {"g": "抢答·综合题", "s": "以下哪个辅音不属于擦音？", "p": "", "o": ["θ", "ʐ", "χ", "ʀ"], "a": 3}, {"g": "抢答·综合题", "s": "以下俄语单词中哪个包含颤音？", "p": "", "o": ["row", "plummet", "白色的", "事情"], "a": 0, "oa": ["audio/ipa-game/q55a.mp3", "audio/ipa-game/q55b.mp3", "audio/ipa-game/q55c.mp3", "audio/ipa-game/q55d.mp3"]}, {"g": "抢答·综合题", "s": "以下哪个越南语单词中包含内爆音？", "p": "", "o": ["取", "丢掉", "torn", "deck of ship"], "a": 1, "oa": ["audio/ipa-game/q56a.mp3", "audio/ipa-game/q56b.mp3", "audio/ipa-game/q56c.mp3", "audio/ipa-game/q56d.mp3"]}];
+  var MAX_WRONG = 3;
+  var IPA_RE = /[ɐ-˿ᴀ-ᶿ̀-ͯ\[\]\/ːˑ]/;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var els = {
+    set:$('igSetSelect'), play:$('igPlay'), done:$('igDone'), doneTitle:$('igDoneTitle'), doneText:$('igDoneText'),
+    lives:$('igLives'), group:$('igGroup'), progress:$('igProgress'), score:$('igScore'),
+    stem:$('igStem'), stemPlay:$('igStemPlay'), prompt:$('igPrompt'), hint:$('igHint'),
+    options:$('igOptions'), feedback:$('igFeedback'), next:$('igNextBtn'), restart:$('igRestartBtn'),
+    again:$('igAgainBtn'), audio:$('igAudio'), modal:$('igModal'), modalSub:$('igModalSub'), modalBtn:$('igModalBtn')
+  };
+
+  var list = [], idx = 0, wrongStreak = 0, correct = 0, answered = false, advanceTimer = null;
+
+  var TRANSCRIPTION_SETS = ['俄语', '泰语', '越南语', '维吾尔语'];
+  function isIpa(t, q){ return TRANSCRIPTION_SETS.indexOf(q.g) >= 0 || IPA_RE.test(t); }
+
+  function playSrc(src){
+    if (!src) return;
+    try { els.audio.pause(); } catch(e){}
+    els.audio.src = src;
+    var p = els.audio.play();
+    if (p && p.catch) p.catch(function(){ setFeedback('录音无法播放，请检查网络或稍后再试。', 'wrong'); });
+  }
+
+  function setFeedback(msg, cls){ els.feedback.textContent = msg; els.feedback.className = 'ig-feedback ' + cls; }
+
+  function renderLives(){
+    var left = MAX_WRONG - wrongStreak, h = '';
+    for (var i = 0; i < MAX_WRONG; i++) h += '<span class="ig-heart' + (i < left ? '' : ' lost') + '"></span>';
+    els.lives.innerHTML = h;
+  }
+
+  function start(){
+    clearTimeout(advanceTimer);
+    var v = els.set.value;
+    list = QUESTIONS.filter(function(q){ return v === 'all' || q.g === v; });
+    idx = 0; wrongStreak = 0; correct = 0;
+    els.modal.hidden = true; els.done.hidden = true; els.play.hidden = false;
+    render();
+  }
+
+  function render(){
+    answered = false;
+    var q = list[idx];
+    try { els.audio.pause(); } catch(e){}
+    els.group.textContent = q.g.replace('·', ' · ');
+    els.progress.textContent = '第 ' + (idx + 1) + ' / ' + list.length + ' 题';
+    els.score.textContent = '已答对 ' + correct + ' 题';
+    els.stem.textContent = q.s;
+    els.stem.className = 'ig-stem' + (/^\[.*\]$/.test(q.s) ? ' ipa' : '');
+    els.stemPlay.hidden = !q.sa;
+    els.prompt.textContent = q.p || '';
+    els.hint.hidden = !q.oa;
+    els.next.hidden = true;
+    setFeedback(q.sa ? '先点击“播放录音”，再选择一个选项。' : '选择一个选项作答。', 'info');
+    renderLives();
+
+    els.options.innerHTML = '';
+    q.o.forEach(function(text, k){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'ig-opt';
+      var L = 'ABCD'.charAt(k);
+      b.setAttribute('aria-label', '选项 ' + L + (text ? '：' + text : ''));
+      var letter = document.createElement('span'); letter.className = 'ig-letter'; letter.textContent = L; b.appendChild(letter);
+      var label = document.createElement('span');
+      label.className = 'ig-label' + (text && isIpa(text, q) ? ' ipa' : '');
+      label.textContent = text || (q.oa ? '录音 ' + L : '');
+      b.appendChild(label);
+      if (q.oa && q.oa[k]){
+        var pl = document.createElement('span');
+        pl.className = 'ig-play'; pl.setAttribute('role', 'button'); pl.setAttribute('tabindex', '0');
+        pl.setAttribute('aria-label', '播放选项 ' + L + ' 的录音'); pl.textContent = '▶';
+        var src = q.oa[k];
+        pl.addEventListener('click', function(e){ e.stopPropagation(); playSrc(src); });
+        pl.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); playSrc(src); } });
+        b.appendChild(pl);
+      }
+      b.addEventListener('click', function(){ choose(k, b); });
+      els.options.appendChild(b);
+    });
+  }
+
+  function lockOptions(){ Array.prototype.forEach.call(els.options.children, function(b){ b.disabled = true; }); }
+
+  function choose(k, btn){
+    if (answered) return;
+    answered = true;
+    lockOptions();
+    var q = list[idx];
+    if (k === q.a){
+      correct++; wrongStreak = 0;
+      btn.classList.add('picked-right');
+      els.score.textContent = '已答对 ' + correct + ' 题';
+      setFeedback('回答正确！继续下一题。', 'correct');
+      renderLives();
+      advanceTimer = setTimeout(nextQuestion, 1100);
+    } else {
+      wrongStreak++;
+      btn.classList.add('picked-wrong');
+      renderLives();
+      if (wrongStreak >= MAX_WRONG){
+        setFeedback('回答错误。', 'wrong');
+        els.modalSub.textContent = '本轮共答对 ' + correct + ' 题。';
+        setTimeout(function(){ els.modal.hidden = false; els.modalBtn.focus(); }, 500);
+      } else {
+        setFeedback('回答错误，还剩 ' + (MAX_WRONG - wrongStreak) + ' 次机会。', 'wrong');
+        els.next.hidden = false;
+      }
+    }
+  }
+
+  function nextQuestion(){
+    clearTimeout(advanceTimer);
+    if (idx < list.length - 1){ idx++; render(); }
+    else {
+      try { els.audio.pause(); } catch(e){}
+      els.play.hidden = true; els.done.hidden = false;
+      els.doneTitle.textContent = '挑战完成！';
+      els.doneText.textContent = '你完成了全部 ' + list.length + ' 题，共答对 ' + correct + ' 题。';
+    }
+  }
+
+  els.stemPlay.addEventListener('click', function(){ playSrc(list[idx].sa); });
+  els.next.addEventListener('click', nextQuestion);
+  els.restart.addEventListener('click', start);
+  els.again.addEventListener('click', start);
+  els.modalBtn.addEventListener('click', start);
+  els.set.addEventListener('change', start);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !els.modal.hidden) start(); });
+
+  start();
+})();
+</script>
+
 </body>
 </html>
