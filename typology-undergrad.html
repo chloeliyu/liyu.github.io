@@ -494,7 +494,7 @@
       <li class="syllabus-item">
         <div class="syllabus-week">第 5 周</div>
         <div>
-          <div class="syllabus-topic">语法性 I <span class="syllabus-method">课堂讲授 + 转写练习</span></div>
+          <div class="syllabus-topic">语法性 I <span class="syllabus-method">课堂讲授 + 转写练习</span> <a class="syllabus-method" href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fchloeliyu.github.io%2Fliyu.github.io%2Fppt%2F%25E8%25AF%25AD%25E6%25B3%2595%25E6%2580%25A7%25E8%258C%2583%25E7%2595%25B4%25E4%25B8%258E%25E7%25B1%25BB%25E5%2588%25AB%25E8%25AF%258D.pptx" target="_blank" rel="noopener">课件：语法性范畴与类别词</a></div>
           <div class="syllabus-desc">介绍语法性与名词的类别，以及语法性的编码方式。</div>
         </div>
       </li>
@@ -803,7 +803,7 @@
     <div class="kicker">课堂实践</div>
     <h2 class="sec-title">国际音标记音游戏</h2>
     <div class="prose">
-      <p>听录音，从四个选项中选出正确答案。题目包括俄语、泰语、越南语、维吾尔语的记音必答题，以及泰语声调、越南语元音和综合知识抢答题。答对继续前进；连续答错 3 题即挑战失败。</p>
+      <p>听录音，从四个选项中选出正确答案。题目包括俄语、泰语、越南语、维吾尔语的记音必答题，以及泰语声调、越南语元音和综合知识抢答题。每题只能作答一次，无论对错都会进入下一题；连续答错 3 题即挑战失败。</p>
     </div>
 
     <div class="lang-select-row">
@@ -823,7 +823,7 @@
     <div class="ig" id="igBox">
       <div id="igPlay">
         <div class="ig-top">
-          <div class="ig-lives" aria-label="剩余机会">剩余机会：<span id="igLives"></span></div>
+          <div class="ig-lives" aria-label="连续答错次数">连续答错：<span id="igLives"></span><span id="igStreakText"></span></div>
           <button class="tw-btn" id="igRestartBtn" type="button">重新开始</button>
         </div>
         <div class="ig-meta">
@@ -2217,7 +2217,7 @@
      a  正确选项序号（0=A, 1=B, 2=C, 3=D）
      sa 题干录音路径（可选）；oa 四个选项各自的录音路径（可选）
    录音文件放在 audio/ipa-game/ 文件夹。
-   规则：答对继续；答错不显示答案，直接进入下一题；连续答错 MAX_WRONG 题即挑战失败。
+   规则：每题只能作答一次，答对或答错都自动进入下一题（答错不显示答案）；连续答错 MAX_WRONG 题即挑战失败。
    ============================================================ */
 (function(){
   var QUESTIONS = [{"g": "俄语", "s": "row", "p": "听录音，选出正确的记音", "o": ["rʲat", "rɛt", "liat", "rat"], "a": 0, "sa": "audio/ipa-game/q01.mp3"}, {"g": "俄语", "s": "Hübner (name)", "p": "听录音，选出正确的记音", "o": ["xubner", "xʲubner", "hʲubner", "hubner"], "a": 1, "sa": "audio/ipa-game/q02.mp3"}, {"g": "俄语", "s": "肌肉", "p": "听录音，选出正确的记音", "o": ["mɨst͡sə", "mɨʂt͡su", "mɨst͡sɿ", "mɨʂt͡sə"], "a": 3, "sa": "audio/ipa-game/q03.mp3"}, {"g": "俄语", "s": "足球", "p": "听录音，选出正确的记音", "o": ["fʊt'pʰol", "fʊtʰ'bol", "fʊd'bol", "fʊd'pʰol"], "a": 2, "sa": "audio/ipa-game/q04.mp3"}, {"g": "俄语", "s": "农场", "p": "听录音，选出正确的记音", "o": ["fʲelmə", "felmə", "fermə", "fʲermə"], "a": 3, "sa": "audio/ipa-game/q05.mp3"}, {"g": "俄语", "s": "马戏团", "p": "听录音，选出正确的记音", "o": ["t͡sʰɨlk", "t͡sɨk", "t͡sɨrk", "t͡sɨək"], "a": 2, "sa": "audio/ipa-game/q06.mp3"}, {"g": "俄语", "s": "疤痕", "p": "听录音，选出正确的记音", "o": ["ʃam", "ʃram", "ʃrum", "ʃum"], "a": 1, "sa": "audio/ipa-game/q07.mp3"}, {"g": "俄语", "s": "蛋糕", "p": "听录音，选出正确的记音", "o": ["kʲeks", "kɑks", "kiɛks", "kʲɑks"], "a": 0, "sa": "audio/ipa-game/q08.mp3"}, {"g": "俄语", "s": "酒杯", "p": "听录音，选出正确的记音", "o": ["ʐʲumkə", "rʲumkə", "lʲumkə", "zʲumkə"], "a": 1, "sa": "audio/ipa-game/q09.mp3"}, {"g": "俄语", "s": "老虎", "p": "听录音，选出正确的记音", "o": ["tʲigr", "dʒikə", "tɕigr", "tʃikr"], "a": 0, "sa": "audio/ipa-game/q10.mp3"}, {"g": "俄语", "s": "沙发", "p": "听录音，选出正确的记音", "o": ["tʲɪ'vɛn", "dɨ'van", "dʲɪ'van", "tɪ'van"], "a": 2, "sa": "audio/ipa-game/q11.mp3"}, {"g": "泰语", "s": "面条", "p": "听录音，选出正确的记音", "o": ["pàmíː", "ɓàːmì", "pàːmí", "bàmìː"], "a": 3, "sa": "audio/ipa-game/q12.mp3"}, {"g": "泰语", "s": "奶奶", "p": "听录音，选出正确的记音", "o": ["áːmâː", "àːmāː", "āːmâː", "âːmàː"], "a": 2, "sa": "audio/ipa-game/q13.mp3"}, {"g": "泰语", "s": "做", "p": "听录音，选出正确的记音", "o": ["tʰām", "tʰâm", "tʰám", "tʰàm"], "a": 0, "sa": "audio/ipa-game/q14.mp3"}, {"g": "泰语", "s": "大象", "p": "听录音，选出正确的记音", "o": ["tɕʰāːŋ", "tɕʰáːŋ", "tɕʰâːŋ", "tɕʰàːŋ"], "a": 1, "sa": "audio/ipa-game/q15.mp3"}, {"g": "泰语", "s": "土罐", "p": "听录音，选出正确的记音", "o": ["hái", "hàj", "hǎi", "hǎj"], "a": 3, "sa": "audio/ipa-game/q16.mp3"}, {"g": "泰语", "s": "水龙头", "p": "听录音，选出正确的记音", "o": ["kɔ́ːb", "kɔ́ːm", "kɔ́ːq", "kɔ́ːk"], "a": 3, "sa": "audio/ipa-game/q17.mp3"}, {"g": "泰语", "s": "果冻", "p": "听录音，选出正确的记音", "o": ["vûn", "wə̄n", "wún", "və́n"], "a": 2, "sa": "audio/ipa-game/q18.mp3"}, {"g": "越南语", "s": "bone", "p": "听录音，选出正确的记音", "o": ["sunA1", "sɯəŋA1", "sɛŋA1", "sɐŋA1"], "a": 1, "sa": "audio/ipa-game/q19.mp3"}, {"g": "越南语", "s": "time period", "p": "听录音，选出正确的记音", "o": ["ɓuəjC1", "wəjC1", "poiC1", "ɓoiC1"], "a": 0, "sa": "audio/ipa-game/q20.mp3"}, {"g": "越南语", "s": "留级", "p": "听录音，选出正确的记音", "o": ["lupD1", "ɓupD1", "rupD1", "ɗupD1"], "a": 3, "sa": "audio/ipa-game/q21.mp3"}, {"g": "越南语", "s": "痛", "p": "听录音，选出正确的记音", "o": ["nikD1", "ɲɯkD1", "ŋɯkD1", "ɲikD1"], "a": 1, "sa": "audio/ipa-game/q22.mp3"}, {"g": "越南语", "s": "sharp pain", "p": "听录音，选出正确的记音", "o": ["buatD1", "ɓɔtD1", "ɓuətD1", "batD1"], "a": 2, "sa": "audio/ipa-game/q23.mp3"}, {"g": "越南语", "s": "knife", "p": "听录音，选出正确的记音", "o": ["zawA1", "zauA1", "zɔuA1", "zɔwA1"], "a": 0, "sa": "audio/ipa-game/q24.mp3"}, {"g": "越南语", "s": "often", "p": "听录音，选出正确的记音", "o": ["lənA1", "ruənA1", "rwənA1", "luənA1"], "a": 3, "sa": "audio/ipa-game/q25.mp3"}, {"g": "维吾尔语", "s": "头发", "p": "听录音，选出正确的记音", "o": ["tɕʰatɕʰ", "tʃag", "tʃatʃ", "tʃatɕ"], "a": 2, "sa": "audio/ipa-game/q26.mp3"}, {"g": "维吾尔语", "s": "税", "p": "听录音，选出正确的记音", "o": ["badʒ", "paʒ", "pɛdʒ", "bɛdg"], "a": 0, "sa": "audio/ipa-game/q27.mp3"}, {"g": "维吾尔语", "s": "谢谢", "p": "听录音，选出正确的记音", "o": ["raχmet", "rɛχmɛt", "rahmet", "rɛhmet"], "a": 1, "sa": "audio/ipa-game/q28.mp3"}, {"g": "维吾尔语", "s": "清澈的", "p": "听录音，选出正确的记音", "o": ["søzyk", "syzyk", "syzøk", "søzøk"], "a": 0, "sa": "audio/ipa-game/q29.mp3"}, {"g": "维吾尔语", "s": "城市", "p": "听录音，选出正确的记音", "o": ["ʃɛɣɛr", "ʂɛχɛr", "ʃɛhɛr", "ʂɛhɛr"], "a": 2, "sa": "audio/ipa-game/q30.mp3"}, {"g": "维吾尔语", "s": "擀面杖", "p": "听录音，选出正确的记音", "o": ["nolutʃ", "noʁutʃ", "nohutʃ", "norutʃ"], "a": 1, "sa": "audio/ipa-game/q31.mp3"}, {"g": "维吾尔语", "s": "幼崽", "p": "听录音，选出正确的记音", "o": ["kʰysɛk", "kʰɯsɛk", "kɯsɛk", "køsɛk"], "a": 3, "sa": "audio/ipa-game/q32.mp3"}, {"g": "维吾尔语", "s": "想法", "p": "听录音，选出正确的记音", "o": ["xijal", "rijal", "hijal", "χijal"], "a": 3, "sa": "audio/ipa-game/q33.mp3"}, {"g": "维吾尔语", "s": "桌子", "p": "听录音，选出正确的记音", "o": ["dʒoza", "joza", "tɕoza", "ʐoza"], "a": 0, "sa": "audio/ipa-game/q34.mp3"}, {"g": "维吾尔语", "s": "八", "p": "听录音，选出正确的记音", "o": ["sɑkkiz", "sɛkkiz", "sɔkkiz", "søkkiz"], "a": 1, "sa": "audio/ipa-game/q35.mp3"}, {"g": "维吾尔语", "s": "大蒜", "p": "听录音，选出正确的记音", "o": ["sæmsæq", "sɑmsok", "samsaq", "sɛmsɔq"], "a": 2, "sa": "audio/ipa-game/q36.mp3"}, {"g": "抢答·泰语声调", "s": "[pʰāː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 1, "oa": ["audio/ipa-game/q37a.mp3", "audio/ipa-game/q37b.mp3", "audio/ipa-game/q37c.mp3", "audio/ipa-game/q37d.mp3"]}, {"g": "抢答·泰语声调", "s": "[fáː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q38a.mp3", "audio/ipa-game/q38b.mp3", "audio/ipa-game/q38c.mp3", "audio/ipa-game/q38d.mp3"]}, {"g": "抢答·泰语声调", "s": "[dɔ̀ː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q39a.mp3", "audio/ipa-game/q39b.mp3", "audio/ipa-game/q39c.mp3", "audio/ipa-game/q39d.mp3"]}, {"g": "抢答·泰语声调", "s": "[râː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q40a.mp3", "audio/ipa-game/q40b.mp3", "audio/ipa-game/q40c.mp3", "audio/ipa-game/q40d.mp3"]}, {"g": "抢答·泰语声调", "s": "[láː]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q41a.mp3", "audio/ipa-game/q41b.mp3", "audio/ipa-game/q41c.mp3", "audio/ipa-game/q41d.mp3"]}, {"g": "抢答·越南语元音", "s": "[taA1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q42a.mp3", "audio/ipa-game/q42b.mp3", "audio/ipa-game/q42c.mp3", "audio/ipa-game/q42d.mp3"]}, {"g": "抢答·越南语元音", "s": "[sɛkD1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q43a.mp3", "audio/ipa-game/q43b.mp3", "audio/ipa-game/q43c.mp3", "audio/ipa-game/q43d.mp3"]}, {"g": "抢答·越南语元音", "s": "[ɔŋ͡mA1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 2, "oa": ["audio/ipa-game/q44a.mp3", "audio/ipa-game/q44b.mp3", "audio/ipa-game/q44c.mp3", "audio/ipa-game/q44d.mp3"]}, {"g": "抢答·越南语元音", "s": "[hɔk͡pD2]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q45a.mp3", "audio/ipa-game/q45b.mp3", "audio/ipa-game/q45c.mp3", "audio/ipa-game/q45d.mp3"]}, {"g": "抢答·越南语元音", "s": "[suəŋB1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 1, "oa": ["audio/ipa-game/q46a.mp3", "audio/ipa-game/q46b.mp3", "audio/ipa-game/q46c.mp3", "audio/ipa-game/q46d.mp3"]}, {"g": "抢答·越南语元音", "s": "[tiəmA1]", "p": "听四段录音，选出与题干读音相符的一项", "o": ["", "", "", ""], "a": 0, "oa": ["audio/ipa-game/q47a.mp3", "audio/ipa-game/q47b.mp3", "audio/ipa-game/q47c.mp3", "audio/ipa-game/q47d.mp3"]}, {"g": "抢答·综合题", "s": "以下哪个音不属于咽音？", "p": "", "o": ["/ʡ/", "/ħ/", "/ʔ/", "/H/"], "a": 2, "oa": ["audio/ipa-game/q48a.mp3", "audio/ipa-game/q48b.mp3", "audio/ipa-game/q48c.mp3", "audio/ipa-game/q48d.mp3"]}, {"g": "抢答·综合题", "s": "Ibibio语中哪个词采用两个低平调？", "p": "", "o": ["/ákpá/", "/àkpà/", "[ákù]", "[àkpá]"], "a": 1, "oa": ["audio/ipa-game/q49a.mp3", "audio/ipa-game/q49b.mp3", "audio/ipa-game/q49c.mp3", "audio/ipa-game/q49d.mp3"]}, {"g": "抢答·综合题", "s": "你听到的这个音最有可能在哪个地区出现？", "p": "", "o": ["墨西哥", "澳大利亚", "高加索地区", "非洲坦桑尼亚"], "a": 3, "sa": "audio/ipa-game/q50.mp3"}, {"g": "抢答·综合题", "s": "你听到的这个音最有可能在哪个地区出现？", "p": "", "o": ["印度", "澳大利亚", "高加索地区", "非洲南部"], "a": 2, "sa": "audio/ipa-game/q51.mp3"}, {"g": "抢答·综合题", "s": "以下哪组词的声调与其他几组属于不同类型？", "p": "", "o": ["粤语", "壮语", "苗语", "纳瓦霍语"], "a": 3}, {"g": "抢答·综合题", "s": "以下哪个辅音不属于双唇音？", "p": "", "o": ["β", "ʙ", "ɰ", "ɸ"], "a": 2}, {"g": "抢答·综合题", "s": "以下哪个辅音不属于擦音？", "p": "", "o": ["θ", "ʐ", "χ", "ʀ"], "a": 3}, {"g": "抢答·综合题", "s": "以下俄语单词中哪个包含颤音？", "p": "", "o": ["row", "plummet", "白色的", "事情"], "a": 0, "oa": ["audio/ipa-game/q55a.mp3", "audio/ipa-game/q55b.mp3", "audio/ipa-game/q55c.mp3", "audio/ipa-game/q55d.mp3"]}, {"g": "抢答·综合题", "s": "以下哪个越南语单词中包含内爆音？", "p": "", "o": ["取", "丢掉", "torn", "deck of ship"], "a": 1, "oa": ["audio/ipa-game/q56a.mp3", "audio/ipa-game/q56b.mp3", "audio/ipa-game/q56c.mp3", "audio/ipa-game/q56d.mp3"]}];
@@ -2249,9 +2249,10 @@
   function setFeedback(msg, cls){ els.feedback.textContent = msg; els.feedback.className = 'ig-feedback ' + cls; }
 
   function renderLives(){
-    var left = MAX_WRONG - wrongStreak, h = '';
-    for (var i = 0; i < MAX_WRONG; i++) h += '<span class="ig-heart' + (i < left ? '' : ' lost') + '"></span>';
+    var h = '';
+    for (var i = 0; i < MAX_WRONG; i++) h += '<span class="ig-heart' + (i < wrongStreak ? '' : ' lost') + '"></span>';
     els.lives.innerHTML = h;
+    document.getElementById('igStreakText').textContent = wrongStreak + ' / ' + MAX_WRONG;
   }
 
   function start(){
@@ -2327,8 +2328,8 @@
         els.modalSub.textContent = '本轮共答对 ' + correct + ' 题。';
         setTimeout(function(){ els.modal.hidden = false; els.modalBtn.focus(); }, 500);
       } else {
-        setFeedback('回答错误，还剩 ' + (MAX_WRONG - wrongStreak) + ' 次机会。', 'wrong');
-        els.next.hidden = false;
+        setFeedback('回答错误，已连续答错 ' + wrongStreak + ' 题。', 'wrong');
+        advanceTimer = setTimeout(nextQuestion, 1100);
       }
     }
   }
